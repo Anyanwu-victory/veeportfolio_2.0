@@ -1,0 +1,109 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: radial-gradient(circle at center, #141416 0%, #08080a 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  overflow: hidden;
+  color: #ffffff;
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+.loaderContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* User's custom loader animation */
+.loader {
+  width: 50px;
+  aspect-ratio: 1;
+  background:
+    linear-gradient(45deg, #00aaff 50%, #0000 0),
+    linear-gradient(-45deg, #f1bbbb 50%, #0000 0),
+    linear-gradient(45deg, #0000 50%, #aa00ff 0),
+    linear-gradient(-45deg, #0000 50%, #ff00aa 0),
+    #00aaff;
+  background-size: 200% 200%;
+  background-repeat: no-repeat;
+  animation: l3 2.5s infinite;
+  border-radius: 4px;
+  box-shadow: 0 10px 30px rgba(0, 170, 255, 0.2);
+}
+
+@keyframes l3 {
+  0% {
+    background-position: 100% 0, 0 0, 0 100%, 100% 100%
+  }
+
+  15%,
+  25% {
+    background-position: 100% 0, 0 0, 0 100%, 0 0
+  }
+
+  40%,
+  50% {
+    background-position: 100% 0, 0 0, 100% 0, 0 0
+  }
+
+  65%,
+  75% {
+    background-position: 100% 0, 100% 100%, 100% 0, 0 0
+  }
+
+  90%,
+  100% {
+    background-position: 0 100%, 100% 100%, 100% 0, 0 0
+  }
+}
+
+.textWrapper {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progress {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  font-variant-numeric: tabular-nums;
+  background: linear-gradient(180deg, #ffffff 0%, #a3a3a3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #71717a;
+  margin-top: 0.25rem;
+}
+
+.statusBar {
+  width: 120px;
+  height: 2px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 9999px;
+  position: relative;
+  overflow: hidden;
+  margin: 0.5rem auto 0;
+}
+
+.statusIndicator {
+  height: 100%;
+  background: linear-gradient(90deg, #00aaff, #aa00ff);
+  width: 0%;
+  transition: width 0.1s linear;
+}
