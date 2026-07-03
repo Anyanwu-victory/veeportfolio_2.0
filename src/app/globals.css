@@ -1,58 +1,167 @@
 @import "tailwindcss";
-@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&display=swap');
- 
-/* ── Manuscribe is a paid font; we fallback to a similar display serif ── */
-/* Replace the @font-face below with your actual Manuscribe files          */
+
+/* ---------------- Fonts ---------------- */
+
 @font-face {
-  font-family: 'Manuscribe';
-  src: url('/fonts/ManuscribeFree.woff2') format('woff2'),
-       url('/fonts/ManuscribeFree.woff') format('woff');
+  font-family: "Manuscribe";
+  src:
+    url("/fonts/ManuscribeFree.woff2") format("woff2"),
+    url("/fonts/ManuscribeFree.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
+/* ---------------- Theme Tokens ---------------- */
+
+/* Default = LIGHT */
 
 :root {
-  --background: #000;
-  --foreground: #fff;
-  --color-background: #000;
-    --color-foreground: #f5f5f5;
-    --color-accent: #f53f06;
-    --color-muted: #a1a1aa;
-    --color-textaccent: #71717a;
+  /* Surfaces */
+  --surface: #eaecee;
+  --surface-secondary: #dfe1e3;
+  --surface-overlay: #ffffff;
+
+  /* Text */
+  --text: #192123;
+  --text-secondary: #4a5254;
+  --text-muted: rgba(25, 33, 35, 0.45);
+  --text-inverse: #ffffff;
+
+  /* Accent */
+  --accent: #ff3d1a;
+
+  /* Borders */
+  --border: rgba(25, 33, 35, 0.12);
+  --border-strong: rgba(25, 33, 35, 0.25);
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  /* Fonts */
+  --font-display: "Manuscribe", serif;
+  --font-ui: var(--font-geist-sans);
+  --font-code: var(--font-geist-mono);
+
+  /* Animation */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* DARK */
+
+[data-theme="dark"] {
+  --surface: #0c0e0f;
+  --surface-secondary: #111415;
+  --surface-overlay: #192123;
+
+  --text: #eaecee;
+  --text-secondary: rgba(234, 236, 238, 0.72);
+  --text-muted: rgba(234, 236, 238, 0.45);
+  --text-inverse: #192123;
+
+  --border: rgba(234, 236, 238, 0.1);
+  --border-strong: rgba(234, 236, 238, 0.2);
+}
+
+/* ---------------- Tailwind Theme ---------------- */
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-inter: var(--font-inter);
-  --font-garamond: var(--font-cormorant-garamond);
-  --font-space: var(--font-space-grotesk);
-  --font-jets: var(--font-jetbrains-mono);
-  --font-josefin: var(--font-josefins-sans);
-  --font-anta: var(--font-anta);
-  --color-background: var(--color-background);
-  --color-foreground: var(--color-foreground);
-  --color-accent: var(--color-accent);
-  --color-muted: var(--color-muted);
-  --color-textaccent: var(--color-textaccent);
+  /* Colors */
+  --color-surface: var(--surface);
+  --color-surface-secondary: var(--surface-secondary);
+  --color-surface-overlay: var(--surface-overlay);
 
+  --color-text: var(--text);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-accent: var(--accent);
+
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+
+  /* Fonts */
+  --font-sans: var(--font-ui);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-code);
+
+  /* Radius */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #000;
-    --foreground: #fff;
-    
+/* ---------------- Reset ---------------- */
 
-  }
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-ui);
+
+  transition:
+    background-color 300ms var(--ease),
+    color 300ms var(--ease),
+    border-color 300ms var(--ease);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* ---------------- Utilities ---------------- */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.clip-text {
+  overflow: hidden;
+  display: block;
+}
+
+/* Respect reduced motion */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }

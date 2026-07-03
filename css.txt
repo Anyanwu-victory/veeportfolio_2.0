@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+/* ── Manuscribe is a paid font; we fallback to a similar display serif ── */
+/* Replace the @font-face below with your actual Manuscribe files          */
+@font-face {
+  font-family: 'Manuscribe';
+  src: url('/fonts/ManuscribeFree.woff2') format('woff2'),
+       url('/fonts/ManuscribeFree.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+:root {
+  --background: #000;
+  --foreground: #fff;
+  --color-background: #000;
+    --color-foreground: #f5f5f5;
+    --color-accent: #f53f06;
+    --color-muted: #a1a1aa;
+    --color-textaccent: #71717a;
+
+
+    /* Light mode */
+  --bg-primary:       #eaecee;
+  --bg-secondary:     #dfe1e3;
+  --bg-overlay:       #192123;
+  --text-primary:     #192123;
+  --text-secondary:   #4a5254;
+  --text-muted:       rgba(25, 33, 35, 0.4);
+  --text-inverse:     #eaecee;
+  --border:           rgba(25, 33, 35, 0.12);
+  --border-strong:    rgba(25, 33, 35, 0.25);
+  --accent:           #ff3d1a;
+ 
+  /* Fonts */
+  --font-display:     'Manuscribe', 'Playfair Display', Georgia, serif;
+  --font-ui:          'Clash Display', 'Inter', system-ui, sans-serif;
+  --font-mono:        'JetBrains Mono', 'Fira Code', monospace;
+ 
+  /* Easing */
+  --ease-out-expo:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:      cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+
+[data-theme='dark'] {
+  --bg-primary:       #0c0e0f;
+  --bg-secondary:     #111415;
+  --bg-overlay:       #192123;
+  --text-primary:     #eaecee;
+  --text-secondary:   rgba(234, 236, 238, 0.6);
+  --text-muted:       rgba(234, 236, 238, 0.3);
+  --text-inverse:     #192123;
+  --border:           rgba(234, 236, 238, 0.1);
+  --border-strong:    rgba(234, 236, 238, 0.2);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-inter: var(--font-inter);
+  --font-garamond: var(--font-cormorant-garamond);
+  --font-space: var(--font-space-grotesk);
+  --font-jets: var(--font-jetbrains-mono);
+  --font-josefin: var(--font-josefins-sans);
+  --font-anta: var(--font-anta);
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --color-accent: var(--color-accent);
+  --color-muted: var(--color-muted);
+  --color-textaccent: var(--color-textaccent);
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #000;
+    --foreground: #fff;
+    
+
+  }
+}
+
+
+/* ─────────────────── RESET ─────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+ 
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+ 
+body {
+  font-family: var(--font-ui);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  overflow: hidden;       /* no scroll — page-based navigation */
+  transition: background 0.5s var(--ease-in-out),
+              color 0.5s var(--ease-in-out);
+}
+ 
+a { color: inherit; text-decoration: none; }
+button { border: none; background: none; cursor: pointer; font: inherit; }
+ul { list-style: none; }
+ 
+/* ─────────────────── UTILITY ─────────────────── */
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+ 
+.clip-text {
+  overflow: hidden;
+  display: block;
+}
+ 
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+ 
+/* 
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+} */
