@@ -1,4 +1,17 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Clash+Display:wght@300;400;500;600;700&display=swap');
+ 
+/* ── Manuscribe is a paid font; we fallback to a similar display serif ── */
+/* Replace the @font-face below with your actual Manuscribe files          */
+@font-face {
+  font-family: 'Manuscribe';
+  src: url('/fonts/ManuscribeFree.woff2') format('woff2'),
+       url('/fonts/ManuscribeFree.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 
 :root {
   --background: #000;
