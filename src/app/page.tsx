@@ -20,7 +20,7 @@ export default function Home() {
           transition: "opacity 1s cubic-bezier(0.25, 1, 0.5, 1), transform 1s cubic-bezier(0.25, 1, 0.5, 1)",
           transform: isLoaded ? "translateY(0px)" : "translateY(20px)"
         }}
-        className="max-w-5xl mx-auto px-6 py-10"
+        className="w-full px-4 sm:px-6 lg:px-8"
       >
         <section className="">
              <HomePage/>
