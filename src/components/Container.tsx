@@ -8,7 +8,7 @@ interface ContainerProps {
 // Container.tsx — remove padding-top, let pages handle their own offset
 export default function Container({ children, className = "" }: ContainerProps) {
   return (
-    <div className={`w-full px-4 md:px-8 lg:px-12 ${className}`}>
+    <div className={`w-full ${className}`}>
       {children}
     </div>
   );
