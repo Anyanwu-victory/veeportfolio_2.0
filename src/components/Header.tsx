@@ -24,7 +24,7 @@ export default function Header() {
         {/* Logo */}
 
         <h1 className="text-3xl font-semibold tracking-[0.2em] text-text">
-          GOODY
+         VICKY
         </h1>
 
         {/* Right */}
