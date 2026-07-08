@@ -18,79 +18,87 @@
 
 :root {
   /* Surfaces */
-  --surface: #eaecee;
+  --surface:           #eaecee;
   --surface-secondary: #dfe1e3;
-  --surface-overlay: #ffffff;
+  --surface-overlay:   #ffffff;
 
   /* Text */
-  --text: #192123;
-  --text-secondary: #4a5254;
-  --text-muted: rgba(25, 33, 35, 0.45);
-  --text-inverse: #ffffff;
+  --text:              #192123;
+  --text-secondary:    #4a5254;
+  --text-muted:        rgba(25, 33, 35, 0.45);
+  --text-inverse:      #ffffff;
 
   /* Accent */
-  --accent: #ff3d1a;
+  --accent:            #ff3d1a;
 
   /* Borders */
-  --border: rgba(25, 33, 35, 0.12);
-  --border-strong: rgba(25, 33, 35, 0.25);
+  --border:            rgba(25, 33, 35, 0.12);
+  --border-strong:     rgba(25, 33, 35, 0.25);
 
   /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 16px;
-  --radius-lg: 24px;
+  --radius-sm:         8px;
+  --radius-md:         16px;
+  --radius-lg:         24px;
 
   /* Fonts */
-  --font-display: "Manuscribe", serif;
-  --font-ui: var(--font-geist-sans);
-  --font-code: var(--font-geist-mono);
+  --font-display:      "Manuscribe", serif;
+  --font-ui:           var(--font-geist-sans);
+  --font-code:         var(--font-geist-mono);
 
   /* Animation */
-  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease:              cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* DARK */
 
 [data-theme="dark"] {
-  --surface: #0c0e0f;
+  --surface:           #0c0e0f;
   --surface-secondary: #111415;
-  --surface-overlay: #192123;
+  --surface-overlay:   #192123;
 
-  --text: #eaecee;
-  --text-secondary: rgba(234, 236, 238, 0.72);
-  --text-muted: rgba(234, 236, 238, 0.45);
-  --text-inverse: #192123;
+  --text:              #eaecee;
+  --text-secondary:    rgba(234, 236, 238, 0.72);
+  --text-muted:        rgba(234, 236, 238, 0.45);
+  --text-inverse:      #192123;
 
-  --border: rgba(234, 236, 238, 0.1);
-  --border-strong: rgba(234, 236, 238, 0.2);
+  --border:            rgba(234, 236, 238, 0.1);
+  --border-strong:     rgba(234, 236, 238, 0.2);
 }
 
-/* ---------------- Tailwind Theme ---------------- */
+/* ---------------- Tailwind v4 Theme ---------------- */
+/*
+  In v4, @theme only accepts flat CSS custom properties (--name: value).
+  No nested objects, no plain property names like "color:" or "fontFamily:".
+  Convention: --color-* maps to bg-*, text-*, border-* utilities.
+              --font-*   maps to font-* utilities.
+              --radius-* maps to rounded-* utilities.
+*/
 
 @theme inline {
-  /* Colors */
-  --color-surface: var(--surface);
+  /* Colors → bg-surface, text-text, border-border, etc. */
+  --color-surface:           var(--surface);
   --color-surface-secondary: var(--surface-secondary);
-  --color-surface-overlay: var(--surface-overlay);
+  --color-surface-overlay:   var(--surface-overlay);
 
-  --color-text: var(--text);
-  --color-text-secondary: var(--text-secondary);
-  --color-text-muted: var(--text-muted);
+  --color-text:              var(--text);
+  --color-text-secondary:    var(--text-secondary);
+  --color-text-muted:        var(--text-muted);
+  --color-text-inverse:      var(--text-inverse);
 
-  --color-accent: var(--accent);
+  --color-accent:            var(--accent);
 
-  --color-border: var(--border);
-  --color-border-strong: var(--border-strong);
+  --color-border:            var(--border);
+  --color-border-strong:     var(--border-strong);
 
-  /* Fonts */
-  --font-sans: var(--font-ui);
-  --font-display: var(--font-display);
-  --font-mono: var(--font-code);
+  /* Fonts → font-sans, font-display, font-mono */
+  --font-sans:               var(--font-ui);
+  --font-display:            var(--font-display);
+  --font-mono:               var(--font-code);
 
-  /* Radius */
-  --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
-  --radius-lg: var(--radius-lg);
+  /* Radius → rounded-sm, rounded-md, rounded-lg */
+  --radius-sm:               var(--radius-sm);
+  --radius-md:               var(--radius-md);
+  --radius-lg:               var(--radius-lg);
 }
 
 /* ---------------- Reset ---------------- */
@@ -114,7 +122,6 @@ body {
   background: var(--surface);
   color: var(--text);
   font-family: var(--font-ui);
-
   transition:
     background-color 300ms var(--ease),
     color 300ms var(--ease),
@@ -145,7 +152,6 @@ ol {
   width: 1px;
   height: 1px;
   overflow: hidden;
-
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
 }
