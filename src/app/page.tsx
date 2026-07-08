@@ -1,33 +1,38 @@
 "use client";
 
 import { useState } from "react";
-import Loader from "@/components/Loader";
 import ButterflyLoader from "@/components/ButterflyLoader";
-import HomePage from "@/pages/home"; 
 import Header from "@/components/Header";
+import { NAV_ITEMS } from "@/components/DesktopNav";
+import HomePage from "@/pages/home";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [activePage, setActivePage] = useState("home");
+
+  const handleNavigate = (page: string) => {
+    setActivePage(page);
+  };
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* {!isLoaded && <Loader onComplete={() => setIsLoaded(true)} />} */}
       {!isLoaded && <ButterflyLoader onComplete={() => setIsLoaded(true)} />}
 
-         <main
+      <main
         style={{
           opacity: isLoaded ? 1 : 0,
-          visibility: isLoaded ? 'visible' : 'hidden',
-          transition: 'opacity 1s cubic-bezier(0.25, 1, 0.5, 1)',
+          visibility: isLoaded ? "visible" : "hidden",
+          transition: "opacity 1s cubic-bezier(0.25, 1, 0.5, 1)",
         }}
+        className="m-0 p-0"
       >
-        {/* Header is fixed — lives outside the flow */}
-        <Header />
+        <Header
+          activePage={activePage}
+          onNavigate={handleNavigate}
+          navItems={NAV_ITEMS}
+        />
 
-        {/* Hero fills the full screen, header overlaps it from top */}
-        <HomePage/>
-
-        {/* Navigation sits in the middle of the hero — position it inside HeroSection */}
+        <HomePage activePage={activePage} onNavigate={handleNavigate} />
       </main>
     </div>
   );

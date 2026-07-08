@@ -17,7 +17,7 @@ export default function MobileMenu({
 
       <button
         onClick={()=>setOpen(!open)}
-        className="fixed top-6 right-6 z-50"
+        className="fixed top-5 right-6 z-50 block md:hidden"
       >
         <Menu size={28}/>
       </button>

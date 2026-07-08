@@ -106,8 +106,6 @@
 *,
 *::before,
 *::after {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -165,6 +163,11 @@ ol {
                padding: 2.5rem 4.5rem 0;
   }
 
+  @media (max-width: 508px) {
+    .work__experience, .navigation__wrapper, .header {    
+      padding: 2.5rem 1rem 0;
+    }
+  }
 /* Respect reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
