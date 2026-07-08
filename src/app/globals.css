@@ -161,6 +161,10 @@ ol {
   display: block;
 }
 
+.work__experience, .navigation__wrapper, .header {    
+               padding: 2.5rem 4.5rem 0;
+  }
+
 /* Respect reduced motion */
 
 @media (prefers-reduced-motion: reduce) {
