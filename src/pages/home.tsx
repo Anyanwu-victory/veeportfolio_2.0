@@ -1,27 +1,20 @@
-import React from 'react'
-import HeroSection from "@/components/Hero"
-import Header from "@/components/Header"
-import Navigation from "@/components/DesktopNav"
-import Container from "@/components/Container"
+import React from "react";
+import Navigation from "@/components/DesktopNav";
+import Container from "@/components/Container";
 
-const Home = () => {
-  const [activePage, setActivePage] = React.useState<string>('home')
+type HomeProps = {
+  activePage: string;
+  onNavigate: (page: string) => void;
+};
 
-  const handleNavigate = (page: any) => {
-    // navigation handler placeholder
-    console.log('navigate to', page)
-    setActivePage(page)
-  }
-
+const Home = ({ activePage, onNavigate }: HomeProps) => {
   return (
-    // pt-[88px] should match your header height (h-20 = 80px + some buffer)
     <Container className="pt-22">
       <section>
-        <Navigation activePage={activePage} onNavigate={handleNavigate} />
-        <HeroSection />
+        <Navigation activePage={activePage} onNavigate={onNavigate} />
       </section>
     </Container>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
