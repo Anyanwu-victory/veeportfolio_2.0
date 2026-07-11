@@ -24,9 +24,9 @@ export default function Navigation({
   return (
     <nav
       onMouseLeave={hideGhost}
-      className="fixed inset-x-0 top-[50vh] z-40 hidden h-[220px] -translate-y-1/2 md:block"
+      className="fixed inset-x-0 top-[50vh] z-40 hidden h-55 -translate-y-1/2 md:block"
     >
-      <div className="absolute inset-0 mx-auto flex max-w-[1800px] items-center justify-between px-14">
+      <div className="absolute inset-0 mx-auto flex max-w-450 items-center justify-between px-14">
         {items.map((item) => (
           <button
             key={item.href}

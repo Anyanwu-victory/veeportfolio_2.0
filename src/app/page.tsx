@@ -25,7 +25,7 @@ export default function Home() {
         }}
         className="m-0 p-0"
       >
-        <SiteShell activePage={activePage} onNavigate={handleNavigate}>
+        <SiteShell activePage={activePage} onNavigateAction={handleNavigate}>
           <HomePage activePage={activePage} onNavigate={handleNavigate} />
         </SiteShell>
       </main>

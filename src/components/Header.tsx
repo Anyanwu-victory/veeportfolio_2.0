@@ -11,13 +11,13 @@ import type { NavItem } from "@/lib/navItems";
 
 type HeaderProps = {
   activePage: string;
-  onNavigate: (page: string) => void;
+  onNavigateAction: (page: string) => void;
   navItems: NavItem[];
 };
 
 export default function Header({
   activePage,
-  onNavigate,
+  onNavigateAction,
   navItems,
 }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
@@ -25,7 +25,7 @@ export default function Header({
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 header">
-      <div className="mx-auto grid h-20 max-w-450 grid-cols-[1fr_auto_1fr] items-center ">
+      <div className="mx-auto grid h-12 max-w-450 grid-cols-[1fr_auto_1fr] items-center ">
         {/* Left title */}
         <div className="flex items-center gap-3 justify-self-start">
           <span className="h-2 w-2 rounded-full bg-text md:h-4 md:w-4" />
@@ -68,7 +68,7 @@ export default function Header({
             <MobileMenu
               items={navItems}
               activePage={activePage}
-              onNavigate={onNavigate}
+              onNavigateAction={onNavigateAction}
             />
           </div>
         </div>
