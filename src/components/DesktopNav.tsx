@@ -6,7 +6,7 @@ import { useNavHover } from "@/context/navigationHoverContext";
 
 type Props = {
   activePage: string;
-  onNavigate: (href: string) => void;
+  onNavigateAction: (href: string) => void;
   items?: NavItem[];
 };
 
@@ -16,7 +16,7 @@ type Props = {
 // hideGhost from context instead of owning its own timeline.
 export default function Navigation({
   activePage,
-  onNavigate,
+  onNavigateAction,
   items = defaultNavItems,
 }: Props) {
   const { showGhost, hideGhost, barVisible } = useNavHover();
@@ -31,7 +31,7 @@ export default function Navigation({
           <button
             key={item.href}
             onMouseEnter={() => showGhost(item.label)}
-            onClick={() => onNavigate(item.href)}
+            onClick={() => onNavigateAction(item.href)}
             className="flex flex-col items-start transition-colors"
             style={{
               // Compares against `href` (e.g. "/work") — make sure whatever

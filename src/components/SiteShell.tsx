@@ -27,7 +27,7 @@ export default function SiteShell({
         <Header activePage={activePage} onNavigateAction={onNavigateAction} navItems={navItems} />
 
         <section className="home_navigation">
-          <Navigation activePage={activePage} onNavigate={onNavigateAction} items={navItems} />
+          <Navigation activePage={activePage} onNavigateAction={onNavigateAction} items={navItems} />
         </section>
 
         {children}

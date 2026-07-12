@@ -84,7 +84,7 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
       <div
         ref={barRef}
         style={{ clipPath: CLIP_CLOSED }}
-        className="pointer-events-none fixed inset-x-0 top-[50vh] z-40 hidden h-[220px] -translate-y-1/2 items-center justify-center overflow-hidden bg-surface-overlay md:flex"
+        className="pointer-events-none fixed inset-x-0 top-[50vh] z-40 hidden h-55 -translate-y-1/2 items-center justify-center overflow-hidden bg-surface-overlay md:flex"
       >
         <span
           ref={ghostRef}

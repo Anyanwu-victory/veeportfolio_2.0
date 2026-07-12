@@ -58,7 +58,7 @@ export default function MobileMenu({
     <>
       <button
         onClick={toggle}
-        className="relative z-50 flex h-9 w-9 items-center justify-center text-text md:hidden"
+        className={`relative z-50 flex h-9 w-9 items-center justify-center text-text md:hidden  ${open ? "text-text-menu" : "text-text"}`}
         aria-label={open ? "Close navigation menu" : "Open navigation menu"}
         aria-expanded={open}
       >
@@ -106,7 +106,7 @@ export default function MobileMenu({
               onClick={() => handleNavigate(item.href)}
               style={{ clipPath: ITEM_CLOSED, transform: "translateY(100%)" }}
               className={`overflow-hidden text-right text-5xl ${
-                activePage === item.href ? "text-accent" : "text-text"
+                activePage === item.href ? "text-accent" : "text-text-menu"
               }`}
             >
               <span className="">{item.number}.</span>
@@ -118,7 +118,7 @@ export default function MobileMenu({
         {/* TODO: replace both href="#" placeholders with the real
             destination URLs (an about/inspiration page and your actual
             résumé link/file). */}
-        <div className="mt-24 flex flex-col items-end gap-3 text-right text-sm text-text">
+        <div className="mt-24 flex flex-col items-end gap-3 text-right text-sm text-text-menu">
           <p>
             Inspired By:{" "}
             <a
