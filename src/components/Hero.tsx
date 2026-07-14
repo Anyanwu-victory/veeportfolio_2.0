@@ -40,7 +40,7 @@ function NavColumn({
 
 const Hero = () => {
   return (
-    <section className="relative flex flex-1 flex-col px-6 md:px-10 lg:px-12">
+    <section className="relative flex flex-1 flex-col px-6 md:px-10 lg:px-12 mt-22">
       {/* ---------------- Mobile (< md) ---------------- */}
       <div className="flex flex-1 flex-col items-center justify-between pb-8 pt-6 md:hidden">
         <motion.h1
@@ -72,9 +72,6 @@ const Hero = () => {
 
         <Illustration className="mt-8 max-w-70" />
 
-        <p className="mt-8 font-body text-xs text-ink-soft">
-          Frontend Developer, Artist
-        </p>
       </div>
 
       {/* ---------------- Tablet (md to <lg) ---------------- */}
@@ -91,23 +88,8 @@ const Hero = () => {
 
         <Illustration className="my-10 max-w-md" />
 
-        <div className="flex w-full items-start justify-between">
-          {navItems.map((navItem, i) => (
-            <motion.div
-              key={navItem.number}
-              initial="hidden"
-              animate="visible"
-              custom={0.15 * i}
-              variants={fadeUp}
-            >
-              <NavColumn number={navItem.number} label={navItem.label} />
-            </motion.div>
-          ))}
-        </div>
 
-        <p className="mt-10 font-body text-xs text-ink-soft">
-          Frontend Developer, Artist
-        </p>
+      
       </div>
 
       {/* ---------------- Desktop (lg+) ---------------- */}
@@ -119,32 +101,10 @@ const Hero = () => {
           variants={fadeUp}
           className="text-center font-display text-[8.5rem] italic leading-none xl:text-[10rem]"
         >
-          Good<span className="not-italic">Ness</span>
+          Vic<span className="not-italic">tory</span>
         </motion.h1>
 
-        <div className="flex w-full flex-1 items-start justify-between gap-6">
-          <motion.div initial="hidden" animate="visible" custom={0.2} variants={fadeUp}>
-            <NavColumn number="01" label="Work" />
-          </motion.div>
 
-          <motion.div initial="hidden" animate="visible" custom={0.32} variants={fadeUp}>
-            <NavColumn number="02" label="About" align="right" />
-          </motion.div>
-
-          <Illustration className="mx-2 max-w-xl shrink-0" />
-
-          <motion.div initial="hidden" animate="visible" custom={0.32} variants={fadeUp}>
-            <NavColumn number="03" label="Playground" />
-          </motion.div>
-
-          <motion.div initial="hidden" animate="visible" custom={0.2} variants={fadeUp}>
-            <NavColumn number="04" label="Contact" align="right" />
-          </motion.div>
-        </div>
-
-        <p className="font-body text-sm text-ink-soft">
-          Frontend Developer, Artist
-        </p>
       </div>
     </section>
   );

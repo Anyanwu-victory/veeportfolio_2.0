@@ -2,16 +2,15 @@
 
 import { useState } from "react";
 import ButterflyLoader from "@/components/ButterflyLoader";
-import Header from "@/components/Header";
-import { NAV_ITEMS } from "@/components/DesktopNav";
 import HomePage from "@/pages/home";
+import SiteShell from "@/components/SiteShell";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [activePage, setActivePage] = useState("home");
+  const [activePage, setActivePage] = useState("/home");
 
-  const handleNavigate = (page: string) => {
-    setActivePage(page);
+  const handleNavigate = (href: string) => {
+    setActivePage(href);
   };
 
   return (
@@ -26,15 +25,10 @@ export default function Home() {
         }}
         className="m-0 p-0"
       >
-        <Header
-          activePage={activePage}
-          onNavigate={handleNavigate}
-          navItems={NAV_ITEMS}
-        />
-
-        <HomePage activePage={activePage} onNavigate={handleNavigate} />
+        <SiteShell activePage={activePage} onNavigateAction={handleNavigate}>
+          <HomePage activePage={activePage} onNavigate={handleNavigate} />
+        </SiteShell>
       </main>
     </div>
   );
 }
-
