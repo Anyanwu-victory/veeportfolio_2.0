@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import type { NavItem } from "@/lib/navItems";
 import { createMobileMenuTimeline, ITEM_CLOSED } from "@/lib/Menu";
+import { useMobileMenu } from "@/context/mobileMenuContext";
 
 type MobileMenuProps = {
   items: NavItem[];
@@ -16,7 +17,7 @@ export default function MobileMenu({
   activePage,
   onNavigateAction,
 }: MobileMenuProps) {
-  const [open, setOpen] = useState(false);
+  const { isOpen, toggleMenu, closeMenu } = useMobileMenu();
 
   const topPathRef = useRef<SVGPathElement>(null);
   const bottomPathRef = useRef<SVGPathElement>(null);
@@ -38,29 +39,38 @@ export default function MobileMenu({
     };
   }, []);
 
-  const toggle = () => {
-    const next = !open;
-    setOpen(next);
-    if (next) {
-      tlRef.current?.play();
+  // Drives the timeline off the shared `isOpen` value instead of doing it
+  // inline inside the click handler — so it stays correct even if
+  // something outside this component (e.g. a route change elsewhere)
+  // closes the menu via context rather than this button.
+  useEffect(() => {
+    if (!tlRef.current) return;
+    if (isOpen) {
+      tlRef.current.play();
     } else {
-      tlRef.current?.reverse();
+      tlRef.current.reverse();
     }
-  };
+  }, [isOpen]);
 
   const handleNavigate = (href: string) => {
     onNavigateAction(href);
-    setOpen(false);
-    tlRef.current?.reverse();
+    closeMenu();
   };
 
   return (
     <>
       <button
-        onClick={toggle}
-        className={`relative z-50 flex h-9 w-9 items-center justify-center text-text md:hidden  ${open ? "text-text-menu" : "text-text"}`}
-        aria-label={open ? "Close navigation menu" : "Open navigation menu"}
-        aria-expanded={open}
+        onClick={toggleMenu}
+        className={`relative z-50 flex h-9 w-9 items-center justify-center md:hidden ${
+          // Sidebar background is a hardcoded #192123 regardless of site
+          // theme, but `text-text` still follows the theme — in light
+          // mode that's a dark icon on a dark background. Switching to
+          // `text-text-menu` (the same always-contrasting token used for
+          // the nav item labels below) fixes it regardless of theme.
+          isOpen ? "text-text-menu" : "text-text"
+        }`}
+        aria-label={isOpen ? "Close navigation menu" : "Open navigation menu"}
+        aria-expanded={isOpen}
       >
         <svg
           className="hamburger__icon"
@@ -69,13 +79,6 @@ export default function MobileMenu({
           viewBox="0 0 24 24"
           fill="none"
         >
-          {/* currentColor so the icon follows the button's text color
-              (and your dark/light theme toggle) instead of being hardcoded
-              black. The `data-svg-origin` / matrix transform / inline
-              "translate: none; rotate: none;..." className string from the
-              original snippet were leftover artifacts GSAP writes into the
-              DOM at runtime — they don't belong in hand-authored source and
-              have been dropped. */}
           <path ref={topPathRef} d="M1 10H-4V8H28V10Z" fill="currentColor" />
           <path
             ref={bottomPathRef}
@@ -87,12 +90,10 @@ export default function MobileMenu({
 
       {/* Always mounted — visibility is entirely GSAP-driven (autoAlpha +
           display via the timeline), so closing can animate out instead of
-          vanishing instantly the way conditional {open && ...} rendering
-          would. The inline style below is only the pre-hydration fallback
-          for the very first paint. */}
+          vanishing instantly. */}
       <div
         ref={overlayRef}
-        aria-hidden={!open}
+        aria-hidden={!isOpen}
         style={{ display: "none", visibility: "hidden", opacity: 0 }}
         className="fixed inset-0 z-40 flex-col justify-start bg-[#192123] px-10 pb-10 pt-35"
       >
@@ -115,9 +116,6 @@ export default function MobileMenu({
           ))}
         </div>
 
-        {/* TODO: replace both href="#" placeholders with the real
-            destination URLs (an about/inspiration page and your actual
-            résumé link/file). */}
         <div className="mt-24 flex flex-col items-end gap-3 text-right text-sm text-text-menu">
           <p>
             Inspired By:{" "}
