@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Navigation from "@/components/DesktopNav";
 import Footer from "@/components/Footer";
 import { NavHoverProvider } from "@/context/navigationHoverContext";
+import { MobileMenuProvider } from "@/context/mobileMenuContext";
 import { navItems as defaultNavItems } from "@/lib/navItems";
 import type { ReactNode } from "react";
 import type { NavItem } from "@/lib/navItems";
@@ -23,17 +24,27 @@ export default function SiteShell({
 }: SiteShellProps) {
   return (
     <div className="relative min-h-screen overflow-hidden">
-      <NavHoverProvider>
-        <Header activePage={activePage} onNavigateAction={onNavigateAction} navItems={navItems} />
+      <MobileMenuProvider>
+        <NavHoverProvider>
+          <Header
+            activePage={activePage}
+            onNavigateAction={onNavigateAction}
+            navItems={navItems}
+          />
 
-        <section className="home_navigation">
-          <Navigation activePage={activePage} onNavigateAction={onNavigateAction} items={navItems} />
-        </section>
+          <section className="home_navigation">
+            <Navigation
+              activePage={activePage}
+              onNavigateAction={onNavigateAction}
+              items={navItems}
+            />
+          </section>
 
-        {children}
+          {children}
 
-        <Footer />
-      </NavHoverProvider>
+          <Footer />
+        </NavHoverProvider>
+      </MobileMenuProvider>
     </div>
   );
 }

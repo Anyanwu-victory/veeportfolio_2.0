@@ -3,11 +3,8 @@
 import MobileMenu from "@/components/MobileMenu";
 import { useTheme } from "@/context/themeContext";
 import { useNavHover } from "@/context/navigationHoverContext";
+import { useMobileMenu } from "@/context/mobileMenuContext";
 import type { NavItem } from "@/lib/navItems";
-// NOTE: this used to redeclare its own local `NavItem` type with a `num`
-// field, but the actual shared list in lib/navItems.ts uses `number`. If
-// MobileMenu was built against the old `num` shape, it'll need updating too
-// — flagging this since it's easy for the two to quietly drift apart.
 
 type HeaderProps = {
   activePage: string;
@@ -22,28 +19,39 @@ export default function Header({
 }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
   const { showGhost, hideGhost } = useNavHover();
+  const { isOpen } = useMobileMenu();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 header">
       <div className="mx-auto flex h-12 w-full items-center justify-between  md:grid md:grid-cols-[1fr_auto_1fr] 
       md:max-w-450 ">
-        {/* Left title */}
-        <div className="flex items-center gap-3">
-          <span className="h-3 w-3 rounded-full bg-text md:h-4 md:w-4" />
+        {/* Left title. Same overlay-vs-theme issue as the hamburger: the
+            sidebar behind this is a fixed #192123 regardless of theme, so
+            these need to switch to the overlay-safe token while it's
+            open instead of following `bg-text` / `text-text-muted`,
+            which go dark in light mode and disappear against it. */}
+        <div className="flex items-center gap-3 relative z-50">
+          <span
+            className={`h-3 w-3 rounded-full md:h-4 md:w-4 ${
+              isOpen ? "bg-text-menu" : "bg-text"
+            }`}
+          />
 
-          <p className="max-w-35 text-[10px] leading-tight text-text-muted md:text-[12px]">
+          <p
+            className={`max-w-35 text-[10px] leading-tight md:text-[12px] ${
+              isOpen ? "text-text-menu" : "text-text-muted"
+            }`}
+          >
             Open for any
             <br />
             collaborations and offers
           </p>
         </div>
 
-        {/* Logo - middle name. Hovering it reuses the exact same ghost
-            bar/word reveal as the nav items below (via NavHoverContext),
-            just triggered from here with a fixed "Home" label instead of
-            whatever nav item is under the cursor. */}
-
-        {/* Logo center on desktop/tablet, right on mobile with hamburger */}
+        {/* Logo center on desktop/tablet — the mobile-only copy is
+            below, since this one is hidden below md and therefore never
+            needs the overlay-color treatment (the sidebar only opens on
+            mobile widths, where this element doesn't render). */}
         <div className="hidden justify-self-center md:flex">
           <h1
             onMouseEnter={() => showGhost("Home")}
@@ -55,11 +63,13 @@ export default function Header({
         </div>
 
         <div className="flex items-center gap-3 justify-end">
-          <div className="flex items-center gap-3 md:hidden">
+          <div className="flex items-center gap-3 md:hidden s">
             <h1
               onMouseEnter={() => showGhost("Home")}
               onMouseLeave={hideGhost}
-              className="cursor-pointer text-xl font-semibold tracking-[0.2em] text-text"
+              className={`cursor-pointer text-xl font-semibold tracking-[0.2em] ${
+                isOpen ? "text-text-menu" : "text-text"
+              }`}
             >
               VICKY
             </h1>
