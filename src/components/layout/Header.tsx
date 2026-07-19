@@ -1,25 +1,32 @@
 "use client";
 
-import MobileMenu from "@/components/MobileMenu";
+import { useRouter } from "next/navigation";
+import MobileMenu from "@/components/navigation/MobileMenu";
 import { useTheme } from "@/context/themeContext";
 import { useNavHover } from "@/context/navigationHoverContext";
 import { useMobileMenu } from "@/context/mobileMenuContext";
 import type { NavItem } from "@/lib/navItems";
 
 type HeaderProps = {
-  activePage: string;
-  onNavigateAction: (page: string) => void;
   navItems: NavItem[];
 };
 
-export default function Header({
-  activePage,
-  onNavigateAction,
-  navItems,
-}: HeaderProps) {
+export default function Header({ navItems }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
-  const { showGhost, hideGhost } = useNavHover();
+  const { showGhost, hideGhost, expandAndNavigate } = useNavHover();
   const { isOpen } = useMobileMenu();
+  const router = useRouter();
+
+  // Previously the VICKY logo only had onMouseEnter/onMouseLeave wired up
+  // — hovering triggered the ghost reveal, but nothing ever called
+  // expandAndNavigate, so clicking did nothing. Same expand-then-navigate
+  // pattern as DesktopNav's items, just hardcoded to "/" since this is
+  // the logo/home link rather than a lib/navItems entry.
+  const goHome = () => {
+    expandAndNavigate("/", () => {
+      router.push("/");
+    });
+  };
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 header">
@@ -42,6 +49,7 @@ export default function Header({
               isOpen ? "text-text-menu" : "text-text-muted"
             }`}
           >
+            
             Open for any
             <br />
             collaborations and offers
@@ -56,31 +64,32 @@ export default function Header({
           <h1
             onMouseEnter={() => showGhost("Home")}
             onMouseLeave={hideGhost}
-            className="cursor-pointer text-xl font-semibold tracking-[0.2em] text-text md:text-3xl"
+            onClick={goHome}
+            className={`cursor-pointer text-xl font-semibold tracking-[0.2em] lg:text-text md:text-3xl ${
+                isOpen ? "text-text-menu relative z-50" : "text-text "
+              }`}
           >
             VICKY
           </h1>
         </div>
 
         <div className="flex items-center gap-3 justify-end">
-          <div className="flex items-center gap-3 md:hidden s">
+          
+          <div className="flex items-center gap-3 lg:hidden">
             <h1
               onMouseEnter={() => showGhost("Home")}
               onMouseLeave={hideGhost}
-              className={`cursor-pointer text-xl font-semibold tracking-[0.2em] ${
+              onClick={goHome}
+              className={`cursor-pointer text-xl font-semibold tracking-[0.2em] md:hidden ${
                 isOpen ? "text-text-menu relative z-50" : "text-text "
               }`}
             >
               VICKY
             </h1>
-            <MobileMenu
-              items={navItems}
-              activePage={activePage}
-              onNavigateAction={onNavigateAction}
-            />
+            <MobileMenu items={navItems} />
           </div>
 
-          <div className="hidden items-center gap-3 md:flex">
+          <div className="hidden items-center gap-3 lg:flex">
             <div className="text-right font-body leading-snug">
               <span className="block pr-2">Folio</span>
               <span className="block">&rarr; &apos;26</span>

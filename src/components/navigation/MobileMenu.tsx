@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { usePathname, useRouter } from "next/navigation";
 import { gsap } from "gsap";
 import type { NavItem } from "@/lib/navItems";
 import { createMobileMenuTimeline, ITEM_CLOSED } from "@/lib/Menu";
@@ -8,16 +9,14 @@ import { useMobileMenu } from "@/context/mobileMenuContext";
 
 type MobileMenuProps = {
   items: NavItem[];
-  activePage: string;
-  onNavigateAction: (href: string) => void;
 };
 
-export default function MobileMenu({
-  items,
-  activePage,
-  onNavigateAction,
-}: MobileMenuProps) {
+const normalizePath = (path: string) => path.toLowerCase();
+
+export default function MobileMenu({ items }: MobileMenuProps) {
   const { isOpen, toggleMenu, closeMenu } = useMobileMenu();
+  const pathname = usePathname();
+  const router = useRouter();
 
   const topPathRef = useRef<SVGPathElement>(null);
   const bottomPathRef = useRef<SVGPathElement>(null);
@@ -53,15 +52,15 @@ export default function MobileMenu({
   }, [isOpen]);
 
   const handleNavigate = (href: string) => {
-    onNavigateAction(href);
     closeMenu();
+    router.push(normalizePath(href));
   };
 
   return (
     <>
       <button
         onClick={toggleMenu}
-        className={`relative z-50 flex h-9 w-9 items-center justify-center md:hidden ${
+        className={`relative z-50 flex h-9 w-9 items-center justify-center lg:hidden ${
           // Sidebar background is a hardcoded #192123 regardless of site
           // theme, but `text-text` still follows the theme — in light
           // mode that's a dark icon on a dark background. Switching to
@@ -107,7 +106,9 @@ export default function MobileMenu({
               onClick={() => handleNavigate(item.href)}
               style={{ clipPath: ITEM_CLOSED, transform: "translateY(100%)" }}
               className={`overflow-hidden text-right text-5xl ${
-                activePage === item.href ? "text-accent" : "text-text-menu"
+                normalizePath(pathname ?? "") === normalizePath(item.href)
+                  ? "text-accent"
+                  : "text-text-menu"
               }`}
             >
               <span className="">{item.number}.</span>

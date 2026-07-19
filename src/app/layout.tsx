@@ -1,16 +1,9 @@
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Cormorant_Garamond,
-  Inter,
-  Space_Grotesk,
-  JetBrains_Mono,
-  Josefin_Sans,
-  Anta,
-} from "next/font/google";
+import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/context/themeContext";
+import IntroGate from "@/components/layout/IntroGate";
+import SiteShell from "@/components/layout/SiteShell";
 
 const garamond = Cormorant_Garamond({
   variable: "--font-cormorant-garamond",
@@ -37,8 +30,12 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${garamond.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-surface flex flex-col w-full ">
-        <ThemeProvider>{children}</ThemeProvider>
+      <body className="flex min-h-full w-full flex-col bg-surface">
+        <ThemeProvider>
+          <IntroGate>
+            <SiteShell>{children}</SiteShell>
+          </IntroGate>
+        </ThemeProvider>
       </body>
     </html>
   );
