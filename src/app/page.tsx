@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import ButterflyLoader from "@/components/ButterflyLoader";
-import HomePage from "@/pages/home";
+import HomePage from "@/pages/homePage";
 import SiteShell from "@/components/SiteShell";
 
 export default function Home() {
