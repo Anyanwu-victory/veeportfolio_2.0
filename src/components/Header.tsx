@@ -68,7 +68,7 @@ export default function Header({
               onMouseEnter={() => showGhost("Home")}
               onMouseLeave={hideGhost}
               className={`cursor-pointer text-xl font-semibold tracking-[0.2em] ${
-                isOpen ? "text-text-menu" : "text-text"
+                isOpen ? "text-text-menu relative z-50" : "text-text "
               }`}
             >
               VICKY
