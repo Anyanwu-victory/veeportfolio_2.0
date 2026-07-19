@@ -1,11 +1,10 @@
-"use client";
+﻿"use client";
 
 import React from 'react'
 
 
 import { motion, type Variants } from "framer-motion";
 import Illustration from "@/components/Illustration";
-import { navItems } from "@/lib/navItems";
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 28 },
@@ -40,13 +39,14 @@ function NavColumn({
 
 const Hero = () => {
   return (
-    <section className="relative flex flex-1 flex-col px-6 md:px-10 lg:px-12 mt-22">
-      {/* ---------------- Mobile (< md) ---------------- */}
-      <div className="flex flex-1 flex-col items-center justify-between pb-8 pt-6 md:hidden">
+    <section className="relative flex min-h-[calc(100vh-8rem)] max-h-screen flex-col justify-between px-6 pt-28 pb-28 md:px-10 md:pt-32 lg:px-12 lg:pt-36 xl:pt-40 overflow-hidden">
+      <div className="flex flex-col items-center gap-6 text-center">
         <motion.h1
           initial="hidden"
           animate="visible"
-          className="text-center font-display text-6xl italic leading-[1.05]"
+          custom={0.1}
+          variants={fadeUp}
+          className="font-display italic leading-[0.95] text-[3.35rem] md:text-[4.5rem] lg:text-[6.5rem] xl:text-[8.5rem]"
         >
           <motion.span custom={0.1} variants={fadeUp} className="block">
             Goody
@@ -61,50 +61,18 @@ const Hero = () => {
           animate="visible"
           custom={0.36}
           variants={fadeUp}
-          className="mt-6 max-w-xs space-y-4 text-center font-body"
+          className="mx-auto max-w-xl space-y-4 font-body text-base md:text-lg lg:hidden block"
         >
-          <p className="text-base font-medium">Frontend Developer from Nigeria.</p>
-          <p className="text-sm leading-relaxed text-ink-soft">
+          <p className="font-medium">Frontend Developer from Nigeria.</p>
+          <p className="leading-relaxed text-ink-soft">
             Passionate about motion, interactivity, 3d, and utilizing them for
             building immersive, memorable web experiences.
           </p>
         </motion.div>
-
-        <Illustration className="mt-8 max-w-70" />
-
       </div>
 
-      {/* ---------------- Tablet (md to <lg) ---------------- */}
-      <div className="hidden flex-1 flex-col items-center justify-between py-10 md:flex lg:hidden">
-        <motion.h1
-          initial="hidden"
-          animate="visible"
-          custom={0.1}
-          variants={fadeUp}
-          className="text-center font-display text-7xl italic leading-none"
-        >
-          Good<span className="not-italic">Ness</span>
-        </motion.h1>
-
-        <Illustration className="my-10 max-w-md" />
-
-
-      
-      </div>
-
-      {/* ---------------- Desktop (lg+) ---------------- */}
-      <div className="hidden flex-1 flex-col items-center justify-between py-10 lg:flex">
-        <motion.h1
-          initial="hidden"
-          animate="visible"
-          custom={0.1}
-          variants={fadeUp}
-          className="text-center font-display text-[8.5rem] italic leading-none xl:text-[10rem]"
-        >
-          Vic<span className="not-italic">tory</span>
-        </motion.h1>
-
-
+      <div className="flex w-full flex-col items-center justify-end mt-8 md:mt-50 lg:mt-15">
+        <Illustration className="w-full max-w-190 max-h-[44vh] md:max-h-[48vh] lg:max-h-[54vh]" />
       </div>
     </section>
   );

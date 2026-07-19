@@ -307,7 +307,7 @@ export function DemoApp() {
 /* ─────────────────────────────────────────────
    Inline styles
 ───────────────────────────────────────────── */
-const styles: Record<string, React.CSSProperties & { [key: string]: any }> = {
+const styles: Record<string, React.CSSProperties> = {
     overlay: {
         position: 'fixed',
         inset: 0,
@@ -328,7 +328,6 @@ const styles: Record<string, React.CSSProperties & { [key: string]: any }> = {
         filter: 'drop-shadow(0 10px 30px rgba(255,255,255,0.12))',
     },
     loader: {
-        '--sizeLoader': '90px',
         width: '90px',
         height: '90px',
         display: 'flex',

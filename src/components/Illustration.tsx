@@ -13,7 +13,7 @@ type IllustrationProps = {
 
 export default function Illustration({
   className = "",
-  src = "/illustration.png",
+  src = "/assets/Hero_page_image.png",
 }: IllustrationProps) {
   return (
     <motion.div
@@ -23,7 +23,8 @@ export default function Illustration({
       className={`relative aspect-4/3 w-full ${className}`}
     >
       {/* Soft ellipse the character sits on, per the comp */}
-      <div className="absolute bottom-[8%] left-1/2 h-[18%] w-[78%] -translate-x-1/2 rounded-[50%] bg-[#f4d38a]/70 blur-[2px]" />
+      <div className="absolute bottom-[8%] left-1/2 h-[18%]
+       w-[78%] -translate-x-1/2 rounded-[50%]  blur-[2px]" />
       <Image
         src={src}
         alt="Illustration of Goody relaxing on a couch with a laptop and a floor lamp"
