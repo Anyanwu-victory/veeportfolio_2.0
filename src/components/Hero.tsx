@@ -49,10 +49,10 @@ const Hero = () => {
           className="font-display italic leading-[0.95] text-[3.35rem] md:text-[4.5rem] lg:text-[6.5rem] xl:text-[8.5rem]"
         >
           <motion.span custom={0.1} variants={fadeUp} className="block">
-            Goody
+            Victory
           </motion.span>
           <motion.span custom={0.22} variants={fadeUp} className="block not-italic">
-            Boy
+          
           </motion.span>
         </motion.h1>
 
@@ -72,7 +72,7 @@ const Hero = () => {
       </div>
 
       <div className="flex w-full flex-col items-center justify-end mt-8 md:mt-50 lg:mt-15">
-        <Illustration className="w-full max-w-190 max-h-[44vh] md:max-h-[48vh] lg:max-h-[54vh]" />
+        <Illustration className="w-full max-w-190 max-h-[44vh] md:max-h-[48vh] lg:max-h-[54vh] " />
       </div>
     </section>
   );
