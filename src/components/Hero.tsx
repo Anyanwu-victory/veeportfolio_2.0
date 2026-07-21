@@ -39,7 +39,7 @@ function NavColumn({
 
 const Hero = () => {
   return (
-    <section className="relative flex min-h-[calc(100vh-8rem)] max-h-screen flex-col justify-between px-6 pt-28 pb-28 md:px-10 md:pt-32 lg:px-12 lg:pt-36 xl:pt-40 overflow-hidden">
+    <section className="relative flex min-h-[calc(100vh-8rem)] max-h-screen flex-col justify-between px-6 pt-28 pb-28 md:px-10 md:pt-50 lg:px-12 lg:pt-36 xl:pt-40 overflow-hidden">
       <div className="flex flex-col items-center gap-6 text-center">
         <motion.h1
           initial="hidden"
@@ -71,7 +71,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <div className="flex w-full flex-col items-center justify-end mt-8 md:mt-50 lg:mt-15">
+      <div className="flex w-full flex-col items-center justify-end mt-8 md:mt-48 lg:mt-15">
         <Illustration className="w-full max-w-190 max-h-[44vh] md:max-h-[48vh] lg:max-h-[54vh] " />
       </div>
     </section>
