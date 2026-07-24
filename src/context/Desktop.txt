@@ -21,9 +21,9 @@ type NavHoverContextValue = {
    * Click-triggered variant: grows the already-open bar from its small
    * hover band into a fullscreen curtain (ghost word and background stay
    * visible throughout), then calls `navigate` once the expand finishes,
-   * then closes back down — ghost word first, then the bar itself — so
-   * it's ready to act as a hover reveal again rather than staying stuck
-   * fullscreen. `navigate` is whatever the caller wants to run to
+   * then shrinks back down to the normal hover-band size shortly after
+   * — so it's ready to act as a hover reveal again rather than staying
+   * stuck fullscreen. `navigate` is whatever the caller wants to run to
    * actually change the page (see DesktopNav.tsx).
    */
   expandAndNavigate: (href: string, navigate: () => void) => void;
@@ -122,40 +122,18 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
       onComplete: () => {
         navigate();
 
-        // Closing sequence: the ghost word disappears FIRST — fading out
-        // and sliding down, same direction/feel as the normal hover-out
-        // reverse — and only once it's fully gone does the bar itself
-        // shrink back down and clip shut. Previously both effectively
-        // happened as one abrupt beat: the height tween finished, then
-        // tlRef.current.progress(0) snapped clip-path and ghost opacity
-        // back to their closed values instantly, with no animation at
-        // all. That instant snap was the "pop" — this replaces it with
-        // its own explicit close timeline instead.
-        const closeTl = gsap.timeline({
+        gsap.to(barRef.current, {
+          height: COLLAPSED_HEIGHT,
+          duration: 0.9,
+          ease: "sine.inOut",
           delay: 0.3,
           onComplete: () => {
-            // Visuals already match the hover timeline's own progress-0
-            // state by this point, so this is purely syncing its internal
-            // bookkeeping — nothing visibly changes — leaving it ready to
-            // play forward normally on the next hover.
+            // Return both the curtain and ghost word to the hover timeline's
+            // closed starting state so the next hover can play normally.
             tlRef.current?.progress(0).pause();
             setBarVisible(false);
           },
         });
-
-        closeTl
-          .to(ghostRef.current, {
-            autoAlpha: 0,
-            y: 24,
-            duration: 0.5,
-            ease: "power2.in",
-          })
-          .to(barRef.current, {
-            height: COLLAPSED_HEIGHT,
-            clipPath: CLIP_CLOSED,
-            duration: 0.7,
-            ease: "sine.inOut",
-          });
       },
     });
   };
@@ -178,7 +156,7 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
           // Ghost word color — swap `text-secondary` for any Tailwind
           // color utility (e.g. text-accent, text-white) or an exact
           // value like text-[#ff6b4a].
-          className="invisible font-display text-[240px] leading-none text-text-muted opacity-0"
+          className="invisible font-display text-[240px] leading-none text-secondary opacity-0"
         >
           {ghostWord}
         </span>
