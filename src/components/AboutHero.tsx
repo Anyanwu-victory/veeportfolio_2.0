@@ -32,7 +32,7 @@ export default function AboutHero() {
     <div className="relative min-h-screen px-14">
       {/* Upper zone */}
       <div
-        className="absolute inset-x-14 z-50 top-16 flex flex-col justify-center"
+        className="absolute inset-x-14  top-16 flex flex-col justify-center"
         style={{ bottom: "calc(50vh + 80px)" }}
       >
         <h1 className="max-w-2xl font-display text-4xl italic leading-tight md:text-5xl">
@@ -56,7 +56,7 @@ export default function AboutHero() {
         initial={{ opacity: 0, scale: 0.94 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute left-1/2 top-1/2 z-30 w-[280px] -translate-x-1/2 -translate-y-1/2 md:w-[360px] lg:w-[1000px]"
+        className="absolute left-1/2 top-1/2 z-30 w-[280px] -translate-x-1/2 -translate-y-1/2 md:w-[360px] lg:w-[800px]"
       >
         <Image
           src="/assets/images/white mustang 2.jpg"
@@ -70,7 +70,7 @@ export default function AboutHero() {
 
       {/* Lower zone */}
       <div
-        className="absolute inset-x-14 flex justify-end z-50"
+        className="absolute inset-x-14 flex justify-end "
         style={{ top: "calc(50vh + 80px)", bottom: "6rem" }}
       >
         <div className="flex max-w-xs flex-col gap-7 text-right">
