@@ -241,6 +241,117 @@
     }
 }
 
+/* ============================================================
+   ADD this base rule wherever your other unprefixed .about-hero*
+   rules live (i.e. NOT inside a media query). It's a no-op below
+   1400px — height:100% just matches whatever explicit height
+   .about-hero already has at each smaller breakpoint, so nothing
+   about your existing mobile/tablet/1024/1280 layout changes.
+   ============================================================ */
+
+.about-hero__stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ============================================================
+   REPLACE your existing @media (min-width: 1400px) block with
+   this version.
+   ============================================================ */
+@media (min-width: 1400px) {
+  .about-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Centering now happens here — the whole .about-hero__stage block
+       gets flex-centered within this height, instead of each child
+       positioning itself with a hardcoded viewport offset. Subtract
+       your ACTUAL fixed header + footer height in place of 5rem — this
+       is a guess, tune it to match reality. */
+    min-height: calc(100vh - 12rem);
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .about-hero__stage {
+    /* Same role .about-hero's own fixed height played before — "how
+       tall the composition is" — now decoupled from "where it sits in
+       the viewport", which .about-hero's flex-centering handles. */
+    height: 600px;
+  }
+
+  .about-hero__photo {
+    height: 620px;
+    top: 1.8rem;
+    width: 70%;
+  }
+
+  .about-hero__intro {
+    top: 0;
+    left: 2rem;
+    font-size: 3rem;
+    max-width: 33%;
+  }
+
+  .about-hero__outro {
+    /* Was bottom: -42rem — that only "worked" by accident at one exact
+       viewport height, since it was measured from the viewport rather
+       than the stage. Positioned relative to the 600px stage instead,
+       a small offset from the stage's own bottom edge is all it needs. */
+    bottom: -3rem;
+    right: 3rem;
+    max-width: 21.5%;
+    font-size: 1.95rem;
+  }
+
+  .about-hero__caption {
+    bottom: 2rem;
+    left: 2rem;
+    font-size: 0.65rem;
+  }
+}
+
+
+/* ============================================================
+   REPLACE your existing @media (min-width: 2000px) block with
+   this version.
+   ============================================================ */
+@media (min-width: 2000px) {
+  .about-hero {
+    padding: 0;
+    max-width: 100%;
+    min-height: calc(100vh - 5rem); /* same 5rem note as above */
+  }
+
+  .about-hero__stage {
+    height: 1200px;
+  }
+
+  .about-hero__photo {
+    height: 1200px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .about-hero__intro {
+    top: 8%;
+    left: 2rem;
+    font-size: 6rem;
+    max-width: 39%;
+  }
+
+  .about-hero__outro {
+    bottom: 6rem;
+    font-size: 3rem;
+  }
+
+  .about-hero__caption {
+    bottom: 4.5rem;
+  }
+}
+/* 
 
 @media (min-width: 1400px) {
 
@@ -299,4 +410,4 @@
         bottom: 4.5rem;
     } 
 
-}
+} */

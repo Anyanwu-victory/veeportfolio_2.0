@@ -31,7 +31,7 @@ export default function Header({ navItems }: HeaderProps) {
   return (
     <header className="fixed inset-x-0 top-0 z-50 header">
       <div className="mx-auto flex h-12 w-full items-center justify-between  md:grid md:grid-cols-[1fr_auto_1fr] 
-      md:max-w-450 ">
+      md:max-w-450 xl:max-w-full">
         {/* Left title. Same overlay-vs-theme issue as the hamburger: the
             sidebar behind this is a fixed #192123 regardless of theme, so
             these need to switch to the overlay-safe token while it's
@@ -75,10 +75,11 @@ export default function Header({ navItems }: HeaderProps) {
 
         <div className="flex items-center gap-3 justify-end">
           
+          {/* Mobile Meun + Title */}
           <div className="flex items-center gap-3 lg:hidden">
+            
+            {/* Mobile Menu Title */}
             <h1
-              onMouseEnter={() => showGhost("Home")}
-              onMouseLeave={hideGhost}
               onClick={goHome}
               className={`cursor-pointer text-xl font-semibold tracking-[0.2em] md:hidden ${
                 isOpen ? "text-text-menu relative z-50" : "text-text "
@@ -89,8 +90,8 @@ export default function Header({ navItems }: HeaderProps) {
             <MobileMenu items={navItems} />
           </div>
 
-          <div className="hidden items-center gap-3 lg:flex">
-            <div className="text-right font-body leading-snug">
+          <div className="hidden items-center gap-5 lg:flex ">
+            <div className="text-right font-body leading-snug text-3xl">
               <span className="block pr-2">Folio</span>
               <span className="block">&rarr; &apos;26</span>
             </div>

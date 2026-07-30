@@ -30,15 +30,18 @@ export default function AboutHero() {
   }, []);
 
   return (
-    <div className="about-hero mt-4 md:mt-24 lg:mt-20 xl:mt-20 px-4 md:px-0">
-      <span className="about-hero__dot" />
+    <div className="about-hero__stage">
+    <div className="about-hero mt-4 md:mt-24 lg:mt-20 xl:mt-20 px-4 md:px-0 justify-center relative align-middle">
+      {/* <span className="about-hero__dot" /> */}
 
       <p className="about-hero__intro indent-14 lg:indent-28">
         In the game for over 6 years, I&apos;m currently based in Ho Chi
         Minh city, working as an independent designer since July, 2022.
       </p>
 
-      <div ref={photoRef} className="about-hero__photo">
+      <div 
+      //ref={photoRef}
+       className="about-hero__photo">
         <Image
           src="/assets/images/Dark-About-image.png"
           alt="Vicky at her desk"
@@ -62,6 +65,7 @@ export default function AboutHero() {
         <br />
         my daily things
       </p>
+    </div>
     </div>
   );
 }
