@@ -163,9 +163,10 @@ ol {
   display: block;
 }
 
-.work__experience, .navigation__wrapper, .header {    
-               padding: 1rem 4.5rem 0;
-  }
+    .work__experience, .navigation__wrapper, .header {    
+      padding: 1rem 1rem 0;
+    }
+
 
   .footer_wrapper {
     bottom: 1.5rem;
@@ -177,12 +178,16 @@ ol {
     right: 0;
   }
 
-  @media (max-width: 508px) {
+  @media (min-width: 1024px) {
     .work__experience, .navigation__wrapper, .header {    
-      padding: 1rem 1rem 0;
+      padding: 1rem 2rem 0;
     }
   }
+
 /* Respect reduced motion */
+
+
+
 
 @media (prefers-reduced-motion: reduce) {
   *,

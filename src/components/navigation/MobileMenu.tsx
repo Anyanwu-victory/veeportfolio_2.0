@@ -94,9 +94,9 @@ export default function MobileMenu({ items }: MobileMenuProps) {
         ref={overlayRef}
         aria-hidden={!isOpen}
         style={{ display: "none", visibility: "hidden", opacity: 0 }}
-        className="fixed inset-0 z-40 flex-col justify-start bg-[#192123] px-10 pb-10 pt-35"
+        className="fixed inset-0 z-40 flex-col justify-start bg-[#192123] px-10 pb-10 pt-40 md:pt-50"
       >
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col gap-12 font-display text-5xl md:text-6xl">
           {items.map((item, index) => (
             <button
               key={item.href}
@@ -107,11 +107,11 @@ export default function MobileMenu({ items }: MobileMenuProps) {
               style={{ clipPath: ITEM_CLOSED, transform: "translateY(100%)" }}
               className={`overflow-hidden text-right text-5xl ${
                 normalizePath(pathname ?? "") === normalizePath(item.href)
-                  ? "text-accent"
-                  : "text-text-menu"
+                  ? "text-text-menu"
+                  : "text-text-muted"
               }`}
             >
-              <span className="">{item.number}.</span>
+              <span className=" ">{item.number}.</span>
               <span>{item.label}</span>
             </button>
           ))}

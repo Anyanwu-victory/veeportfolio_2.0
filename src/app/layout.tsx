@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
+import "./backup.css";
 import { ThemeProvider } from "@/context/themeContext";
 import IntroGate from "@/components/layout/IntroGate";
 import SiteShell from "@/components/layout/SiteShell";

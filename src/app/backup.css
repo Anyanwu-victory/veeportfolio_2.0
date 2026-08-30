@@ -1,0 +1,413 @@
+/* ============================================================
+   About hero (AboutHero.tsx)
+   Append this block to the bottom of your existing globals.css.
+   Mobile styles are the unprefixed defaults; tablet and desktop
+   override via the two @media blocks below. Assumes --text,
+   --text-muted, and --font-display are already defined elsewhere
+   in your stylesheet (seen used inline in Header.tsx/DesktopNav.tsx) —
+   double check those names match what you actually have.
+   ============================================================ */
+
+.about-hero {
+    position: relative;
+    z-index: 30;
+    /* stays below the fixed nav's z-40 */
+    margin-inline: auto;
+    max-width: 72rem;
+    padding: 6rem 1rem;
+
+}
+
+.about-hero__dot {
+    position: absolute;
+    top: 2rem;
+    left: 1rem;
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 9999px;
+    background: var(--text);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* Photo sits BEHIND the text at every breakpoint now (z-index 0 vs 10
+   below) — same technique mobile through desktop, just repositioned. */
+.about-hero__photo {
+    position: absolute;
+    z-index: 0;
+    overflow: hidden;
+    top: 5.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    bottom: 4rem;
+    /* tall: fills nearly the full stage height */
+    /* Mobile: a tall fixed-height stage so the photo has real height to
+     work with ("the height of the image should also be long") rather
+     than being squeezed into whatever the text's flow happened to
+     leave over. */
+    height: 600px;
+}
+
+.about-hero__photo-img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.about-hero__intro {
+    position: absolute;
+    z-index: 10;
+    top: 4.5rem;
+    left: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    max-width: 60%;
+    line-height: 1.3;
+    color: var(--text);
+}
+
+.about-hero__outro {
+    position: absolute;
+    z-index: 10;
+    bottom: -36rem;
+    right: 1rem;
+    max-width: 55%;
+    text-align: right;
+    font-size: 1.25rem;
+    line-height: 1.35;
+    color: var(--text);
+}
+
+.about-hero__em {
+    font-family: var(--font-display);
+    font-style: italic;
+}
+
+.about-hero__caption {
+    position: absolute;
+    z-index: 10;
+    bottom: -35rem;
+    left: 1rem;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+@media (min-width: 360px) and (max-width: 376px) {
+    .about-hero__photo {
+        height: 500px;
+    }
+
+    .about-hero_intro {
+        font-size: 1.2rem;
+    }
+
+    .about-hero__outro {
+        bottom: -26rem;
+        font-size: 1rem;
+    }
+    .about-hero__caption {
+        bottom: -25rem;
+    }
+
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) {
+    .about-hero {
+        padding-inline: 2rem;
+
+    }
+
+    .about-hero__intro {
+        max-width: 62%;
+        font-size: 2.25rem;
+        top: 2.5rem;
+    }
+
+    .about-hero__photo {
+        height: 650px;
+        top: 4rem;
+        width: 75%;
+        bottom: 4rem;
+    }
+
+    .about-hero__photo-img {
+        height: 100%;
+    }
+
+    .about-hero__outro {
+        bottom: -40rem;
+        max-width: 41%;
+        font-size: 2rem;
+    }
+}
+
+/* ---------- Tablet 2---------- */
+@media (min-width: 912px) {
+    .about-hero {
+        padding-inline: 2rem;
+
+    }
+
+    .about-hero__intro {
+        max-width: 50%;
+    }
+
+    .about-hero__photo {
+        height: 920px;
+        width: 80%;
+        bottom: 0;
+    }
+
+    .about-hero__img {
+        height: 100%;
+    }
+
+    .about-hero__outro {
+        bottom: -60rem;
+        max-width: 48%;
+        font-size: 2.6rem;
+    }
+
+    .about-hero__caption {
+        bottom: -62rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* ---------- Laptop / desktop ---------- */
+@media (min-width: 1024px) {
+    .about-hero {
+        padding-inline: 1.5rem;
+        
+        /* fixed height, per "height should still be the same" */
+    }
+
+    .about-hero__intro {
+        top: 0;
+        left: 1.2rem;
+        max-width: 44%;
+        font-size: 2rem;
+        line-height: 1.15;
+    }
+
+    .about-hero__photo {
+        height: 450px;
+        top: 10%;
+        width: 70%;
+        bottom: 4rem;
+    }
+
+    .about-hero__outro {
+        bottom: -19rem;
+        max-width: 32%;
+        right: 3rem;
+        font-size: 1.85rem;
+    }
+
+    .about-hero__caption {
+        bottom: -20rem;
+        font-size: 0.55rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .about-hero {
+        max-width: 90%;
+    }
+    .about-hero__intro {
+        font-size: 2.2rem;
+        right: 0;
+        left: 0;
+    }
+    .about-hero__photo {
+        height: 540px;
+        width: 75%;
+    }
+
+    .about-hero__outro {
+        bottom: -27rem;
+        max-width: 30%;
+        right: 2rem;
+        font-size: 1.85rem;
+    }
+
+    .about-hero__caption {
+        bottom: -25rem;
+        font-size: 0.55rem;
+    }
+}
+
+/* ============================================================
+   ADD this base rule wherever your other unprefixed .about-hero*
+   rules live (i.e. NOT inside a media query). It's a no-op below
+   1400px — height:100% just matches whatever explicit height
+   .about-hero already has at each smaller breakpoint, so nothing
+   about your existing mobile/tablet/1024/1280 layout changes.
+   ============================================================ */
+
+.about-hero__stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
+/* ============================================================
+   REPLACE your existing @media (min-width: 1400px) block with
+   this version.
+   ============================================================ */
+@media (min-width: 1400px) {
+  .about-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Centering now happens here — the whole .about-hero__stage block
+       gets flex-centered within this height, instead of each child
+       positioning itself with a hardcoded viewport offset. Subtract
+       your ACTUAL fixed header + footer height in place of 5rem — this
+       is a guess, tune it to match reality. */
+    min-height: calc(100vh - 12rem);
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .about-hero__stage {
+    /* Same role .about-hero's own fixed height played before — "how
+       tall the composition is" — now decoupled from "where it sits in
+       the viewport", which .about-hero's flex-centering handles. */
+    height: 600px;
+  }
+
+  .about-hero__photo {
+    height: 620px;
+    top: 1.8rem;
+    width: 70%;
+  }
+
+  .about-hero__intro {
+    top: 0;
+    left: 2rem;
+    font-size: 3rem;
+    max-width: 33%;
+  }
+
+  .about-hero__outro {
+    /* Was bottom: -42rem — that only "worked" by accident at one exact
+       viewport height, since it was measured from the viewport rather
+       than the stage. Positioned relative to the 600px stage instead,
+       a small offset from the stage's own bottom edge is all it needs. */
+    bottom: -3rem;
+    right: 3rem;
+    max-width: 21.5%;
+    font-size: 1.95rem;
+  }
+
+  .about-hero__caption {
+    bottom: 2rem;
+    left: 2rem;
+    font-size: 0.65rem;
+  }
+}
+
+
+/* ============================================================
+   REPLACE your existing @media (min-width: 2000px) block with
+   this version.
+   ============================================================ */
+@media (min-width: 2000px) {
+  .about-hero {
+    padding: 0;
+    max-width: 100%;
+    min-height: calc(100vh - 5rem); /* same 5rem note as above */
+  }
+
+  .about-hero__stage {
+    height: 1200px;
+  }
+
+  .about-hero__photo {
+    height: 1200px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .about-hero__intro {
+    top: 8%;
+    left: 2rem;
+    font-size: 6rem;
+    max-width: 39%;
+  }
+
+  .about-hero__outro {
+    bottom: 6rem;
+    font-size: 3rem;
+  }
+
+  .about-hero__caption {
+    bottom: 4.5rem;
+  }
+}
+/* 
+
+@media (min-width: 1400px) {
+
+    .about-hero{
+        padding: 0 ;
+        max-width: 100%;
+    }
+
+    .about-hero__photo {
+        height: 600px;
+        top: 1.8rem;
+    }
+
+    .about-hero__intro {
+        left: 2rem;
+        font-size: 3rem;
+        max-width: 33%;
+    }
+    .about-hero__outro{
+        bottom: -42rem;
+        font-size: 1.95rem;
+        max-width: 21.5%;
+    }
+    .about-hero__caption {
+        bottom: -40rem;
+        font-size: 0.65rem;
+    }
+
+}
+
+@media (min-width: 2000px) {    
+    
+    .about-hero {
+        padding: 0;
+        max-width: 100%;
+        min-height: calc(100vh - 5rem);
+    }
+
+    .about-hero__photo {
+        height: 1200px;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .about-hero__intro {
+        top: 8%;
+        left: 2rem;
+        font-size: 3rem;
+        max-width: 29%;
+    }
+    .about-hero__outro {
+        bottom: 6rem;
+        font-size: 1.95rem;
+    }
+    .about-hero__caption {
+        bottom: 4.5rem;
+    } 
+
+} */
