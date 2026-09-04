@@ -27,7 +27,7 @@ export default function DesktopNav({
   return (
     <nav
       onMouseLeave={hideGhost}
-      className="fixed inset-x-0 top-[50vh] z-40 hidden h-55 -translate-y-1/2 lg:block"
+      className="fixed inset-x-0 top-[50vh] z-40 hidden h-45 -translate-y-1/2 lg:block"
     >
       <div className="absolute inset-0 mx-auto flex max-w-450 items-center justify-between px-14">
         {items.map((item) => {
@@ -40,7 +40,7 @@ export default function DesktopNav({
               type="button"
               onMouseEnter={() => showGhost(item.label)}
               onClick={() => handleClick(item.href)}
-              className="flex flex-col items-start transition-colors"
+              className="flex flex-col items-start transition-colors font-display"
               style={{
                 color: barVisible
                   ? isActive
@@ -49,8 +49,8 @@ export default function DesktopNav({
                   : "var(--text)",
               }}
             >
-              <span className="text-xs opacity-50">{item.number}.</span>
-              <span className="text-lg">{item.label}</span>
+              <span className="text-xs opacity-50 font-display">{item.number}.</span>
+              <span className="text-lg font-display">{item.label}</span>
             </button>
           );
         })}
