@@ -206,10 +206,10 @@
   .main {
     box-sizing: border-box;
     display: grid;
-    /* LAPTOP ARTICLE POSITION: increase 62% to push the articles farther
-       down from the navbar, then reduce 38% by the same amount so the two
+    /* LAPTOP ARTICLE POSITION: increase 56% to push the articles farther
+       down from the navbar, then reduce 44% by the same amount so the two
        values still total 100% and the page does not overflow vertically. */
-    grid-template-rows: minmax(0, 58%) minmax(0, 38%);
+    grid-template-rows: minmax(0, 56%) minmax(0, 44%);
     height: 100svh;
     min-height: 0;
     padding: 5rem 0rem 0;
@@ -245,7 +245,6 @@
     align-items: center;
     justify-content: flex-start;
     padding-top: 5rem;
-    min-height: calc(100svh - 35rem);
   }
 
   .hero h1 {
@@ -255,7 +254,7 @@
   .intro {
     width: min(28rem, 34%);
     margin: 1rem auto 0;
-    font-size: 0.8rem;
+    font-size: 1rem;
   }
 
   .experience {
@@ -265,6 +264,7 @@
   }
 
   .row {
+    box-sizing: border-box;
     display: grid;
     grid-template-columns: 1.1fr 1.3fr;
     column-gap: 3rem;
@@ -317,18 +317,13 @@
     text-align: right;
   }
 
-  .row:hover .tools {
-    opacity: 1 !important;
-    pointer-events: auto;
-  }
-
   .tools {
     /* Hidden until hovered — GSAP (WorkContent.tsx) sets the real
        animated values; this is just the resting fallback before JS runs. */
     opacity: 0;
     pointer-events: none;
     align-items: flex-end;
-    text-align: right;
+    text-align: start;
   }
 
   .rule {
@@ -338,7 +333,7 @@
 
 @media (min-width: 1200px) {
   .companyBlock h2 {
-    font-size: 8rem;
+    font-size: clamp(4.5rem, 12vh, 8rem);
   }
   .roleBlock h3,
   .roleBlock p {
