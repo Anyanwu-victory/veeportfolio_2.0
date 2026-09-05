@@ -1,0 +1,380 @@
+.page {
+  min-height: 100svh;
+  background: var(--surface);
+  color: var(--text);
+  overflow-x: clip;
+}
+
+.main {
+  width: 100%;
+  min-height: 100svh;
+  padding: 5rem 1rem 7rem;
+}
+
+.eyebrow {
+  display: none;
+}
+
+.hero {
+  position: relative;
+  min-height: calc(100svh - 35rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-strong);
+  padding-bottom: 1.4rem;
+  text-align: center;
+}
+
+.titleClip {
+  overflow: hidden;
+}
+
+.hero h1 {
+  font-family: var(--font-display), "Manuscribe", serif;
+  font-size: clamp(4rem, 20vw, 4rem);
+  font-weight: 400;
+  line-height: 0.9;
+  /* letter-spacing: -0.em; */
+  margin-left: -0.06em;
+  margin-top: 0.8em;
+}
+
+.intro {
+  width: min(80%, 26rem);
+  margin: 1.5rem auto 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  font-family: "C720 Deco", serif;
+}
+
+.experience {
+  position: relative;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  grid-template-columns: 1.1fr 1.3fr;
+  gap: 1.5rem;
+  padding: 2rem 0 2rem;
+  overflow: hidden;
+}
+
+.rule {
+  position: absolute;
+  inset: 0 0 auto;
+  height: 1px;
+  background: var(--border-strong);
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%;
+}
+
+.companyBlock {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.number {
+  display: none;
+}
+
+.companyBlock h2 {
+  font-family: var(--font-display), "Manuscribe", serif;
+  font-size: clamp(0.1rem, 6vw, 4.25rem);
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+}
+
+.roleBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+   font-family: "Clash Display", sans-serif;
+}
+
+.roleBlock h3,
+.roleBlock p,
+.description,
+.tools p {
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.roleBlock h3 {
+  font-weight: 400;
+  color: var(--text);
+}
+
+.roleBlock p,
+.description,
+.tools p {
+  color: var(--text-secondary);
+}
+
+.tools {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: 100%;
+   font-family: "Clash Display", sans-serif;
+}
+
+.description {
+  max-width: 32rem;
+  line-height: 1.55;
+  font-family: "Clash Display", sans-serif;
+}
+
+.tools p:last-child {
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+.hoverLabel {
+  display: none;
+}
+
+/* headerContent/.tools entrance on mobile/tablet is handled entirely by
+   GSAP in WorkContent.tsx — untouched by the laptop hover work below. */
+
+@media (max-width: 767px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2.5rem 1rem 3rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .main {
+    padding: 4rem 2rem 2rem;
+  }
+
+  .hero {
+    min-height: calc(100svh - 35rem);
+  }
+
+  .hero h1 {
+    font-size: clamp(5rem, 0vw, 16rem);
+    margin-top: .0em;
+  }
+
+  .intro {
+    width: min(40%, 25rem);
+    margin: 1.2rem auto 0;
+    line-height: 1.5;
+  }
+
+  .row {
+    grid-template-columns: 1.1fr 1.3fr;
+    column-gap: 3rem;
+    padding: 2.5rem 1rem 4rem;
+  }
+
+  .companyBlock h2 {
+    font-size: clamp(3.5rem, 0vw, 6.5rem);
+  }
+
+  .tools {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+ .roleBlock h3,
+.roleBlock p,
+.description,
+.tools p {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+}
+
+@media (min-width: 1024px) {
+  .main {
+    box-sizing: border-box;
+    display: grid;
+    /* LAPTOP ARTICLE POSITION: increase 56% to push the articles farther
+       down from the navbar, then reduce 44% by the same amount so the two
+       values still total 100% and the page does not overflow vertically. */
+    grid-template-rows: minmax(0, 56%) minmax(0, 44%);
+    height: 100svh;
+    min-height: 0;
+    padding: 5rem 0rem 0;
+    overflow: hidden;
+  }
+
+  .eyebrow {
+    position: absolute;
+    top: 7rem;
+    left: 2rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+  }
+
+  .eyebrow > span {
+    width: 0.55rem;
+    height: 0.55rem;
+    margin-top: 0.12rem;
+    border-radius: 50%;
+    background: var(--text);
+  }
+
+  .eyebrow p {
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    line-height: 1.2;
+  }
+
+  .hero {
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 5rem;
+  }
+
+  .hero h1 {
+    font-size: clamp(5rem, 0vw, 9.5rem);
+  }
+
+  .intro {
+    width: min(28rem, 34%);
+    margin: 1rem auto 0;
+    font-size: 1rem;
+  }
+
+  .experience {
+    display: grid;
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    min-height: 0;
+  }
+
+  .row {
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1.1fr 1.3fr;
+    column-gap: 3rem;
+    min-height: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    cursor: default;
+    transition: background-color 300ms ease;
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+
+  .row:hover {
+    background-color: var(--hover-surface);
+  }
+
+  .headerContent {
+    display: contents;
+  }
+
+  .companyBlock {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+  }
+
+  .companyBlock h2 {
+    font-size: 4.5rem;
+  }
+
+  /* roleBlock and .tools share the SAME visual slot on the right —
+     absolutely positioned against .row (already position:relative in
+     the base rule above) rather than left as ordinary grid-flow items.
+     A plain grid overlap would size the row's height by whichever one
+     is TALLEST even while invisible (opacity:0 elements still occupy
+     grid space), which would make the row render at its "open" height
+     even at rest. Pulling both out of flow means only whichever is
+     actually visible affects anything. */
+  .roleBlock,
+  .tools {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .roleBlock {
+    align-items: flex-end;
+    text-align: right;
+  }
+
+  .tools {
+    /* Hidden until hovered — GSAP (WorkContent.tsx) sets the real
+       animated values; this is just the resting fallback before JS runs. */
+    opacity: 0;
+    pointer-events: none;
+    align-items: flex-end;
+    text-align: start;
+  }
+
+  .rule {
+    display: none;
+  }
+}
+
+@media (min-width: 1200px) {
+  .companyBlock h2 {
+    font-size: clamp(4.5rem, 12vh, 8rem);
+  }
+  .roleBlock h3,
+  .roleBlock p {
+   font-size: 1.4rem;
+  }
+
+  .description,
+  .tools p {
+    font-size: 1rem;
+  }
+  
+  .row {   
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+   
+  }
+  
+}
+
+@media (min-width: 1600px) {
+  .main {
+    padding-inline: 2.5rem;
+  }
+
+  .companyBlock h2 {
+    font-size: clamp(4.5rem, 20vh, 10rem);
+  }
+
+  .hero {
+    min-height: 45svh;
+    padding-top: clamp(3rem, 9vh, 8rem);
+  }
+
+  .roleBlock h3,
+  .roleBlock p,
+  .description,
+  .tools p {
+    font-size: 0.9rem;
+  }
+}
+
+/* prefers-reduced-motion is handled in WorkContent.tsx via
+   window.matchMedia — GSAP doesn't automatically respect this media
+   query the way CSS animations do, so it needs an explicit check there. */

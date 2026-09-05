@@ -48,7 +48,7 @@ const Hero = () => {
           variants={fadeUp}
           className="font-display italic leading-[0.95] text-[3.35rem] md:text-[4.5rem] lg:text-[6.5rem] xl:text-[8.5rem]"
         >
-          <motion.span custom={0.1} variants={fadeUp} className="block">
+          <motion.span custom={0.1} variants={fadeUp} className="block font-display italic leading-[0.95] ">
             Victory
           </motion.span>
           <motion.span custom={0.22} variants={fadeUp} className="block not-italic">

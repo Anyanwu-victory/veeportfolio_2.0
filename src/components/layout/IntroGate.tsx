@@ -14,15 +14,7 @@ export default function IntroGate({ children }: IntroGateProps) {
     <>
       {!isLoaded && <ButterflyLoader onComplete={() => setIsLoaded(true)} />}
 
-      <div
-        style={{
-          opacity: isLoaded ? 1 : 0,
-          visibility: isLoaded ? "visible" : "hidden",
-          transition: "opacity 1s cubic-bezier(0.25, 1, 0.5, 1)",
-        }}
-      >
-        {children}
-      </div>
+      {isLoaded && children}
     </>
   );
 }
