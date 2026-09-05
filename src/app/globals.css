@@ -73,7 +73,7 @@
   --font-display: "Manuscribe", serif;
   --font-ui: var(--font-geist-sans);
   --font-code: var(--font-geist-mono);
-  
+
 
   /* Animation */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -209,6 +209,7 @@ ol {
 }
 
 @media (min-width: 1024px) {
+
   .work__experience,
   .navigation__wrapper,
   .header {
@@ -216,9 +217,89 @@ ol {
   }
 }
 
+
+@media (min-width: 1600px) {
+
+  .work__experience,
+  .navigation__wrapper,
+  .header {
+    padding: 1rem 3.5rem 0;
+  }
+}
+
 /* Respect reduced motion */
 
+:root {
+  --nav-center: 50vh;
+  --nav-band-height: 11.25rem;
+}
+
+.desktop-navigation,
+.navigation-curtain {
+  top: var(--nav-center);
+  height: var(--nav-band-height);
+}
+
+@media (min-width: 768px) and (max-width: 1023px),
+       (min-width: 1024px) and (max-width: 1399px) and (hover: none) and (pointer: coarse) {
+  :root {
+    --nav-center: 50svh;
+    --nav-band-height: 5rem;
+  }
+
+  .header {
+    padding: 0.5rem 3.125vw 0;
+  }
+
+  .header > div {
+    height: 2rem;
+  }
+
+  .header-status {
+    gap: 0.5rem;
+  }
+
+  .header-status > span {
+    width: 0.5625rem;
+    height: 0.5625rem;
+  }
+
+  .header-status p {
+    font-size: 0.5625rem;
+    line-height: 1.2;
+  }
+
+  .header-logo span {
+    font-size: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .header-edition {
+    font-size: 0.625rem;
+    line-height: 1.3;
+  }
+
+  .desktop-navigation > div {
+    padding-inline: 3.125vw;
+  }
+
+  .desktop-navigation button > span {
+    font-family: "Clash Display", sans-serif;
+    font-size: 0.6875rem;
+    line-height: 1.2;
+  }
+
+  .desktop-navigation button > span:first-child {
+    font-size: 0.5625rem;
+  }
+
+  .navigation-ghost {
+    font-size: clamp(4rem, 12vw, 8rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
+
   *,
   *::before,
   *::after {

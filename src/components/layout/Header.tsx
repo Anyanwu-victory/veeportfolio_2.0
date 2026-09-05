@@ -37,7 +37,7 @@ export default function Header({ navItems }: HeaderProps) {
             these need to switch to the overlay-safe token while it's
             open instead of following `bg-text` / `text-text-muted`,
             which go dark in light mode and disappear against it. */}
-        <div className="flex items-center gap-3 relative z-50">
+        <div className="header-status flex items-center gap-3 relative z-50">
           <span
             className={`h-3 w-3 rounded-full md:h-4 md:w-4 ${
               isOpen ? "bg-text-menu" : "bg-text"
@@ -60,23 +60,27 @@ export default function Header({ navItems }: HeaderProps) {
             below, since this one is hidden below md and therefore never
             needs the overlay-color treatment (the sidebar only opens on
             mobile widths, where this element doesn't render). */}
-        <div className="hidden justify-self-center md:flex">
-          <h1
+        <div className="header-logo hidden justify-self-center md:flex">
+          <button
+            type="button"
+            aria-label="Go to home page"
             onMouseEnter={() => showGhost("Home")}
             onMouseLeave={hideGhost}
             onClick={goHome}
+            onFocus={() => showGhost("Home")}
+            onBlur={hideGhost}
             className={`cursor-pointer text-xl font-semibold tracking-[0.2em] lg:text-text md:text-3xl ${
                 isOpen ? "text-text-menu relative z-50" : "text-text "
               }`}
           >
-            VICKY
-          </h1>
+            <span className="text-xl font-semibold tracking-[0.2em] md:text-3xl">VICKY</span>
+          </button>
         </div>
 
         <div className="flex items-center gap-3 justify-end">
           
           {/* Mobile Meun + Title */}
-          <div className="flex items-center gap-3 lg:hidden">
+          <div className="flex items-center gap-3 md:hidden">
             
             {/* Mobile Menu Title */}
             <h1
@@ -90,15 +94,17 @@ export default function Header({ navItems }: HeaderProps) {
             <MobileMenu items={navItems} />
           </div>
 
-          <div className="hidden items-center gap-5 lg:flex ">
-            <div className="text-right font-body leading-snug text-3xl">
+          <div className="hidden items-center gap-3 md:flex lg:gap-5">
+            <div className="header-edition text-right font-body leading-snug text-xl lg:text-3xl">
               <span className="block pr-2">Folio</span>
               <span className="block">&rarr; &apos;26</span>
             </div>
 
             <button
+              type="button"
+              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
               onClick={toggleTheme}
-              className="text-lg text-text-muted transition hover:text-text"
+              className="flex min-h-11 min-w-11 items-center justify-center text-lg text-text-muted transition hover:text-text"
             >
               {theme === "dark" ? "☀" : "☾"}
             </button>

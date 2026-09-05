@@ -1,0 +1,307 @@
+/* Phone-first layout: one preview above each project's title and tool chips. */
+.page {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.hero {
+  display: flex;
+  height: 42svh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 4rem;
+  text-align: center;
+}
+
+.heading {
+  width: 100%;
+  font-family: var(--font-display), serif;
+  font-size: clamp(4rem, 21vw, 6.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+}
+
+.staticWord {
+  display: none;
+}
+
+.marquee {
+  display: block;
+  overflow: hidden;
+}
+
+.marqueeTrack,
+.marqueeGroup {
+  display: flex;
+  width: max-content;
+}
+
+.marqueeGroup > span {
+  padding-right: 0.7em;
+  white-space: nowrap;
+}
+
+.intro {
+  width: 80%;
+  max-width: 24rem;
+  margin-top: 1rem;
+  font-family: "Clash Display", sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.3;
+}
+
+/* The viewport scrolls, not the document. Native touch momentum is preserved;
+   GSAP only smooths wheel travel and the separate entrance/title animations. */
+.gallery {
+  position: absolute;
+  top: 47.5svh;
+  inset-inline: 0;
+  height: calc(52.5svh - 5rem);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  touch-action: pan-x pinch-zoom;
+  scrollbar-width: none;
+  cursor: grab;
+}
+
+.gallery::-webkit-scrollbar {
+  display: none;
+}
+
+.gallery[data-dragging="true"],
+.gallery[data-dragging="true"] .project {
+  cursor: grabbing;
+}
+
+.gallery:focus-visible {
+  outline: 1px solid var(--text-secondary);
+  outline-offset: -2px;
+}
+
+.track {
+  display: flex;
+  align-items: flex-start;
+  gap: 7.5vw;
+  width: max-content;
+  margin: 0;
+  padding: 0.5rem 7.2vw 1rem;
+  list-style: none;
+}
+
+.projectItem {
+  flex: 0 0 auto;
+}
+
+.project {
+  display: flex;
+  width: 75vw;
+  flex-direction: column;
+  gap: 1rem;
+  font-family: "Clash Display", sans-serif;
+  text-decoration: none;
+  user-select: none;
+}
+
+.project:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 4px;
+  border-radius: 0.25rem;
+}
+
+.projectInfo {
+  order: 2;
+  min-width: 0;
+}
+
+.projectTitle {
+  font-size: clamp(1.25rem, 6vw, 1.75rem);
+  font-weight: 300;
+  line-height: 1.35;
+}
+
+.description {
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin: 0.65rem 0 0;
+  padding: 0;
+  color: var(--text-secondary);
+  font-size: 0.6875rem;
+  line-height: 1.3;
+  list-style: none;
+}
+
+.tools li {
+  padding: 0.2rem 0.65rem;
+  border-radius: 2rem;
+  background: var(--border-strong);
+}
+
+.live {
+  display: none;
+}
+
+.previews {
+  order: 1;
+}
+
+.preview {
+  width: 75vw;
+  height: clamp(8rem, 24svh, 14rem);
+  margin: 0;
+  overflow: hidden;
+  border-radius: 0.65rem;
+}
+
+.preview:not(:first-child) {
+  display: none;
+}
+
+.preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Tablet/laptop/desktop share the reference's composition: heading in the
+   upper half, shared navigation at 50%, and the gallery beginning at 65%. */
+@media (min-width: 768px) {
+  .hero {
+    height: 50svh;
+    padding-top: 0;
+  }
+
+  .heading {
+    font-size: clamp(2.5rem, 5.55vw, 8rem);
+    line-height: 1;
+  }
+
+  .staticWord {
+    display: inline;
+  }
+
+  .marquee {
+    display: none;
+  }
+
+  .intro {
+    width: 31.25vw;
+    max-width: 38rem;
+    margin-top: 1.4vw;
+    font-size: clamp(0.6875rem, 1.39vw, 1.75rem);
+  }
+
+  .gallery {
+    top: 65svh;
+    height: calc(35svh - 1rem);
+  }
+
+  .track {
+    gap: 3vw;
+    padding: 0 3vw 1rem;
+  }
+
+  .project {
+    width: auto;
+    flex-direction: row;
+    gap: 1.32vw;
+  }
+
+  .projectInfo {
+    order: 0;
+    width: 17.3vw;
+    flex-shrink: 0;
+  }
+
+  .projectTitle {
+    font-size: clamp(1rem, 2.18vw, 2.75rem);
+    line-height: 1.5;
+  }
+
+  .description {
+    margin-top: 0.65vw;
+    font-size: clamp(0.6875rem, 1.39vw, 1.75rem);
+    line-height: 1.3;
+  }
+
+  .tools {
+    display: block;
+    margin-top: 0.9vw;
+    font-size: clamp(0.6875rem, 1.39vw, 1.75rem);
+  }
+
+  .tools li {
+    display: inline;
+    padding: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .tools li:not(:last-child)::after {
+    content: ", ";
+  }
+
+  .live {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.65vw;
+    font-size: clamp(0.6875rem, 1.39vw, 1.75rem);
+    line-height: 1.3;
+  }
+
+  .live svg {
+    width: 1em;
+    height: 1em;
+  }
+
+  .previews {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.04vw;
+  }
+
+  .preview,
+  .preview:not(:first-child) {
+    display: block;
+    width: 22.43vw;
+    height: min(14.7vw, calc(35svh - 2rem));
+    border-radius: 0.83vw;
+  }
+
+  .preview:nth-child(2) {
+    height: min(11.65vw, calc(35svh - 2rem));
+  }
+
+  .preview:nth-child(3) {
+    height: min(13.4vw, calc(35svh - 2rem));
+  }
+}
+
+/* On short phones, shrink the preview first so metadata clears the footer. */
+@media (max-width: 767px) and (max-height: 700px) {
+  .hero { padding-top: 3rem; }
+  .heading { font-size: 4rem; }
+  .intro { font-size: 0.75rem; }
+  .gallery { top: 44svh; height: calc(56svh - 4.5rem); }
+  .preview { height: 21svh; }
+  .project { gap: 0.65rem; }
+  .projectTitle { font-size: 1.25rem; }
+  .tools { margin-top: 0.4rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery { scroll-behavior: auto; }
+}

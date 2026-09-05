@@ -26,10 +26,13 @@ export default function DesktopNav({
 
   return (
     <nav
-      onMouseLeave={hideGhost}
-      className="fixed inset-x-0 top-[50vh] z-40 hidden h-45 -translate-y-1/2 lg:block"
+      aria-label="Main navigation"
+      onPointerLeave={(event) => {
+        if (event.pointerType === "mouse") hideGhost();
+      }}
+      className="desktop-navigation pointer-events-none fixed inset-x-0 z-40 hidden -translate-y-1/2 md:block"
     >
-      <div className="absolute inset-0 mx-auto flex max-w-450 items-center justify-between px-14">
+      <div className="absolute inset-0 mx-auto flex max-w-450 xl:max-w-600 items-center justify-between px-8 lg:px-14">
         {items.map((item) => {
           const isActive =
             normalizePath(pathname ?? "") === normalizePath(item.href);
@@ -38,9 +41,14 @@ export default function DesktopNav({
             <button
               key={item.href}
               type="button"
-              onMouseEnter={() => showGhost(item.label)}
+              aria-current={isActive ? "page" : undefined}
+              onPointerEnter={(event) => {
+                if (event.pointerType === "mouse") showGhost(item.label);
+              }}
+              onFocus={() => showGhost(item.label)}
+              onBlur={hideGhost}
               onClick={() => handleClick(item.href)}
-              className="flex flex-col items-start transition-colors font-display"
+              className="pointer-events-auto flex min-h-11 min-w-11 flex-col items-start justify-center transition-colors font-display focus-visible:outline-2 focus-visible:outline-offset-4"
               style={{
                 color: barVisible
                   ? isActive

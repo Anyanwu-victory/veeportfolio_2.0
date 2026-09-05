@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { gsap } from "gsap";
+import { navItems } from "@/lib/navItems";
 
 type NavHoverContextValue = {
   /** Swaps in `label` as the ghost word and plays the reveal forward. */
@@ -36,10 +37,7 @@ const NavHoverContext = createContext<NavHoverContextValue | null>(null);
 const CLIP_CLOSED = "polygon(0% 50%, 100% 50%, 100% 50%, 0% 50%)";
 const CLIP_OPEN = "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)";
 
-// Matches the bar's Tailwind `h-55` (55 * 0.25rem = 13.75rem = 220px).
-// If you change `h-55` on the bar's className, update this to match, or
-// the collapse-back-down step will land at the wrong size.
-const COLLAPSED_HEIGHT = "13.75rem";
+// Resting height and position come from the responsive navigation CSS.
 const EXPANDED_HEIGHT = "100vh";
 
 export function NavHoverProvider({ children }: { children: ReactNode }) {
@@ -49,9 +47,12 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
   const barRef = useRef<HTMLDivElement>(null);
   const ghostRef = useRef<HTMLSpanElement>(null);
   const tlRef = useRef<gsap.core.Timeline | null>(null);
+  const transitionRef = useRef<gsap.core.Timeline | null>(null);
+  const navigatingRef = useRef(false);
 
   useEffect(() => {
     if (!barRef.current || !ghostRef.current) return;
+    const bar = barRef.current;
 
     gsap.set(barRef.current, { clipPath: CLIP_CLOSED });
     gsap.set(ghostRef.current, { autoAlpha: 0, y: 20 });
@@ -78,24 +79,35 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
 
     return () => {
       tl.kill();
+      transitionRef.current?.kill();
+      gsap.killTweensOf(bar);
       tlRef.current = null;
     };
   }, []);
 
   const showGhost = (label: string) => {
+    if (navigatingRef.current) return;
     setGhostWord(label);
     tlRef.current?.play();
   };
 
   const hideGhost = () => {
+    if (navigatingRef.current) return;
     tlRef.current?.reverse();
   };
 
   const expandAndNavigate = (href: string, navigate: () => void) => {
+    if (navigatingRef.current) return;
     if (!barRef.current || !ghostRef.current) {
       navigate();
       return;
     }
+
+    navigatingRef.current = true;
+    // A touch activation must not depend on an earlier mouse hover.
+    setGhostWord(navItems.find((item) => item.href === href)?.label ?? "Home");
+    const collapsedHeight = getComputedStyle(barRef.current).height;
+    const collapsedTop = getComputedStyle(barRef.current).top;
 
     // Pause the hover timeline so a stray mouseleave (e.g. as the click
     // fires and the cursor's position becomes ambiguous mid-navigation)
@@ -113,10 +125,9 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
     gsap.set(ghostRef.current, { autoAlpha: 1, y: 0 });
     setBarVisible(true);
 
-    void href; // not used directly here — `navigate` already has it bound
-
     gsap.to(barRef.current, {
       height: EXPANDED_HEIGHT,
+      top: "50vh",
       duration: 1.1,
       ease: "sine.inOut",
       onComplete: () => {
@@ -139,10 +150,13 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
             // bookkeeping — nothing visibly changes — leaving it ready to
             // play forward normally on the next hover.
             tlRef.current?.progress(0).pause();
+            gsap.set(barRef.current, { clearProps: "height,top" });
+            navigatingRef.current = false;
             setBarVisible(false);
           },
         });
 
+        transitionRef.current = closeTl;
         closeTl
           .to(ghostRef.current, {
             autoAlpha: 0,
@@ -151,7 +165,8 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
             ease: "power2.in",
           })
           .to(barRef.current, {
-            height: COLLAPSED_HEIGHT,
+            height: collapsedHeight,
+            top: collapsedTop,
             clipPath: CLIP_CLOSED,
             duration: 0.7,
             ease: "sine.inOut",
@@ -171,14 +186,14 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
       <div
         ref={barRef}
         style={{ clipPath: CLIP_CLOSED }}
-        className="pointer-events-none fixed inset-x-0 top-[50vh] z-40 hidden h-45 -translate-y-1/2 items-center justify-center text-center overflow-hidden bg-surface-overlay md:flex"
+        className="navigation-curtain pointer-events-none fixed inset-x-0 z-40 hidden -translate-y-1/2 items-center justify-center text-center overflow-hidden bg-surface-overlay md:flex"
       >
         <span
           ref={ghostRef}
           // Ghost word color — swap `text-secondary` for any Tailwind
           // color utility (e.g. text-accent, text-white) or an exact
           // value like text-[#ff6b4a].
-          className="invisible font-display text-[200px] leading-none text-text-muted opacity-0 justify-center text-center  md:visible "  
+          className="navigation-ghost invisible font-display text-[200px] leading-none text-text-muted opacity-0 justify-center text-center md:visible"
         >
           {ghostWord}
         </span>
