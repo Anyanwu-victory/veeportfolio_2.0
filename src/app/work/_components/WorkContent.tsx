@@ -30,50 +30,29 @@ export default function WorkContent() {
   const h1Ref = useRef<HTMLHeadingElement>(null);
   const introRef = useRef<HTMLParagraphElement>(null);
   const rowRefs = useRef<(HTMLElement | null)[]>([]);
-  // One paused hover timeline per row, only ever populated on laptop+
-  // (see the isDesktop branch below). On mobile/tablet these stay null,
-  // which makes the onMouseEnter/onMouseLeave handlers in the JSX safe
-  // no-ops via optional chaining — no separate width-check needed there.
   const hoverTlRefs = useRef<(gsap.core.Timeline | null)[]>([]);
+  const activeRowRef = useRef<number | null>(null);
+  const pinnedRowRef = useRef<number | null>(null);
+  const revealRef = useRef<(index: number | null) => void>(() => {});
 
   useLayoutEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (prefersReducedMotion) {
-      gsap.set(h1Ref.current, { yPercent: 0, rotate: 0 });
-      gsap.set(introRef.current, { opacity: 1, y: 0 });
-      rowRefs.current.forEach((row) => {
-        if (!row) return;
-        const q = gsap.utils.selector(row);
-        gsap.set(row, { opacity: 1 });
-        gsap.set(
-          [
-            q(`.${styles.headerContent}`),
-            q(`.${styles.roleBlock}`),
-            q(`.${styles.tools}`),
-          ],
-          { opacity: 1, x: 0, y: 0 },
-        );
-      });
-      return;
-    }
-
     const mm = gsap.matchMedia();
 
     mm.add(
       {
-        isDesktop: "(min-width: 1024px)",
-        isMobileOrTablet: "(max-width: 1023px)",
+        isInteractive: "(min-width: 768px)",
+        isMobile: "(max-width: 767px)",
+        isTablet: "(min-width: 768px) and (max-width: 1023px), (min-width: 1024px) and (max-width: 1399px) and (hover: none) and (pointer: coarse)",
+        reduceMotion: "(prefers-reduced-motion: reduce)",
       },
       (context) => {
-        const { isDesktop } = context.conditions as { isDesktop: boolean };
+        const { isInteractive, reduceMotion } = context.conditions as {
+          isInteractive: boolean;
+          reduceMotion: boolean;
+        };
 
-        // Heading + intro — identical either way, built fresh inside this
-        // callback (rather than shared across branches) so gsap.matchMedia
-        // can cleanly revert the whole thing if the viewport crosses the
-        // 1024px line, instead of two branches fighting over one timeline.
+        // Rebuild and reset when crossing the mobile breakpoint or changing
+        // motion preferences, including after tablet rotation.
         const tl = gsap.timeline();
         tl.fromTo(
           h1Ref.current,
@@ -91,10 +70,7 @@ export default function WorkContent() {
           const q = gsap.utils.selector(row);
           gsap.set(row, { opacity: 1 });
 
-          if (isDesktop) {
-            // LAPTOP+: company/role fade up on load. Description/tools
-            // start hidden (also set via CSS as a pre-JS fallback) and
-            // only ever appear on hover.
+          if (isInteractive) {
             gsap.set(q(`.${styles.tools}`), {
               opacity: 0,
               y: 16,
@@ -157,9 +133,20 @@ export default function WorkContent() {
                 ease: "power3.out",
               });
 
+            // Slide with the reveal on tablet taps and laptop/desktop hover.
+            hoverTl.fromTo(q(`.${styles.companyBlock}`), {
+              x: 0,
+              xPercent: 0,
+            }, {
+              x: 0,
+              xPercent: -28,
+              duration: 0.9,
+              ease: "power3.inOut",
+            }, 0);
+
             hoverTlRefs.current[i] = hoverTl;
           } else {
-            // Mobile/tablet — UNCHANGED from before.
+            // Phones retain the entrance animation and always-visible details.
             hoverTlRefs.current[i] = null;
 
             tl.fromTo(
@@ -174,6 +161,43 @@ export default function WorkContent() {
             );
           }
         });
+
+        if (reduceMotion) tl.progress(1).pause();
+
+        revealRef.current = (index) => {
+          if (!isInteractive) return;
+          // Finish the entrance before interacting to avoid competing tweens.
+          tl.progress(1).pause();
+          activeRowRef.current = index;
+          rowRefs.current.forEach((row, i) => {
+            if (!row) return;
+            const open = i === index;
+            row.dataset.expanded = String(open);
+            row.querySelector("button")?.setAttribute("aria-expanded", String(open));
+            row.querySelector(`.${styles.tools}`)?.setAttribute("aria-hidden", String(!open));
+            const animation = hoverTlRefs.current[i];
+            if (reduceMotion) animation?.progress(open ? 1 : 0).pause();
+            else if (open) animation?.play();
+            else animation?.reverse();
+          });
+        };
+
+        rowRefs.current.forEach((row) => {
+          row?.querySelector(`.${styles.tools}`)?.setAttribute("aria-hidden", String(isInteractive));
+        });
+
+        return () => {
+          revealRef.current = () => {};
+          activeRowRef.current = null;
+          pinnedRowRef.current = null;
+          hoverTlRefs.current = [];
+          rowRefs.current.forEach((row) => {
+            if (!row) return;
+            delete row.dataset.expanded;
+            row.querySelector("button")?.setAttribute("aria-expanded", "false");
+            row.querySelector(`.${styles.tools}`)?.removeAttribute("aria-hidden");
+          });
+        };
       },
     );
 
@@ -206,9 +230,47 @@ export default function WorkContent() {
                 rowRefs.current[position] = el;
               }}
               style={{ opacity: 0 }}
-              onMouseEnter={() => hoverTlRefs.current[position]?.play()}
-              onMouseLeave={() => hoverTlRefs.current[position]?.reverse()}
+              onPointerEnter={(event) => {
+                if (event.pointerType !== "mouse") return;
+                pinnedRowRef.current = null;
+                revealRef.current(position);
+              }}
+              onPointerLeave={(event) => {
+                if (
+                  event.pointerType === "mouse" &&
+                  pinnedRowRef.current !== position &&
+                  activeRowRef.current === position
+                ) {
+                  revealRef.current(null);
+                }
+              }}
             >
+              <button
+                type="button"
+                className={styles.revealButton}
+                aria-label={`${item.company} details`}
+                aria-expanded="false"
+                aria-controls={`work-details-${item.index}`}
+                onClick={() => {
+                  const next = activeRowRef.current === position ? null : position;
+                  pinnedRowRef.current = next;
+                  revealRef.current(next);
+                }}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") {
+                    pinnedRowRef.current = null;
+                    revealRef.current(null);
+                  }
+                }}
+                onBlur={() => {
+                  if (activeRowRef.current === position) {
+                    pinnedRowRef.current = null;
+                    revealRef.current(null);
+                  }
+                }}
+              >
+                <span className={styles.hoverLabel}>Tap to view details</span>
+              </button>
               <div className={styles.rule} aria-hidden="true" />
               {/*  header */}
               <div className={styles.headerContent}>
@@ -222,9 +284,12 @@ export default function WorkContent() {
                 </div>
               </div>
               {/* Tools and description div */}
-              <div className={styles.tools}>
+              <div className={styles.tools} id={`work-details-${item.index}`}>
                 <p className={styles.description}>{item.description}</p>
-                <p>{item.tools}</p>
+                <p>
+                  <span>{item.tools}</span>
+                  <span className={styles.revealPeriod}>{item.role} {item.period}</span>
+                </p>
               </div>
             </article>
           ))}

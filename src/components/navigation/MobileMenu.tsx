@@ -56,6 +56,17 @@ export default function MobileMenu({ items }: MobileMenuProps) {
     router.push(normalizePath(href));
   };
 
+  // Reset an open phone menu when the tablet navigation takes over.
+  useEffect(() => {
+    const desktopNavigation = window.matchMedia("(min-width: 768px)");
+    const closeAtDesktopWidth = () => {
+      if (desktopNavigation.matches) closeMenu();
+    };
+    desktopNavigation.addEventListener("change", closeAtDesktopWidth);
+    closeAtDesktopWidth();
+    return () => desktopNavigation.removeEventListener("change", closeAtDesktopWidth);
+  }, [closeMenu]);
+
   return (
     <>
       <button

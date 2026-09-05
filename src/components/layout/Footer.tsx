@@ -1,12 +1,19 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { useMobileMenu } from "@/context/mobileMenuContext";
 
 export default function Footer() {
   const { isOpen } = useMobileMenu();
+  const pathname = usePathname();
+  const hideOnTabletAndDesktop = pathname === "/work" || pathname === "/playground";
 
   return (
-    <footer className="footer fixed inset-x-0 bottom-0 z-50 py-10 text-center">
+    <footer
+      className={`footer fixed inset-x-0 bottom-0 z-50 py-10 text-center ${
+        hideOnTabletAndDesktop ? "md:hidden" : ""
+      }`}
+    >
       <div className="footer_wrapper bottom flex flex-col items-center justify-center gap-2">
         <p
           className={`font-body text-[10px] leading-normal md:text-xs xl:text-[14px] ${

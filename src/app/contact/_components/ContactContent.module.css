@@ -1,0 +1,74 @@
+.page {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--surface);
+  color: var(--text);
+}
+
+.hero {
+  position: relative;
+  height: 100%;
+}
+
+.heading {
+  position: absolute;
+  z-index: 1;
+  top: 17%;
+  left: 50%;
+  width: min-content;
+  transform: translateX(-50%);
+  font-weight: 400;
+  text-align: center;
+}
+
+.clip { display: block; overflow: hidden; }
+.word { display: block; font-size: clamp(5.3rem, 22.2vw, 20rem); line-height: 0.88; }
+.serif { font-family: var(--font-display), serif; }
+.sans { font-family: "Clash Display", sans-serif; font-weight: 300; }
+
+.details {
+  position: absolute;
+  z-index: 2;
+  top: 47.5%;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 1.5rem;
+  gap: 1.1rem;
+}
+
+.contactLink, .credits p { font-family: "Clash Display", sans-serif; font-size: clamp(0.75rem, 3.85vw, 0.95rem); line-height: 1.25; }
+.contactLink { display: flex; gap: 0.55rem; white-space: nowrap; }
+.contactLink strong, .credits strong { font-weight: 300; }
+.contactLink:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
+
+.visual {
+  position: absolute;
+  z-index: 0;
+  top: 60.5%;
+  left: 50%;
+  width: min(86vw, 32rem);
+  transform: translateX(-50%);
+  mix-blend-mode: multiply;
+}
+
+[data-theme="dark"] .visual { mix-blend-mode: screen; opacity: 0.85; }
+
+.credits { display: none; }
+
+@media (min-width: 768px) {
+  .heading { top: 13.2%; }
+  .word { font-size: clamp(7.5rem, 18vw, 20rem); }
+  .heading .clip { display: inline-block; }
+  .details { top: 76.5%; display: flex; justify-content: flex-end; width: 27%; right: 3%; padding: 0; gap: 1.7vw; flex-direction: column; }
+  .contactLink, .credits p { font-size: clamp(0.7rem, 1.39vw, 1.7rem); }
+  .visual { top: 44%; width: min(43vw, 45rem); }
+  .credits { position: absolute; display: flex; z-index: 2; top: 76.5%; left: 3%; flex-direction: column; gap: 0.8vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .word, .detail, .visual { transform: none; }
+  .heading, .visual { transform: translateX(-50%); }
+}
