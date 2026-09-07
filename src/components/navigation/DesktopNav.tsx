@@ -28,9 +28,9 @@ export default function DesktopNav({
     <nav
       aria-label="Main navigation"
       onPointerLeave={(event) => {
-        if (event.pointerType === "mouse") hideGhost();
+        if (event.pointerType !== "touch") hideGhost();
       }}
-      className="desktop-navigation pointer-events-none fixed inset-x-0 z-40 hidden -translate-y-1/2 md:block"
+      className="desktop-navigation pointer-events-none fixed inset-x-0 top-[50svh] z-40 hidden -translate-y-1/2 md:block"
     >
       <div className="absolute inset-0 mx-auto flex max-w-450 xl:max-w-600 items-center justify-between px-8 lg:px-14">
         {items.map((item) => {
@@ -43,7 +43,7 @@ export default function DesktopNav({
               type="button"
               aria-current={isActive ? "page" : undefined}
               onPointerEnter={(event) => {
-                if (event.pointerType === "mouse") showGhost(item.label);
+                if (event.pointerType !== "touch") showGhost(item.label);
               }}
               onFocus={() => showGhost(item.label)}
               onBlur={hideGhost}
