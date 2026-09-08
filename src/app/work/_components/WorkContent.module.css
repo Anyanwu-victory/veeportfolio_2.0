@@ -210,7 +210,7 @@
   }
 }
 
-@media (min-width: 1024px) and (any-pointer: coarse) {
+@media (min-width: 1024px) {
   .main {
     box-sizing: border-box;
     display: grid;
@@ -378,6 +378,14 @@
   }
 }
 
+/* Mouse/trackpad laptops use whole-row hover, so only the tablet tap overlay
+   stays out of the layout. The reveal period remains visible at 1024px+. */
+@media (min-width: 1024px) and (hover: hover) and (pointer: fine) {
+  .revealButton {
+    display: none;
+  }
+}
+
 /* A tablet in landscape can cross the laptop breakpoint and still need tap. */
 /* @media (min-width: 1024px) and (any-pointer: coarse) {
   .revealButton {
@@ -435,7 +443,7 @@
 
   .hero {
     min-height: 45svh;
-    padding-top: clamp(3rem, 9vh, 8rem);
+    padding-top: 18rem;
   }
 
   .row {

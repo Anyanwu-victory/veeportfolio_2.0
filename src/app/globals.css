@@ -11,7 +11,7 @@
 }
 
 @font-face {
-  font-family: "Clash Display";
+  font-family: "Clash Display ";
   src: url("/assets/fonts/clash-display-light.otf") format("opentype");
   font-weight: 300;
   font-style: normal;
@@ -19,7 +19,7 @@
 }
 
 @font-face {
-  font-family: "Clash Display";
+  font-family: "Clash Display ";
   src: url("/assets/fonts/clash-display-extralight.otf") format("opentype");
   font-weight: 200;
   font-style: normal;
@@ -70,6 +70,8 @@
   --radius-lg: 24px;
 
   /* Fonts */
+  --font-clash: "Clash Display", sans-serif;
+  --font-Deco: "C720 Deco", serif;
   --font-display: "Manuscribe", serif;
   --font-ui: var(--font-geist-sans);
   --font-code: var(--font-geist-mono);
@@ -124,7 +126,9 @@
   --color-border-strong: var(--border-strong);
 
   /* Fonts → font-sans, font-display, font-mono */
+  --font-clash: var(--font-clash);
   --font-sans: var(--font-ui);
+  --font-Deco: var(--font-Deco);
   --font-display: var(--font-display);
   --font-mono: var(--font-code);
 

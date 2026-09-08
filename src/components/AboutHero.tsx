@@ -34,7 +34,7 @@ export default function AboutHero() {
     <div className="about-hero mt-4 md:mt-24 lg:mt-20 xl:mt-20 px-4 md:px-0 justify-center relative align-middle">
       {/* <span className="about-hero__dot" /> */}
 
-      <p className="about-hero__intro indent-14 lg:indent-28">
+      <p className="about-hero__intro indent-14 lg:indent-28 font-display">
         In the game for over 6 years, I&apos;m currently based in Ho Chi
         Minh city, working as an independent designer since July, 2022.
       </p>
@@ -51,7 +51,7 @@ export default function AboutHero() {
         />
       </div>
 
-      <p className="about-hero__outro">
+      <p className="about-hero__outro font-clash ">
         Enthusiastic about crafting{" "}
         <span className="about-hero__em">
           ideas, visual elements, motion

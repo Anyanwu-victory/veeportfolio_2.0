@@ -186,14 +186,14 @@ export function NavHoverProvider({ children }: { children: ReactNode }) {
       <div
         ref={barRef}
         style={{ clipPath: CLIP_CLOSED }}
-        className="navigation-curtain pointer-events-none fixed inset-x-0 z-40 hidden -translate-y-1/2 items-center justify-center text-center overflow-hidden bg-surface-overlay md:flex"
+        className="navigation-curtain pointer-events-none fixed inset-x-0 top-[50svh] z-40 hidden -translate-y-1/2 items-center justify-center text-center overflow-hidden bg-surface-overlay md:flex"
       >
         <span
           ref={ghostRef}
           // Ghost word color — swap `text-secondary` for any Tailwind
           // color utility (e.g. text-accent, text-white) or an exact
           // value like text-[#ff6b4a].
-          className="navigation-ghost invisible font-display text-[200px] leading-none text-text-muted opacity-0 justify-center text-center md:visible"
+          className="navigation-ghost invisible font-Deco md:text-[140px] lg:text-[200px] leading-none text-text-muted opacity-0 justify-center text-center md:visible"
         >
           {ghostWord}
         </span>
