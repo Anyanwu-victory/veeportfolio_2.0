@@ -11,7 +11,6 @@ import styles from "./PlaygroundContent.module.css";
 export default function PlaygroundContent() {
   const pageRef = useRef<HTMLElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
-  const marqueeRef = useRef<HTMLSpanElement>(null);
   const draggedRef = useRef(false);
 
   useLayoutEffect(() => {
@@ -20,34 +19,27 @@ export default function PlaygroundContent() {
     if (!page || !gallery) return;
 
     // MatchMedia owns every tween and reverts them on resize, preference change,
-    // or route exit. The phone marquee never runs behind the desktop heading.
+    // or route exit.
     const media = gsap.matchMedia();
     media.add({
       phone: "(max-width: 767px)",
       larger: "(min-width: 768px)",
       reduced: "(prefers-reduced-motion: reduce)",
     }, (context) => {
-      const { phone, reduced } = context.conditions as Record<string, boolean>;
+      const { reduced } = context.conditions as Record<string, boolean>;
       const select = gsap.utils.selector(page);
 
       if (!reduced) {
         gsap.timeline()
           .fromTo(select(`.${styles.heading}`),
-            { y: 30, opacity: 0 },
-            { y: 0, opacity: 1, duration: 1, ease: "power3.out" })
+            { yPercent: 110, rotate: 2 },
+            { yPercent: 0, rotate: 0, duration: 1.3, ease: "power3.out" })
           .fromTo(select(`.${styles.intro}`),
-            { y: 16, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, "-=0.5")
+            { y: 24, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" })
           .fromTo(select(`.${styles.project}`),
-            { y: 36, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: "power3.out" }, "-=0.35");
-
-        if (phone) {
-          // Two identical groups make a seamless loop at exactly half the width.
-          gsap.fromTo(marqueeRef.current, { xPercent: 0 }, {
-            xPercent: -50, duration: 22, repeat: -1, ease: "none",
-          });
-        }
+            { y: 24, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: "power3.out" });
       }
 
       let target = gallery.scrollLeft;
@@ -145,19 +137,9 @@ export default function PlaygroundContent() {
     <Container>
       <main className={styles.page} ref={pageRef}>
         <section className={styles.hero} aria-labelledby="playground-heading">
-          <h1 className={styles.heading} id="playground-heading">
-            <span className="sr-only">Playground</span>
-            <span className={styles.staticWord} aria-hidden="true">Playground</span>
-            <span className={styles.marquee} aria-hidden="true">
-              <span className={styles.marqueeTrack} ref={marqueeRef}>
-                {[0, 1].map((group) => (
-                  <span className={styles.marqueeGroup} key={group}>
-                    <span>Playground</span><span>Playground</span>
-                  </span>
-                ))}
-              </span>
-            </span>
-          </h1>
+          <div className={styles.titleClip}>
+            <h1 className={styles.heading} id="playground-heading">Playground</h1>
+          </div>
           <p className={styles.intro}>From blood, sweat and experimentations to beautiful websites</p>
         </section>
 
