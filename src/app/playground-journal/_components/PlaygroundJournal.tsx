@@ -111,6 +111,7 @@ export default function PlaygroundJournal() {
         <div className={styles.introduction}>
           <p className={styles.lead}>Things I built because I wanted<br className={styles.desktopBreak} /> to see what would happen.</p>
           <div className={styles.heroAside}><p>From blood, sweat and experimentations to beautiful websites</p><a href="#experiments">Take a look around <ArrowDown size={16} aria-hidden="true" /></a></div>
+          <ArrowDown className={styles.mobileArrow} size={28} strokeWidth={1.5} aria-hidden="true" />
         </div>
       </header>
 

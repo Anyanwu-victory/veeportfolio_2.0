@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import journalStyles from "./JournalShell.module.css";
+import illustratedStyles from "./IllustratedShell.module.css";
 import Footer from "@/components/layout/Footer";
 import Header from "@/components/layout/Header";
 import DesktopNav from "@/components/navigation/DesktopNav";
@@ -15,9 +16,11 @@ type SiteShellProps = {
 };
 
 export default function SiteShell({ children }: SiteShellProps) {
-  const isJournal = usePathname() === "/playground-journal";
+  const pathname = usePathname();
+  const isJournal = pathname === "/playground-journal";
+  const isIllustrated = pathname === "/about-illustrated";
   return (
-    <div className={`relative min-h-screen overflow-hidden ${isJournal ? journalStyles.shell : ""}`}>
+    <div className={`relative min-h-screen overflow-hidden ${isJournal ? journalStyles.shell : ""} ${isIllustrated ? illustratedStyles.shell : ""}`}>
       <MobileMenuProvider>
         <NavHoverProvider>
           <Header navItems={navItems} />
