@@ -1,0 +1,3 @@
+/* Navigation inherits the site's original midpoint position and styling. */
+.shell :global(.header) { background: var(--surface); }
+.shell :global(.footer) { position: relative; padding-block: 1rem 2rem; }

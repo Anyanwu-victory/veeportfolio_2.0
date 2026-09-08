@@ -17,32 +17,17 @@
   text-align: center;
 }
 
-.heading {
+.titleClip {
   width: 100%;
-  font-family: var(--font-display), serif;
-  font-size: clamp(4rem, 21vw, 6.5rem);
-  font-weight: 400;
-  line-height: 1.1;
-}
-
-.staticWord {
-  display: none;
-}
-
-.marquee {
-  display: block;
   overflow: hidden;
 }
 
-.marqueeTrack,
-.marqueeGroup {
-  display: flex;
-  width: max-content;
-}
-
-.marqueeGroup > span {
-  padding-right: 0.7em;
-  white-space: nowrap;
+.heading {
+  width: 100%;
+  font-family: var(--font-display), serif;
+  font-size: clamp(2.5rem, 14vw, 6.5rem);
+  font-weight: 400;
+  line-height: 1.1;
 }
 
 .intro {
@@ -188,14 +173,6 @@
     line-height: 1;
   }
 
-  .staticWord {
-    display: inline;
-  }
-
-  .marquee {
-    display: none;
-  }
-
   .intro {
     width: 31.25vw;
     max-width: 38rem;
@@ -293,7 +270,7 @@
 /* On short phones, shrink the preview first so metadata clears the footer. */
 @media (max-width: 767px) and (max-height: 700px) {
   .hero { padding-top: 3rem; }
-  .heading { font-size: 4rem; }
+  .heading { font-size: min(14vw, 4rem); }
   .intro { font-size: 0.75rem; }
   .gallery { top: 44svh; height: calc(56svh - 4.5rem); }
   .preview { height: 21svh; }
