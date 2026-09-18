@@ -12,6 +12,9 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+ .hero {
+  margin: 5rem 0 3rem 0;
+ }
 
 .masthead, .entryLabel, .caption, .colophon { display: flex; justify-content: space-between; gap: 1rem; }
 .masthead { padding-bottom: 1.4rem; border-bottom: 1px solid var(--border-strong); }
@@ -21,12 +24,13 @@
   font-size: clamp(4rem, 12.8vw, 12rem);
   font-weight: 400;
   line-height: 1.06;
+  text-align: center;
   letter-spacing: -0.045em;
 }
 .title > span { display: inline-block; margin-left: 0.12em; font-family: var(--font-cormorant-garamond), serif; font-size: 0.65em; vertical-align: top; }
 .introduction { display: flex; justify-content: space-between; align-items: end; gap: 3rem; padding: 1rem 0 4rem; }
 .lead { font-family: var(--font-cormorant-garamond), serif; font-size: clamp(1.7rem, 2.8vw, 2.8rem); line-height: 1.1; }
-.heroAside { max-width: 16rem; font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); }
+.heroAside { max-width: 16rem; font-size: 0.8rem; line-height: 1.6; color: var(--text-secondary); text-align: center;}
 .heroAside a { display: inline-flex; align-items: center; gap: 1rem; margin-top: 1.2rem; color: var(--text); }
 .content { scroll-margin-top: 11rem; }
 .entryLabel { margin-bottom: 0.8rem; color: var(--text-secondary); }
@@ -78,7 +82,7 @@
   .study { grid-template-columns: 1fr; gap: 0.5rem; }
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1024px) {
   .page { padding: 6rem 5vw 2rem; }
   .masthead, .lead, .title > span, .heroAside a { display: none; }
   .title { font-size: 13vw; }
