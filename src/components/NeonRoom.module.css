@@ -1,0 +1,104 @@
+.room {
+  --daylight: 0;
+  --nightlight: 1;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  container-type: size;
+  background: #241e18;
+}
+
+/* Match object-fit: cover for both images AND the registered effect layers. */
+.artwork {
+  position: absolute;
+  width: max(100cqw, 133.3333cqh);
+  height: max(75cqw, 100cqh);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.night { opacity: 1; }
+.room[data-ready="false"][data-theme="light"] .night { opacity: 0; }
+.effects, .veil { position: absolute; inset: 0; pointer-events: none; }
+.veil { background: #151722; opacity: 0; }
+.sky { position: absolute; inset: 0 53% 26% 33%; opacity: 0; mix-blend-mode: soft-light; }
+.sunlight {
+  position: absolute;
+  inset: 68% 24% 0 20%;
+  background: linear-gradient(115deg, transparent 15%, #ffdfab38 45%, transparent 80%);
+  opacity: var(--daylight);
+  animation: sunlight 28s ease-in-out infinite alternate;
+}
+.dust { position: absolute; inset: 10% 50% 20% 25%; opacity: var(--daylight); }
+.dust i {
+  position: absolute;
+  left: calc(8% + var(--i) * 10%);
+  top: calc(8% + var(--i) * 9%);
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fff3dd;
+  animation: dust calc(8s + var(--i) * 1s) ease-in-out infinite alternate;
+  animation-delay: calc(var(--i) * -1.7s);
+}
+.steam, .smoke { position: absolute; fill: none; stroke: #fff4e0; stroke-width: 1.4; stroke-linecap: round; }
+.steam { left: 78.6%; top: 34%; width: 3.2%; height: 10%; opacity: 0.25; }
+.steam path { animation: steam 4.7s ease-in-out infinite; }
+.steam path + path { animation-duration: 6.1s; animation-delay: -2.8s; }
+.smoke { left: 66%; top: 77%; width: 4%; height: 10%; opacity: 0; }
+.lighting { opacity: var(--nightlight); }
+.leds { position: absolute; top: 0; bottom: 64%; left: 19.6%; width: 0.3%; background: #fff0cd; box-shadow: 0 0 12px 3px #ffefcf45; animation: glow 7s ease-in-out infinite alternate; }
+.cursor { position: absolute; left: 65%; top: 39%; width: 0.55%; height: 0.18%; background: #fff0cd; opacity: 0.45; animation: cursor 1.4s steps(1) infinite; }
+.candle {
+  position: absolute;
+  left: 65%; top: 82%; width: 7%; height: 10%;
+  background: radial-gradient(ellipse, #ffe4ac55, transparent 68%);
+  animation: flicker 2.3s ease-in-out infinite alternate;
+}
+.monitor {
+  position: absolute;
+  left: 59%; top: 32%; width: 23%; height: 18%;
+  background: radial-gradient(ellipse, #ffefd00d, transparent 70%);
+  animation: glow 6s ease-in-out infinite alternate;
+}
+.paws { position: absolute; left: 0; bottom: 7%; width: 25%; height: 10%; color: #eedbc0; }
+.paws svg { position: absolute; right: calc(var(--i) * 20%); top: 0; transform: rotate(-75deg); opacity: 0; }
+.paws svg:nth-child(even) { top: 28%; }
+/* Anchor at Neon's head in the source artwork, not the cropped viewport. */
+.annotation { position: absolute; left: 21%; top: 82%; width: 0; height: 0; pointer-events: none; color: #fff4df; }
+.annotation p { position: absolute; left: -65px; bottom: 65px; width: max-content; margin: 0; padding: 9px 12px; background: #211e19e8; border: 1px solid #ffffff26; border-radius: 10px; font-size: 12px; line-height: 1.45; }
+.annotation span { color: #e3d4be; }
+.annotation [data-note="light"] { opacity: 0; }
+.room[data-ready="false"][data-theme="light"] [data-note="light"] { opacity: 1; }
+.room[data-ready="false"][data-theme="light"] [data-note="dark"] { opacity: 0; }
+.annotation > svg { position: absolute; right: 0; bottom: 0; display: block; width: 65px; height: 65px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.pause { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid #ffffff40; border-radius: 50%; background: #211e19d9; color: #fff4df; cursor: pointer; transition: background-color 180ms ease; }
+.pause:hover { background: #211e19; }
+.pause:focus-visible { outline: 2px solid #fff4df; outline-offset: 3px; }
+.room[data-paused="true"] *, .room[data-sleeping="true"] * { animation-play-state: paused !important; }
+@keyframes sunlight { to { transform: translateX(5%); } }
+@keyframes dust { from { opacity: 0.12; transform: translate(0, 7px); } to { opacity: 0.45; transform: translate(9px, -12px); } }
+@keyframes steam { 0% { opacity: 0; transform: translateY(10px); } 30%, 65% { opacity: 0.6; } 100% { opacity: 0; transform: translate(3px, -12px); } }
+@keyframes flicker { 0%, 100% { opacity: 0.65; transform: scale(0.97); } 35% { opacity: 0.85; } 70% { opacity: 0.55; transform: scale(1.03); } }
+@keyframes glow { from { opacity: 0.45; } to { opacity: 0.85; } }
+@keyframes cursor { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .room * { animation: none !important; }
+  .pause { display: none; }
+}
+
+/* A full frame on phones keeps Neon in view, with the biography in normal flow. */
+@media (max-width: 1023px) {
+  .hero.hero { display: flex; flex-direction: column; gap: 1.75rem; padding: 6rem 0 3rem; }
+  .hero :global(.about-hero__photo) { position: relative; top: auto; bottom: auto; left: auto; transform: none; width: 100%; height: auto; aspect-ratio: 4 / 3; }
+  .hero :global(.about-hero__intro), .hero :global(.about-hero__outro), .hero :global(.about-hero__caption) { position: static; max-width: 100%; margin: 0; }
+  .hero :global(.about-hero__intro) { text-indent: 0; }
+  .hero :global(.about-hero__outro) { max-width: 90%; align-self: flex-end; }
+}
+@media (max-width: 767px) {
+  .annotation p { left: -55px; bottom: 45px; font-size: 10px; padding: 6px 8px; }
+  .annotation > svg { width: 45px; height: 45px; }
+  .pause { top: 8px; right: 8px; }
+}
