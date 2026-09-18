@@ -1,0 +1,3 @@
+.shell :global(.header) { background: var(--surface); }
+.shell :global(.home_navigation) { display: none; }
+.shell :global(.footer) { position: relative; padding-block: 1rem 2rem; }
