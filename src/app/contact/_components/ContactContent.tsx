@@ -8,7 +8,7 @@ import styles from "./ContactContent.module.css";
 
 const contactLinks = [
   { label: "Github", value: "/Anyanwu-victory", href: "https://github.com/Anyanwu-victory" },
-  { label: "Gmail", value: "Victory Dev", href: "mailto:victanyanwu306@gmail.com" },
+  { label: "Gmail", value: "victanyanwu306", href: "mailto:victanyanwu306@gmail.com" },
   { label: "Resume", value: "/Victory", href: "https://github.com/Anyanwu-victory" },
   { label: "LinkedIn", value: "/victory-anyanwu", href: "https://linkedin.com/in/victory-anyanwu" },
 ];
@@ -46,7 +46,7 @@ export default function ContactContent() {
       <main className={styles.page} ref={pageRef}>
         <section className={styles.hero} aria-labelledby="contact-heading">
           <h1 className={styles.heading} id="contact-heading">
-            <span className={styles.clip}><span className={`${styles.word} ${styles.serif}`}>Let&apos;s build something together</span></span>
+            <span className={styles.clip}><span className={`${styles.word} ${styles.serif}`}>Got an idea? Let's talk</span></span>
             {/* <span className={styles.clip}><span className={`${styles.word} ${styles.sans}`}>Hi</span></span> */}
           </h1>
 

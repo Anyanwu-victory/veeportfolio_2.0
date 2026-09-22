@@ -1,0 +1,155 @@
+/* ============================================================
+   REPLACE your existing .about-hero* block in globals.css with
+   everything below — the old diagonal photo-overlap layout is
+   gone, this is a completely different structure (text block,
+   then a full-width uncropped illustration banner, then details).
+   ============================================================ */
+
+.about-hero {
+  position: relative;
+  z-index: 30;
+  margin-inline: auto;
+  max-width: 72rem;
+  padding: 6rem 1.25rem 5rem;
+}
+
+.about-hero__eyebrow {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  margin-bottom: 1.5rem;
+}
+
+.about-hero__eyebrow span {
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-top: 0.3rem;
+  border-radius: 9999px;
+  background: var(--text);
+  flex-shrink: 0;
+}
+
+.about-hero__eyebrow p {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.about-hero__heading {
+  font-family: var(--font-display), serif;
+  font-style: italic;
+  font-size: clamp(2.25rem, 8vw, 4rem);
+  line-height: 1.1;
+  color: var(--text);
+  max-width: 30ch;
+}
+
+.about-hero__heading-accent {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.about-hero__intro {
+  margin-top: 1.5rem;
+  max-width: 34rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* The banner: object-fit:contain deliberately, not cover — the source
+   image already has generous negative space and puts the cat/plant
+   near its far edges, so cropping to fill a box would cut them off.
+   The aspect-ratio grows wider at larger breakpoints so the image can
+   approach its natural wide-banner shape on desktop, while staying
+   taller (and the character/cat therefore bigger and more legible) on
+   narrow mobile viewports instead of being squeezed into a thin strip. */
+.about-hero__banner {
+  position: relative;
+  margin-top: 3rem;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.about-hero__banner-img {
+  object-fit: contain;
+}
+
+.about-hero__details {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.about-hero__details-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.about-hero__details-value {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.about-hero__details-link {
+  font-size: 0.9rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--border-strong, rgba(255, 255, 255, 0.15));
+  padding-bottom: 0.1rem;
+}
+
+.about-hero__details-link-accent {
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* ---------- Tablet ---------- */
+@media (min-width: 768px) {
+  .about-hero {
+    padding: 7rem 2rem 5.5rem;
+  }
+
+  .about-hero__banner {
+    aspect-ratio: 16 / 9;
+    margin-top: 3.5rem;
+  }
+
+  .about-hero__details {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 3.5rem;
+  }
+}
+
+/* ---------- Laptop / desktop ---------- */
+@media (min-width: 1024px) {
+  .about-hero {
+    padding: 8rem 2rem 6rem;
+  }
+
+  .about-hero__heading {
+    font-size: clamp(3rem, 5vw, 4.5rem);
+  }
+
+  .about-hero__banner {
+    /* Close to the source image's own natural ~2.4:1 shape — at this
+       width there's finally enough room for it to run as a genuine wide
+       banner without shrinking the character down too far. */
+    aspect-ratio: 21 / 9;
+    margin-top: 4rem;
+  }
+}
+
+@media (min-width: 1600px) {
+  .about-hero {
+    max-width: 84rem;
+  }
+}

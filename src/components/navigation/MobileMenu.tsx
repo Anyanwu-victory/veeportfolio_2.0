@@ -1,3 +1,4 @@
+// Mobile Navigation
 "use client";
 
 import { useEffect, useRef } from "react";
@@ -118,8 +119,8 @@ export default function MobileMenu({ items }: MobileMenuProps) {
               style={{ clipPath: ITEM_CLOSED, transform: "translateY(100%)" }}
               className={`overflow-hidden text-right text-5xl ${
                 normalizePath(pathname ?? "") === normalizePath(item.href)
-                  ? "text-text-menu"
-                  : "text-text-muted"
+                  ? "text-menu-active"
+                  : "  text-menu-inactive"
               }`}
             >
               <span className=" ">{item.number}.</span>
