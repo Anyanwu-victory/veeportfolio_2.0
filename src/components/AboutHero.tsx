@@ -27,7 +27,7 @@ export default function AboutHero() {
         <NeonRoom />
       </div> */}
 
-
+{/* image should not be stretched */}
       <motion.div
         className="about-hero__banner"
         initial={{ opacity: 0, scale: 0.97 }}
