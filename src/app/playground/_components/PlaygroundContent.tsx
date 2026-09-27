@@ -2,12 +2,12 @@
 
 import { useLayoutEffect, useRef } from "react";
 import Image from "next/image";
-import { Eye } from "lucide-react";
+import { ArrowDown, Eye, ArrowUpRight, Plus } from "lucide-react";
 import { gsap } from "gsap";
 import Container from "@/components/ui/Container";
 import { projects } from "./projects";
 import styles from "./PlaygroundContent.module.css";
-
+import Link from "next/link";
 export default function PlaygroundContent() {
   const pageRef = useRef<HTMLElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -26,7 +26,7 @@ export default function PlaygroundContent() {
       larger: "(min-width: 768px)",
       reduced: "(prefers-reduced-motion: reduce)",
     }, (context) => {
-      const { reduced } = context.conditions as Record<string, boolean>;
+      const { larger, reduced } = context.conditions as Record<string, boolean>;
       const select = gsap.utils.selector(page);
 
       if (!reduced) {
@@ -41,6 +41,10 @@ export default function PlaygroundContent() {
             { y: 24, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.8, stagger: 0.08, ease: "power3.out" });
       }
+
+      // The phone layout follows the journal's vertical reading flow. Keep the
+      // horizontal wheel, drag, and keyboard controls for tablet/desktop only.
+      if (!larger) return;
 
       let target = gallery.scrollLeft;
       let pointer: { id: number; x: number; scroll: number } | null = null;
@@ -141,6 +145,12 @@ export default function PlaygroundContent() {
             <h1 className={styles.heading} id="playground-heading">Playground</h1>
           </div>
           <p className={styles.intro}>From blood, sweat and experimentations to beautiful websites</p>
+          <ArrowDown
+            className={styles.mobileArrow}
+            size={28}
+            strokeWidth={1.5}
+            aria-hidden="true"
+          />
         </section>
 
         <p id="gallery-help" className="sr-only">
@@ -165,7 +175,11 @@ export default function PlaygroundContent() {
         >
           <ul className={styles.track}>
             {projects.map((project, projectIndex) => (
-              <li className={styles.projectItem} key={project.id}>
+              <li
+                className={styles.projectItem}
+                data-project={project.id}
+                key={project.id}
+              >
                 <a
                   className={styles.project}
                   href={project.href}
@@ -202,6 +216,21 @@ export default function PlaygroundContent() {
             ))}
           </ul>
         </div>
+
+         <section className={styles.endnote} aria-label="Keep exploring">
+                  <Plus size={24} strokeWidth={1} aria-hidden="true" />
+                  <p>
+                    Always room for
+                    <br />
+                    <em>one more idea.</em>
+                  </p>
+                  <Link href="/contact">
+                    Let’s make something <ArrowUpRight size={18} aria-hidden="true" />
+                  </Link>
+                </section>
+                <div className={styles.colophon}>
+                  <span>End of this page. Not the experiments.</span>
+                </div>
       </main>
     </Container>
   );
