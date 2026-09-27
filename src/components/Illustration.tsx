@@ -13,7 +13,7 @@ type IllustrationProps = {
 
 export default function Illustration({
   className = "",
-  src = "/assets/Hero_page_image.png",
+  src = "/assets/Hero-reveal.png",
 }: IllustrationProps) {
   return (
     <motion.div
