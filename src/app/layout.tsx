@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import "./backup.css";
-import { ThemeProvider } from "@/context/themeContext";
-import IntroGate from "@/components/layout/IntroGate";
-import SiteShell from "@/components/layout/SiteShell";
+import RouteShell from "@/components/layout/RouteShell";
+import { SanityLive } from "@/sanity/lib/live";
 
 const garamond = Cormorant_Garamond({
   variable: "--font-cormorant-garamond",
@@ -33,11 +32,8 @@ export default function RootLayout({
       className={`${inter.variable} ${garamond.variable} h-full antialiased`}
     >
       <body className="flex min-h-full w-full flex-col bg-surface">
-        <ThemeProvider>
-          <IntroGate>
-            <SiteShell>{children}</SiteShell>
-          </IntroGate>
-        </ThemeProvider>
+        <RouteShell>{children}</RouteShell>
+        <SanityLive />
       </body>
     </html>
   );
