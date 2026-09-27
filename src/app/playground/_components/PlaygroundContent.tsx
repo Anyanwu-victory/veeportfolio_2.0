@@ -5,10 +5,23 @@ import Image from "next/image";
 import { ArrowDown, Eye, ArrowUpRight, Plus } from "lucide-react";
 import { gsap } from "gsap";
 import Container from "@/components/ui/Container";
-import { projects } from "./projects";
 import styles from "./PlaygroundContent.module.css";
 import Link from "next/link";
-export default function PlaygroundContent() {
+import type {
+  PlaygroundPageData,
+  PlaygroundPreview,
+} from "@/sanity/lib/queries";
+
+type PlaygroundContentProps = {
+  data: PlaygroundPageData;
+};
+
+function getPreviewSource(preview: PlaygroundPreview) {
+  if (preview.source === "site") return preview.path;
+  return preview.image?.asset?.url;
+}
+
+export default function PlaygroundContent({ data }: PlaygroundContentProps) {
   const pageRef = useRef<HTMLElement>(null);
   const galleryRef = useRef<HTMLDivElement>(null);
   const draggedRef = useRef(false);
@@ -142,9 +155,9 @@ export default function PlaygroundContent() {
       <main className={styles.page} ref={pageRef}>
         <section className={styles.hero} aria-labelledby="playground-heading">
           <div className={styles.titleClip}>
-            <h1 className={styles.heading} id="playground-heading">Playground</h1>
+            <h1 className={styles.heading} id="playground-heading">{data.heading}</h1>
           </div>
-          <p className={styles.intro}>From blood, sweat and experimentations to beautiful websites</p>
+          <p className={styles.intro}>{data.introduction}</p>
           <ArrowDown
             className={styles.mobileArrow}
             size={28}
@@ -174,15 +187,15 @@ export default function PlaygroundContent() {
           }}
         >
           <ul className={styles.track}>
-            {projects.map((project, projectIndex) => (
+            {data.projects.map((project, projectIndex) => (
               <li
                 className={styles.projectItem}
-                data-project={project.id}
-                key={project.id}
+                data-project={project._key}
+                key={project._key}
               >
                 <a
                   className={styles.project}
-                  href={project.href}
+                  href={project.url}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`${project.title} — open live project in a new tab`}
@@ -197,19 +210,26 @@ export default function PlaygroundContent() {
                     <span className={styles.live}><Eye aria-hidden="true" />Live</span>
                   </div>
                   <div className={styles.previews}>
-                    {project.previews.map((preview, previewIndex) => (
-                      <figure className={styles.preview} key={preview}>
-                        <Image
-                          src={`/assets/playground/${preview}.webp`}
-                          alt={`${project.title} — preview ${previewIndex + 1}`}
-                          width={1512}
-                          height={982}
-                          sizes="(max-width: 767px) 75vw, 22.43vw"
-                          loading={projectIndex === 0 ? "eager" : "lazy"}
-                          draggable={false}
-                        />
-                      </figure>
-                    ))}
+                    {project.previews.map((preview) => {
+                      const src = getPreviewSource(preview);
+                      if (!src) return null;
+
+                      const dimensions = preview.image?.asset?.metadata?.dimensions;
+
+                      return (
+                        <figure className={styles.preview} key={preview._key}>
+                          <Image
+                            src={src}
+                            alt={preview.alt}
+                            width={dimensions?.width ?? 1512}
+                            height={dimensions?.height ?? 982}
+                            sizes="(max-width: 767px) 75vw, 22.43vw"
+                            loading={projectIndex === 0 ? "eager" : "lazy"}
+                            draggable={false}
+                          />
+                        </figure>
+                      );
+                    })}
                   </div>
                 </a>
               </li>
@@ -219,17 +239,13 @@ export default function PlaygroundContent() {
 
          <section className={styles.endnote} aria-label="Keep exploring">
                   <Plus size={24} strokeWidth={1} aria-hidden="true" />
-                  <p>
-                    Always room for
-                    <br />
-                    <em>one more idea.</em>
-                  </p>
-                  <Link href="/contact">
-                    Let’s make something <ArrowUpRight size={18} aria-hidden="true" />
+                  <p>{data.endnote}</p>
+                  <Link href={data.callToAction.href}>
+                    {data.callToAction.label} <ArrowUpRight size={18} aria-hidden="true" />
                   </Link>
                 </section>
                 <div className={styles.colophon}>
-                  <span>End of this page. Not the experiments.</span>
+                  <span>{data.colophon}</span>
                 </div>
       </main>
     </Container>
