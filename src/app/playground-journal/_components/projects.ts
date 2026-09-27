@@ -7,9 +7,7 @@ export type PlaygroundProject = {
   previews: string[];
 };
 
-// Starter content from the supplied reference, https://www.goodie.work/playground.
-// Replace these entries with your own projects; layout and animation stay separate.
-// Previews are local assets so the gallery does not depend on remote image hosting.
+// Legacy content used only by the separate playground-journal experiment.
 export const projects: PlaygroundProject[] = [
   {
     id: "vsl",

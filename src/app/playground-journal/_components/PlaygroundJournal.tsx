@@ -8,7 +8,7 @@ import { gsap } from "gsap";
 import {
   projects,
   type PlaygroundProject,
-} from "@/app/playground/_components/projects";
+} from "./projects";
 import styles from "./PlaygroundJournal.module.css";
 
 const studies: Record<string, { category: string; note: string }> = {
