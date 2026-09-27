@@ -16,7 +16,7 @@
   z-index: 1;
   top: 17%;
   left: 50%;
-  width: min-content;
+  width: 45%;
   transform: translateX(-50%);
   font-weight: 400;
   text-align: center;
@@ -57,7 +57,7 @@
 .contactLink,
 .credits p {
   font-family: "Clash Display", sans-serif;
-  font-size: 0.70rem;
+  font-size: 0.7rem;
   line-height: 1.25;
 }
 
@@ -76,7 +76,6 @@
   outline: 2px solid var(--text);
   outline-offset: 4px;
 }
-
 
 .visual {
   position: absolute;
@@ -102,11 +101,47 @@
 
 @media (min-width: 768px) {
   .heading {
-    top: 13.2%;
+    top: calc((3rem + 50svh) / 2);
+    width: min(50vw, 45rem);
+    transform: translate(-50%, -50%);
   }
 
   .word {
-    font-size: 5rem;
+    font-size: clamp(2.5rem, 5.5vw, 4.5rem);
+  }
+
+  .details {
+    top: 77.5%;
+    display: flex;
+    justify-content: flex-end;
+    width: 27%;
+    right: 3%;
+    padding: 0;
+    gap: 0.5vw;
+    flex-direction: column;
+  }
+
+  .visual {
+    top: 50%;
+  }
+
+  .credits {
+    position: absolute;
+    display: flex;
+    z-index: 2;
+    top: 76.5%;
+    left: 3%;
+    flex-direction: column;
+    gap: 0.8vw;
+  }
+}
+@media (min-width: 1024px) {
+  .heading {
+    width: 37%;
+  }
+
+  .word {
+    font-size: clamp(3.5rem, 4.5vw, 5.5rem);
   }
 
   .heading .clip {
@@ -120,13 +155,13 @@
     width: 27%;
     right: 3%;
     padding: 0;
-    gap: 1.7vw;
+    gap: 0.5vw;
     flex-direction: column;
   }
 
   .contactLink,
   .credits p {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
   }
 
   .visual {
@@ -147,7 +182,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   .word,
   .detail,
   .visual {
@@ -157,5 +191,11 @@
   .heading,
   .visual {
     transform: translateX(-50%);
+  }
+}
+
+@media (min-width: 768px) and (prefers-reduced-motion: reduce) {
+  .heading {
+    transform: translate(-50%, -50%);
   }
 }

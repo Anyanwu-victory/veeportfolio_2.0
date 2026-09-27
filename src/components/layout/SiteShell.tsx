@@ -21,16 +21,20 @@ export default function SiteShell({ children }: SiteShellProps) {
   const isIllustrated = pathname === "/about-illustrated";
   return (
     <div className={`relative min-h-screen overflow-hidden ${isJournal ? journalStyles.shell : ""} ${isIllustrated ? illustratedStyles.shell : ""}`}>
+     {/* Mobile Nav Provider */}
       <MobileMenuProvider>
         <NavHoverProvider>
+          {/* Header */}
           <Header navItems={navItems} />
 
+{/* Desktop andlaptop Navigaton */}
           <section className="home_navigation">
             <DesktopNav items={navItems} />
           </section>
 
           {children}
 
+{/* Footer */}
           <Footer />
         </NavHoverProvider>
       </MobileMenuProvider>

@@ -56,6 +56,8 @@
   --text-muted: rgba(25, 33, 35, 0.45);
   --text-inverse: #ffffff;
   --text-menu: #ffffff;
+  --menu-active: #ffffff;
+  --menu-inactive: #6f7171;
   --hover-surface: #bfbfbf;
   /* Accent */
   --accent: #ff3d1a;
@@ -76,7 +78,6 @@
   --font-ui: var(--font-geist-sans);
   --font-code: var(--font-geist-mono);
 
-
   /* Animation */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -94,6 +95,8 @@
   --text-muted: rgba(234, 236, 238, 0.45);
   --text-inverse: #192123;
   --text-menu: #ffffff;
+  --menu-active: #ffffff;
+  --menu-inactive: #6f7171;
 
   --border: rgba(234, 236, 238, 0.1);
   --border-strong: rgba(234, 236, 238, 0.2);
@@ -121,6 +124,8 @@
 
   --color-accent: var(--accent);
   --color-text-menu: var(--text-menu);
+  --color-menu-active: var(--menu-active);
+  --color-menu-inactive: var(--menu-inactive);
 
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
@@ -213,7 +218,6 @@ ol {
 }
 
 @media (min-width: 1024px) {
-
   .work__experience,
   .navigation__wrapper,
   .header {
@@ -221,9 +225,7 @@ ol {
   }
 }
 
-
 @media (min-width: 1600px) {
-
   .work__experience,
   .navigation__wrapper,
   .header {
@@ -245,7 +247,7 @@ ol {
 }
 
 @media (min-width: 768px) and (max-width: 1023px),
-       (min-width: 1024px) and (max-width: 1399px) and (hover: none) and (pointer: coarse) {
+  (min-width: 1024px) and (max-width: 1399px) and (hover: none) and (pointer: coarse) {
   :root {
     --nav-center: 50svh;
     --nav-band-height: 5rem;
@@ -303,7 +305,6 @@ ol {
 }
 
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {
