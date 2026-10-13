@@ -1,4 +1,8 @@
-import {EnvelopeIcon, HomeIcon, JoystickIcon, ProjectsIcon, UserIcon} from '@sanity/icons'
+import { EnvelopeIcon } from '@sanity/icons/Envelope'
+import { HomeIcon } from '@sanity/icons/Home'
+import { JoystickIcon } from '@sanity/icons/Joystick'
+import { ProjectsIcon } from '@sanity/icons/Projects'
+import { UserIcon } from '@sanity/icons/User'
 import type {StructureResolver} from 'sanity/structure'
 
 const singletonTypes = new Set([

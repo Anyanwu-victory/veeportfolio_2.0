@@ -302,7 +302,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.75rem;
-    padding: 6rem 0 3rem;
+    padding: 6rem 1rem 3rem;
   }
   .hero :global(.about-hero__photo) {
     position: relative;

@@ -12,8 +12,6 @@ type Theme = "light" | "dark";
 
 interface ThemeContextType {
   theme: Theme;
-  toggleTheme: () => void;
-  setTheme: (theme: Theme) => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
@@ -25,40 +23,34 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>("dark");
 
-  // Load saved theme (or use system preference on first visit)
   useEffect(() => {
-    const saved = localStorage.getItem("portfolio-theme") as Theme | null;
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
 
-    if (saved) {
-      setTheme(saved);
-      return;
-    }
+    const updateTheme = (e: MediaQueryListEvent | MediaQueryList) => {
+      setTheme(e.matches ? "dark" : "light");
+    };
 
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
+    // Initial check based on system preference
+    updateTheme(mediaQuery);
 
-    setTheme(prefersDark ? "dark" : "light");
+    // Listen to OS / browser preference changes in real-time
+    mediaQuery.addEventListener("change", updateTheme);
+
+    // Remove legacy local storage override if present
+    localStorage.removeItem("portfolio-theme");
+
+    return () => {
+      mediaQuery.removeEventListener("change", updateTheme);
+    };
   }, []);
 
-  // Apply theme to <html> and save it
+  // Apply theme attribute to <html> element
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("portfolio-theme", theme);
   }, [theme]);
 
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === "dark" ? "light" : "dark"));
-  };
-
   return (
-    <ThemeContext.Provider
-      value={{
-        theme,
-        toggleTheme,
-        setTheme,
-      }}
-    >
+    <ThemeContext.Provider value={{ theme }}>
       {children}
     </ThemeContext.Provider>
   );

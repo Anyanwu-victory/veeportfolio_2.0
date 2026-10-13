@@ -84,6 +84,26 @@
 
 /* DARK */
 
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --surface: #0c0e0f;
+    --surface-secondary: #111415;
+    --surface-overlay: #192123;
+    --hover-surface: #7d7d7d;
+
+    --text: #eaecee;
+    --text-secondary: rgba(234, 236, 238, 0.72);
+    --text-muted: rgba(234, 236, 238, 0.45);
+    --text-inverse: #192123;
+    --text-menu: #ffffff;
+    --menu-active: #ffffff;
+    --menu-inactive: #6f7171;
+
+    --border: rgba(234, 236, 238, 0.1);
+    --border-strong: rgba(234, 236, 238, 0.2);
+  }
+}
+
 [data-theme="dark"] {
   --surface: #0c0e0f;
   --surface-secondary: #111415;

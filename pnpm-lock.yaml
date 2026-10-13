@@ -17,6 +17,9 @@ importers:
       '@sanity/client':
         specifier: ^7.22.1
         version: 7.22.1
+      '@sanity/icons':
+        specifier: ^5.2.3
+        version: 5.2.3(react@19.2.4)
       '@sanity/image-url':
         specifier: ^2.1.1
         version: 2.1.1
@@ -2394,6 +2397,12 @@ packages:
     engines: {node: '>=14.0.0'}
     peerDependencies:
       react: ^18.3 || ^19.0.0-0
+
+  '@sanity/icons@5.2.3':
+    resolution: {integrity: sha512-10nE7IiuXIPIf6ufSKyNwnOE75wghEollUYzkjPUAX+5oenyE5qDFUrMD5MeC+8gxZ8KS61o8sH1mpmhpWx++w==}
+    engines: {node: '>=20.19 <22 || >=22.12'}
+    peerDependencies:
+      react: ^18 || ^19
 
   '@sanity/id-utils@1.0.0':
     resolution: {integrity: sha512-2sb7tbdMDuUuVyocJPKG0gZBiOML/ovCe+mJiLrv1j69ODOfa2LfUjDVR+dRw/A/+XuxoJSSP8ebG7NiwTOgIA==}
@@ -8675,6 +8684,10 @@ snapshots:
   '@sanity/generate-help-url@4.0.0': {}
 
   '@sanity/icons@3.7.4(react@19.2.4)':
+    dependencies:
+      react: 19.2.4
+
+  '@sanity/icons@5.2.3(react@19.2.4)':
     dependencies:
       react: 19.2.4
 
