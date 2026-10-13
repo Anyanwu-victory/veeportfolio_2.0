@@ -125,7 +125,7 @@
   text-align: right;
 }
 
-.tools li + li::before {
+.tools li+li::before {
   content: "/";
   margin-right: 0.35rem;
   color: var(--text-muted);
@@ -182,12 +182,14 @@
   gap: 2rem;
   padding: 8rem 0 6rem;
 }
+
 .endnote p {
   font-family: var(--font-cormorant-garamond), serif;
   font-size: clamp(3rem, 6vw, 6rem);
   line-height: 0.95;
   letter-spacing: -0.03em;
 }
+
 .endnote a {
   display: inline-flex;
   gap: 1rem;
@@ -196,25 +198,29 @@
   border-bottom: 1px solid var(--text);
   font-size: 0.8rem;
 }
+
 .colophon {
   border-top: 1px solid var(--border-strong);
   padding-top: 1.2rem;
   color: var(--text-secondary);
   font-size: 0.55rem;
 }
+
 .colophon a {
   display: inline-flex;
   gap: 0.5rem;
   align-items: center;
 }
+
 .page a:focus-visible,
 .page button:focus-visible {
   outline: 2px solid var(--text);
   outline-offset: 5px;
 }
+
 /* Tablet/laptop/desktop share the reference's composition: heading in the
    upper half, shared navigation at 50%, and the gallery beginning at 65%. */
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .page {
     height: 100svh;
     min-height: 0;
@@ -322,7 +328,7 @@
     background: none;
   }
 
-  .tools li + li::before {
+  .tools li+li::before {
     content: none;
   }
 
@@ -372,17 +378,19 @@
     height: min(13.4vw, calc(35svh - 2rem));
   }
 
-   .endnote,
+  .endnote,
   .colophon {
     display: none;
   }
 }
 
 @keyframes arrowDrift {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(6px);
   }
@@ -392,6 +400,7 @@
   .gallery {
     scroll-behavior: auto;
   }
+
   .mobileArrow {
     animation: none;
   }
