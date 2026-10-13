@@ -1,4 +1,5 @@
 import {defineQuery} from 'next-sanity'
+import type {PortableTextBlock} from '@portabletext/react'
 
 const siteImageProjection = /* groq */ `
   source,
@@ -106,8 +107,7 @@ export const contactPageQuery = defineQuery(/* groq */ `
   }
 `)
 
-export type PlaygroundPreview = {
-  _key: string
+export type SiteImageData = {
   source: 'sanity' | 'site'
   path?: string
   alt: string
@@ -126,6 +126,18 @@ export type PlaygroundPreview = {
     crop?: Record<string, number>
     hotspot?: Record<string, number>
   }
+}
+
+export type AboutPageData = {
+  _id: string
+  introduction: string
+  statement: PortableTextBlock[]
+  artwork: SiteImageData
+  artworkCaption: string
+}
+
+export type PlaygroundPreview = SiteImageData & {
+  _key: string
 }
 
 export type PlaygroundPageData = {
