@@ -1,61 +1,74 @@
 "use client";
 
-import NeonRoom from "./NeonRoom";
 import styles from "./NeonRoom.module.css";
-
 import Image from "next/image";
 import { motion } from "framer-motion";
-
-
-
+import { PortableText } from "@portabletext/react";
+import type { AboutPageData, SiteImageData } from "@/sanity/lib/queries";
+import { urlFor } from "@/sanity/lib/image";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
+const statementComponents = {
+  block: {
+    normal: ({ children }: { children?: React.ReactNode }) => <p>{children}</p>,
+  },
+  marks: {
+    em: ({ children }: { children?: React.ReactNode }) => (
+      <em className="about-hero__em">{children}</em>
+    ),
+  },
+};
 
-// Desktop composition lives in backup.css; NeonRoom.module.css keeps the
-// complete scene visible in the phone and tablet layouts.
-export default function AboutHero() {
+function getArtworkSource(artwork: SiteImageData) {
+  if (artwork.source === "site") return artwork.path;
+  if (!artwork.image?.asset) return undefined;
+
+  return urlFor(artwork.image).width(1560).fit("max").auto("format").url();
+}
+
+type AboutHeroProps = {
+  data: AboutPageData;
+};
+
+export default function AboutHero({ data }: AboutHeroProps) {
+  const artworkSource = getArtworkSource(data.artwork);
+
   return (
     <div className="about-hero__stage">
-      <div className={`about-hero mt-4 md:mt-24 lg:mt-20 xl:mt-20 px-4 md:px-0 justify-center relative align-middle ${styles.hero}`}>
-        <p className="about-hero__intro indent-14 lg:indent-26 font-display">
-          I&apos;m Victory Anyanwu, frontend developer, based in Abuja. 
-           I turn designs into interfaces that actually feel like something. 
-        </p>
-        
-        {/*
-      <div className="about-hero__photo">
-        <NeonRoom />
-      </div> */}
+      <div className={`about-hero ${styles.hero}`}>
+        <div className="about-hero__intro indent-14 lg:indent-26 font-display">
+          <PortableText
+            value={data.statement}
+            components={statementComponents}
+          />
+        </div>
 
-        {/* image should not be stretched */}
         <motion.div
-          className="about-hero__banner px-[1rem] lg:px-0"
+          className="about-hero__banner"
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.55, ease }}
         >
-          <Image
-            src="/assets/images/Image-reveal.png"
-            alt="Illustration of Victory floating with a laptop, a sleeping cat, a coffee mug reading 'Good Code Better Coffee,' and a trailing plant"
-            fill
-            className="about-hero__banner-img"
-            priority
-          />
+          {artworkSource && (
+            <Image
+              src={artworkSource}
+              alt={data.artwork.alt}
+              fill
+              className="about-hero__banner-img"
+              priority
+              sizes="(min-width: 1024px) 78rem, 100vw"
+            />
+          )}
         </motion.div>
 
-        <p className="about-hero__outro font-clash ">
-          In the game for 4 years, Most of what I build sits at the edge of design and engineering.
-           Programming is both my profession and passion,
-           which is why I truly enjoy working as a developer.
+        <div className="about-hero__footer">
+          <p className="about-hero__caption">{data.artworkCaption}</p>
 
-        </p>
-
-        <p className="about-hero__caption">
-          This is me, doing
-          <br />
-          my daily things
-        </p>
+          <p className="about-hero__outro font-clash">
+            {data.introduction}
+          </p>
+        </div>
       </div>
     </div>
   );
