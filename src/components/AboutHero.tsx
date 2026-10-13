@@ -18,24 +18,25 @@ export default function AboutHero() {
   return (
     <div className="about-hero__stage">
       <div className={`about-hero mt-4 md:mt-24 lg:mt-20 xl:mt-20 px-4 md:px-0 justify-center relative align-middle ${styles.hero}`}>
-        <p className="about-hero__intro indent-14 lg:indent-28 font-display">
-          In the game for over 6 years, I&apos;m currently based in Ho Chi
-          Minh city, working as an independent designer since July, 2022.
+        <p className="about-hero__intro indent-14 lg:indent-26 font-display">
+          I&apos;m Victory Anyanwu, frontend developer, based in Abuja. 
+           I turn designs into interfaces that actually feel like something. 
         </p>
-        {/* 
+        
+        {/*
       <div className="about-hero__photo">
         <NeonRoom />
       </div> */}
 
         {/* image should not be stretched */}
         <motion.div
-          className="about-hero__banner"
+          className="about-hero__banner px-[1rem] lg:px-0"
           initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, delay: 0.55, ease }}
         >
           <Image
-            src="/assets/images/Image-reveal-1.png"
+            src="/assets/images/Image-reveal.png"
             alt="Illustration of Victory floating with a laptop, a sleeping cat, a coffee mug reading 'Good Code Better Coffee,' and a trailing plant"
             fill
             className="about-hero__banner-img"
@@ -44,12 +45,10 @@ export default function AboutHero() {
         </motion.div>
 
         <p className="about-hero__outro font-clash ">
-          Enthusiastic about crafting{" "}
-          <span className="about-hero__em">
-            ideas, visual elements, motion
-          </span>{" "}
-          and <span className="about-hero__em">typography</span> into
-          memorable creations.
+          In the game for 4 years, Most of what I build sits at the edge of design and engineering.
+           Programming is both my profession and passion,
+           which is why I truly enjoy working as a developer.
+
         </p>
 
         <p className="about-hero__caption">

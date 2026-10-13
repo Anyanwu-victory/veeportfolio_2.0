@@ -1,4 +1,4 @@
-import {JoystickIcon} from '@sanity/icons'
+import { JoystickIcon } from '@sanity/icons/Joystick'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 
 import {pageGroups, seoField, sitePreview} from './pageFields'

@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import MobileMenu from "@/components/navigation/MobileMenu";
-import { useTheme } from "@/context/themeContext";
 import { useNavHover } from "@/context/navigationHoverContext";
 import { useMobileMenu } from "@/context/mobileMenuContext";
 import type { NavItem } from "@/lib/navItems";
@@ -12,7 +11,6 @@ type HeaderProps = {
 };
 
 export default function Header({ navItems }: HeaderProps) {
-  const { theme, toggleTheme } = useTheme();
   const { showGhost, hideGhost, expandAndNavigate } = useNavHover();
   const { isOpen } = useMobileMenu();
   const router = useRouter();
@@ -95,19 +93,10 @@ export default function Header({ navItems }: HeaderProps) {
           </div>
 
           <div className="hidden items-center gap-3 md:flex lg:gap-5">
-            <div className="header-edition text-right font-body leading-snug text-xl lg:text-3xl">
+            <div className="header-edition text-right font-body leading-snug text-xl ">
               <span className="block pr-2">Folio</span>
               <span className="block">&rarr; &apos;26</span>
             </div>
-
-            <button
-              type="button"
-              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-              onClick={toggleTheme}
-              className="flex min-h-11 min-w-11 items-center justify-center text-lg text-text-muted transition hover:text-text"
-            >
-              {theme === "dark" ? "☀" : "☾"}
-            </button>
           </div>
         </div>
       </div>
