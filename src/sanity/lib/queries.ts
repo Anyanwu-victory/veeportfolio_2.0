@@ -159,3 +159,17 @@ export type PlaygroundPageData = {
   }
   colophon: string
 }
+
+export type WorkPageData = {
+  _id: string
+  heading: string
+  introduction: string
+  experiences: Array<{
+    _key: string
+    company: string
+    role: string
+    period: string
+    description: string
+    tools: string[]
+  }>
+}

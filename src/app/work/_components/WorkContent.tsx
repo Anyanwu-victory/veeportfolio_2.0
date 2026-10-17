@@ -3,30 +3,14 @@
 import { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import Container from "@/components/ui/Container";
+import type { WorkPageData } from "@/sanity/lib/queries";
 import styles from "./WorkContent.module.css";
 
-const experiences = [
-  {
-    index: "01",
-    company: "Frikax",
-    role: "Frontend Developer",
-    period: "(Mar '22 - Aug '22)",
-    description:
-      "Worked with talented designers and developers while transforming designs into beautiful portfolio themes. Integrated a couple of features in the web app.",
-    tools: "NEXT JS, TAILWIND CSS, GIT/GITHUB",
-  },
-  {
-    index: "02",
-    company: "Independent",
-    role: "Creative Developer",
-    period: "(May '22 - present)",
-    description:
-      "Exploring different approaches to creating amazing websites while collaborating with amazing designers",
-    tools: "WEBGL, GLSL, THREEJS, GSAP, WAAPI, OBJECT ORIENTED JAVASCRIPT",
-  },
-];
+type WorkContentProps = {
+  data: WorkPageData;
+};
 
-export default function WorkContent() {
+export default function WorkContent({ data }: WorkContentProps) {
   const h1Ref = useRef<HTMLHeadingElement>(null);
   const introRef = useRef<HTMLParagraphElement>(null);
   const rowRefs = useRef<(HTMLElement | null)[]>([]);
@@ -211,21 +195,20 @@ export default function WorkContent() {
         <section className={styles.hero}>
           <div className={styles.titleClip}>
             <h1 ref={h1Ref} style={{ willChange: "transform" }}>
-              Work
+              {data.heading}
             </h1>
           </div>
           <p ref={introRef} className={styles.intro} style={{ opacity: 0 }}>
-            I did gain a little experience over the past year. The less boring
-            stuffs are probably in my playground.
+            {data.introduction}
           </p>
         </section>
 
         {/* Experience Content */}
         <section className={styles.experience} aria-label="Work experience">
-          {experiences.map((item, position) => (
+          {data.experiences.map((item, position) => (
             <article
               className={styles.row}
-              key={item.company}
+              key={item._key}
               ref={(el) => {
                 rowRefs.current[position] = el;
               }}
@@ -250,7 +233,7 @@ export default function WorkContent() {
                 className={styles.revealButton}
                 aria-label={`${item.company} details`}
                 aria-expanded="false"
-                aria-controls={`work-details-${item.index}`}
+                aria-controls={`work-details-${item._key}`}
                 onClick={() => {
                   const next = activeRowRef.current === position ? null : position;
                   pinnedRowRef.current = next;
@@ -275,7 +258,9 @@ export default function WorkContent() {
               {/*  header */}
               <div className={styles.headerContent}>
                 <header className={styles.companyBlock}>
-                  <span className={styles.number}>{item.index}.</span>
+                  <span className={styles.number}>
+                    {String(position + 1).padStart(2, "0")}.
+                  </span>
                   <h2>{item.company}</h2>
                 </header>
                 <div className={styles.roleBlock}>
@@ -284,10 +269,10 @@ export default function WorkContent() {
                 </div>
               </div>
               {/* Tools and description div */}
-              <div className={styles.tools} id={`work-details-${item.index}`}>
+              <div className={styles.tools} id={`work-details-${item._key}`}>
                 <p className={styles.description}>{item.description}</p>
                 <p>
-                  <span>{item.tools}</span>
+                  <span>{item.tools.join(", ")}</span>
                   <span className={styles.revealPeriod}>{item.role} {item.period}</span>
                 </p>
               </div>
