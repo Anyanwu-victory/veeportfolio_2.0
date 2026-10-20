@@ -1,0 +1,135 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  min-height: 100dvh;
+  overflow: hidden;
+  color: var(--text);
+  background: var(--surface);
+  cursor: wait;
+  animation: overlay-out 700ms cubic-bezier(0.65, 0, 0.35, 1) 2250ms forwards;
+}
+
+.wordFrame {
+  display: grid;
+  place-items: center;
+  padding: 0.12em 0.14em 0.2em;
+  animation: word-exit 600ms cubic-bezier(0.4, 0, 0.2, 1) 2250ms forwards;
+  will-change: opacity, transform, filter;
+}
+
+.word {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 12vw, 10rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+}
+
+.leadLetter {
+  display: block;
+  animation: lead-letter-in 700ms cubic-bezier(0.16, 1, 0.3, 1) 150ms both;
+  will-change: opacity, transform, filter;
+}
+
+.remainingFrame {
+  display: block;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  animation: remaining-reveal 1050ms cubic-bezier(0.76, 0, 0.24, 1) 800ms forwards;
+}
+
+.remainingLetters {
+  display: block;
+  padding-right: 0.08em;
+  transform: translateX(-0.22em) scaleX(0.9);
+  transform-origin: left center;
+  animation: remaining-settle 1050ms cubic-bezier(0.16, 1, 0.3, 1) 800ms forwards;
+  will-change: transform, filter;
+}
+
+@keyframes lead-letter-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px) scale(0.88);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes remaining-reveal {
+  0% {
+    max-width: 0;
+    opacity: 0;
+  }
+
+  100% {
+    max-width: 5em;
+    opacity: 1;
+  }
+}
+
+@keyframes remaining-settle {
+  from {
+    filter: blur(5px);
+    transform: translateX(-0.22em) scaleX(0.9);
+  }
+
+  to {
+    filter: blur(0);
+    transform: translateX(0) scaleX(1);
+  }
+}
+
+@keyframes word-exit {
+  to {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(-44px) scale(0.985);
+  }
+}
+
+@keyframes overlay-out {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .wordFrame,
+  .leadLetter,
+  .remainingFrame,
+  .remainingLetters {
+    animation: none;
+  }
+
+  .remainingFrame {
+    max-width: none;
+    opacity: 1;
+  }
+
+  .leadLetter,
+  .remainingLetters {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+}
