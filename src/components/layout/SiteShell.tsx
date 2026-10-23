@@ -10,6 +10,7 @@ import DesktopNav from "@/components/navigation/DesktopNav";
 import { MobileMenuProvider } from "@/context/mobileMenuContext";
 import { NavHoverProvider } from "@/context/navigationHoverContext";
 import { navItems } from "@/lib/navItems";
+import { useHomeIntro } from "@/components/layout/IntroGate";
 
 type SiteShellProps = {
   children: ReactNode;
@@ -17,6 +18,9 @@ type SiteShellProps = {
 
 export default function SiteShell({ children }: SiteShellProps) {
   const pathname = usePathname();
+  const introPhase = useHomeIntro();
+  const isDesktopNavHidden =
+    introPhase === "letters" || introPhase === "greeting";
   const isJournal = pathname === "/playground-journal";
   const isIllustrated = pathname === "/about-illustrated";
   return (
@@ -25,10 +29,12 @@ export default function SiteShell({ children }: SiteShellProps) {
       <MobileMenuProvider>
         <NavHoverProvider>
           {/* Header */}
-          <Header navItems={navItems} />
+          <div className="opacity-100">
+            <Header navItems={navItems} animateEntrance={pathname === "/"} />
+          </div>
 
 {/* Desktop andlaptop Navigaton */}
-          <section className="home_navigation">
+          <section className={`home_navigation transition-opacity duration-[800ms] ease-out ${isDesktopNavHidden ? "pointer-events-none opacity-0" : "opacity-100"}`}>
             <DesktopNav items={navItems} />
           </section>
 

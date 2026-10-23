@@ -1,0 +1,19 @@
+.homeEntrance {
+  animation: header-slide-in 950ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
+}
+
+@keyframes header-slide-in {
+  from {
+    transform: translateY(-110%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homeEntrance {
+    animation: none;
+  }
+}

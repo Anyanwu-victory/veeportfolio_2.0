@@ -173,3 +173,16 @@ export type WorkPageData = {
     tools: string[]
   }>
 }
+
+export type ContactPageData = {
+  _id: string
+  heading: string
+  links: Array<{
+    _key: string
+    label: string
+    displayValue: string
+    href: string
+  }>
+  animationPath: string
+  animationAlt: string
+}

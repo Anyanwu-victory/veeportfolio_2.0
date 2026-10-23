@@ -41,7 +41,7 @@ export const contactPageType = defineType({
     links: [
       { _key: 'github', _type: 'contactLink', label: 'GitHub', displayValue: '/Anyanwu-victory', href: 'https://github.com/Anyanwu-victory' },
       { _key: 'gmail', _type: 'contactLink', label: 'Gmail', displayValue: 'victanyanwu306', href: 'mailto:victanyanwu306@gmail.com' },
-      { _key: 'resume', _type: 'contactLink', label: 'Resume', displayValue: '/Victory', href: 'https://github.com/Anyanwu-victory' },
+      { _key: 'resume', _type: 'contactLink', label: 'Resume', displayValue: 'View PDF', href: '/assets/Victory_Anyanwu_Resume.pdf' },
       { _key: 'linkedin', _type: 'contactLink', label: 'LinkedIn', displayValue: '/victory-anyanwu', href: 'https://linkedin.com/in/victory-anyanwu' },
     ],
     animationPath: '/assets/animations/Figure_Message_sent.json',

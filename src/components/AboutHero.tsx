@@ -2,7 +2,7 @@
 
 import styles from "./NeonRoom.module.css";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { PortableText } from "@portabletext/react";
 import type { AboutPageData, SiteImageData } from "@/sanity/lib/queries";
 import { urlFor } from "@/sanity/lib/image";
@@ -33,16 +33,29 @@ type AboutHeroProps = {
 
 export default function AboutHero({ data }: AboutHeroProps) {
   const artworkSource = getArtworkSource(data.artwork);
+  const shouldReduceMotion = useReducedMotion();
+  const introStartX = shouldReduceMotion ? 0 : "-100vw";
+  const outroStartX = shouldReduceMotion ? 0 : "100vw";
+  const textDuration = shouldReduceMotion ? 0 : 1.2;
 
   return (
     <div className="about-hero__stage">
       <div className={`about-hero ${styles.hero}`}>
-        <div className="about-hero__intro indent-14 lg:indent-26 font-display">
+        <motion.div
+          className="about-hero__intro indent-14 lg:indent-26 font-display"
+          initial={{ opacity: 0, x: introStartX }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{
+            duration: textDuration,
+            delay: shouldReduceMotion ? 0 : 0.1,
+            ease,
+          }}
+        >
           <PortableText
             value={data.statement}
             components={statementComponents}
           />
-        </div>
+        </motion.div>
 
         <motion.div
           className="about-hero__banner"
@@ -65,9 +78,18 @@ export default function AboutHero({ data }: AboutHeroProps) {
         <div className="about-hero__footer">
           <p className="about-hero__caption">{data.artworkCaption}</p>
 
-          <p className="about-hero__outro font-clash">
+          <motion.p
+            className="about-hero__outro font-clash"
+            initial={{ opacity: 0, x: outroStartX }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{
+              duration: textDuration,
+              delay: shouldReduceMotion ? 0 : 0.4,
+              ease,
+            }}
+          >
             {data.introduction}
-          </p>
+          </motion.p>
         </div>
       </div>
     </div>
