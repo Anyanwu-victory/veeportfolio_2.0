@@ -31,7 +31,7 @@ export default async function RootLayout({
 
   try {
     const { data } = await sanityFetch({ query: resumeLinkQuery });
-    resumeHref = data?.href ?? null;
+    resumeHref = (data as { href?: string } | null)?.href ?? null;
   } catch {
     // Keep the portfolio available if Sanity cannot be reached.
   }
