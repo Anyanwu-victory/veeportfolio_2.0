@@ -84,14 +84,15 @@ export default function Header({ navItems, resumeHref, animateEntrance = false }
           <div className="flex items-center gap-3 md:hidden">
             
             {/* Mobile Menu Title */}
-            <h1
+            <button
+              type="button"
               onClick={goHome}
               className={`cursor-pointer text-xl font-semibold tracking-[0.2em] md:hidden ${
                 isOpen ? "text-text-menu relative z-50" : "text-text "
               }`}
             >
               VICKY
-            </h1>
+            </button>
             <MobileMenu items={navItems} resumeHref={resumeHref} />
           </div>
 

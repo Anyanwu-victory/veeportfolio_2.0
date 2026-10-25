@@ -5,6 +5,7 @@ import "./about.css";
 import RouteShell from "@/components/layout/RouteShell";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { resumeLinkQuery } from "@/sanity/lib/queries";
+import { siteUrl } from "@/lib/site";
 
 const garamond = Cormorant_Garamond({
   variable: "--font-cormorant-garamond",
@@ -18,8 +19,26 @@ const inter = Inter({
 
 
 export const metadata: Metadata = {
-  title: "Victory -- Frontend Developer",
-  description: "A portfolio website showcasing the work and projects of Victory, a talented developer and designer.",
+  metadataBase: siteUrl,
+  title: {
+    default: "Victory Anyanwu — Frontend Engineer in Abuja, Nigeria",
+    template: "%s | Victory Anyanwu",
+  },
+  description:
+    "Victory Anyanwu is a frontend engineer in Abuja, Nigeria, building polished, interactive web experiences with modern frontend technologies.",
+  openGraph: {
+    type: "website",
+    siteName: "Victory Anyanwu",
+    title: "Victory Anyanwu — Frontend Engineer in Abuja, Nigeria",
+    description:
+      "Frontend engineering, creative development, and selected work by Victory Anyanwu in Abuja, Nigeria.",
+  },
+  twitter: {
+    card: "summary",
+    title: "Victory Anyanwu — Frontend Engineer in Abuja, Nigeria",
+    description:
+      "Frontend engineering, creative development, and selected work by Victory Anyanwu in Abuja, Nigeria.",
+  },
 };
 
 export default async function RootLayout({
