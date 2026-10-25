@@ -67,7 +67,17 @@
   white-space: nowrap;
 }
 
-.contactLink strong,
+.contactLink > span,
+.detail > span {
+  font-weight: 300;
+  color: var(--text-muted);
+}
+
+.contactLink strong {
+  font-weight: 600;
+  color: var(--text);
+}
+
 .credits strong {
   font-weight: 300;
 }
@@ -149,13 +159,13 @@
   }
 
   .details {
-    top: 76.5%;
+    top: 70%;
     display: flex;
     justify-content: flex-end;
     width: 27%;
-    right: 3%;
+    right: 0;
     padding: 0;
-    gap: 0.5vw;
+    gap: 1.15rem;
     flex-direction: column;
   }
 
@@ -174,10 +184,10 @@
     position: absolute;
     display: flex;
     z-index: 2;
-    top: 76.5%;
+    top: 73%;
     left: 3%;
     flex-direction: column;
-    gap: 0.8vw;
+    gap: 1.15rem;
   }
 }
 

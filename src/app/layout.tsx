@@ -3,7 +3,8 @@ import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import "./about.css";
 import RouteShell from "@/components/layout/RouteShell";
-import { SanityLive } from "@/sanity/lib/live";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { resumeLinkQuery } from "@/sanity/lib/queries";
 
 const garamond = Cormorant_Garamond({
   variable: "--font-cormorant-garamond",
@@ -21,18 +22,27 @@ export const metadata: Metadata = {
   description: "A portfolio website showcasing the work and projects of Victory, a talented developer and designer.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let resumeHref: string | null = null;
+
+  try {
+    const { data } = await sanityFetch({ query: resumeLinkQuery });
+    resumeHref = (data as { href?: string } | null)?.href ?? null;
+  } catch {
+    // Keep the portfolio available if Sanity cannot be reached.
+  }
+
   return (
     <html
       lang="en"
       className={`${inter.variable} ${garamond.variable} h-full antialiased`}
     >
       <body className="flex min-h-full w-full flex-col bg-surface">
-        <RouteShell>{children}</RouteShell>
+        <RouteShell resumeHref={resumeHref}>{children}</RouteShell>
         <SanityLive />
       </body>
     </html>

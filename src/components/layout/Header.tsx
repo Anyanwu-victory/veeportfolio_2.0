@@ -5,12 +5,15 @@ import MobileMenu from "@/components/navigation/MobileMenu";
 import { useNavHover } from "@/context/navigationHoverContext";
 import { useMobileMenu } from "@/context/mobileMenuContext";
 import type { NavItem } from "@/lib/navItems";
+import styles from "./Header.module.css";
 
 type HeaderProps = {
   navItems: NavItem[];
+  resumeHref: string | null;
+  animateEntrance?: boolean;
 };
 
-export default function Header({ navItems }: HeaderProps) {
+export default function Header({ navItems, resumeHref, animateEntrance = false }: HeaderProps) {
   const { showGhost, hideGhost, expandAndNavigate } = useNavHover();
   const { isOpen } = useMobileMenu();
   const router = useRouter();
@@ -27,7 +30,7 @@ export default function Header({ navItems }: HeaderProps) {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 header">
+    <header className={`fixed inset-x-0 top-0 z-50 header ${animateEntrance ? styles.homeEntrance : ""}`}>
       <div className="mx-auto flex h-12 w-full items-center justify-between  md:grid md:grid-cols-[1fr_auto_1fr] 
       md:max-w-450 xl:max-w-full">
         {/* Left title. Same overlay-vs-theme issue as the hamburger: the
@@ -48,9 +51,9 @@ export default function Header({ navItems }: HeaderProps) {
             }`}
           >
             
-            Open for any
+            Open to
             <br />
-            collaborations and offers
+            Remote or Full-time roles.
           </p>
         </div>
 
@@ -89,7 +92,7 @@ export default function Header({ navItems }: HeaderProps) {
             >
               VICKY
             </h1>
-            <MobileMenu items={navItems} />
+            <MobileMenu items={navItems} resumeHref={resumeHref} />
           </div>
 
           <div className="hidden items-center gap-3 md:flex lg:gap-5">

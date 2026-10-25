@@ -11,7 +11,7 @@
 }
 
 @font-face {
-  font-family: "Clash Display ";
+  font-family: "Clash Display";
   src: url("/assets/fonts/clash-display-light.otf") format("opentype");
   font-weight: 300;
   font-style: normal;
@@ -19,7 +19,7 @@
 }
 
 @font-face {
-  font-family: "Clash Display ";
+  font-family: "Clash Display";
   src: url("/assets/fonts/clash-display-extralight.otf") format("opentype");
   font-weight: 200;
   font-style: normal;

@@ -10,11 +10,12 @@ import { useMobileMenu } from "@/context/mobileMenuContext";
 
 type MobileMenuProps = {
   items: NavItem[];
+  resumeHref: string | null;
 };
 
 const normalizePath = (path: string) => path.toLowerCase();
 
-export default function MobileMenu({ items }: MobileMenuProps) {
+export default function MobileMenu({ items, resumeHref }: MobileMenuProps) {
   const { isOpen, toggleMenu, closeMenu } = useMobileMenu();
   const pathname = usePathname();
   const router = useRouter();
@@ -108,7 +109,7 @@ export default function MobileMenu({ items }: MobileMenuProps) {
         style={{ display: "none", visibility: "hidden", opacity: 0 }}
         className="fixed inset-0 z-40 flex-col justify-start bg-[#192123] px-10 pb-10 pt-40 md:pt-50"
       >
-        <div className="flex flex-col gap-12 font-display text-5xl md:text-6xl">
+        <div className="flex flex-col gap-12 font-display text-4xl md:text-6xl">
           {items.map((item, index) => (
             <button
               key={item.href}
@@ -117,7 +118,7 @@ export default function MobileMenu({ items }: MobileMenuProps) {
               }}
               onClick={() => handleNavigate(item.href)}
               style={{ clipPath: ITEM_CLOSED, transform: "translateY(100%)" }}
-              className={`overflow-hidden text-right text-5xl ${
+              className={`overflow-hidden text-right text-4xl ${
                 normalizePath(pathname ?? "") === normalizePath(item.href)
                   ? "text-menu-active"
                   : "  text-menu-inactive"
@@ -129,25 +130,29 @@ export default function MobileMenu({ items }: MobileMenuProps) {
           ))}
         </div>
 
-        <div className="mt-24 flex flex-col items-end gap-3 text-right text-sm text-text-menu">
-          <p>
+        <div className="mt-21 flex flex-col items-end gap-3 text-right text-sm ">
+          <p className="">
             Inspired By:{" "}
             <a
-              href="#"
-              className="font-semibold underline-offset-4 hover:underline"
+              href="https://www.goodie.work/"
+              className="font-semibold underline-offset-4 hover:underline  text-text-menu"
             >
               Goody
             </a>
           </p>
-          <p>
-            Folio &apos;26 /{" "}
-            <a
-              href="#"
-              className="font-semibold underline-offset-4 hover:underline"
-            >
-              Résumé
-            </a>
-          </p>
+          {resumeHref && (
+            <p>
+              Folio &apos;26 /{" "}
+              <a
+                href={resumeHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold underline-offset-4 hover:underline text-text-menu"
+              >
+                Résumé
+              </a>
+            </p>
+          )}
         </div>
       </div>
     </>
