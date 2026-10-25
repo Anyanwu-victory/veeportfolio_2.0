@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "./NeonRoom.module.css";
+import styles from "./about.module.css";
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import { PortableText } from "@portabletext/react";
