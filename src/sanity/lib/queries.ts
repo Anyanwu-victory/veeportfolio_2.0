@@ -107,6 +107,12 @@ export const contactPageQuery = defineQuery(/* groq */ `
   }
 `)
 
+export const resumeLinkQuery = defineQuery(/* groq */ `
+  *[_id == "contactPage"][0].links[_key == "resume"][0] {
+    href
+  }
+`)
+
 export type SiteImageData = {
   source: 'sanity' | 'site'
   path?: string

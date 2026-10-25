@@ -9,10 +9,11 @@ import styles from "./Header.module.css";
 
 type HeaderProps = {
   navItems: NavItem[];
+  resumeHref: string | null;
   animateEntrance?: boolean;
 };
 
-export default function Header({ navItems, animateEntrance = false }: HeaderProps) {
+export default function Header({ navItems, resumeHref, animateEntrance = false }: HeaderProps) {
   const { showGhost, hideGhost, expandAndNavigate } = useNavHover();
   const { isOpen } = useMobileMenu();
   const router = useRouter();
@@ -91,7 +92,7 @@ export default function Header({ navItems, animateEntrance = false }: HeaderProp
             >
               VICKY
             </h1>
-            <MobileMenu items={navItems} />
+            <MobileMenu items={navItems} resumeHref={resumeHref} />
           </div>
 
           <div className="hidden items-center gap-3 md:flex lg:gap-5">

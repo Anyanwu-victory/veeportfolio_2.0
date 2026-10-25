@@ -14,9 +14,10 @@ import { useHomeIntro } from "@/components/layout/IntroGate";
 
 type SiteShellProps = {
   children: ReactNode;
+  resumeHref: string | null;
 };
 
-export default function SiteShell({ children }: SiteShellProps) {
+export default function SiteShell({ children, resumeHref }: SiteShellProps) {
   const pathname = usePathname();
   const introPhase = useHomeIntro();
   const isDesktopNavHidden =
@@ -30,7 +31,7 @@ export default function SiteShell({ children }: SiteShellProps) {
         <NavHoverProvider>
           {/* Header */}
           <div className="opacity-100">
-            <Header navItems={navItems} animateEntrance={pathname === "/"} />
+            <Header navItems={navItems} resumeHref={resumeHref} animateEntrance={pathname === "/"} />
           </div>
 
 {/* Desktop andlaptop Navigaton */}

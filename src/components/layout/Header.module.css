@@ -12,6 +12,22 @@
   }
 }
 
+@media (max-width: 767px) {
+  .homeEntrance {
+    animation-name: header-slide-in-mobile;
+  }
+
+  @keyframes header-slide-in-mobile {
+    from {
+      top: -3rem;
+    }
+
+    to {
+      top: 0;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .homeEntrance {
     animation: none;
