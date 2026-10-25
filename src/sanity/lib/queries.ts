@@ -143,6 +143,10 @@ export type SeoData = {
   }
 }
 
+export type HomePageData = {
+  seo?: SeoData
+}
+
 export type AboutPageData = {
   _id: string
   introduction: string
