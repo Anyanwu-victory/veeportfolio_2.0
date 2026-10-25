@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return createPageMetadata({
     path: "/portfolio",
-    title: data?.seo?.title || "Creative Development Portfolio — Victory Anyanwu",
+    title: data?.seo?.title || "Frontend Portfolio — Victory Anyanwu",
     description:
       data?.seo?.description ||
       "Browse interactive websites, frontend experiments, and creative development projects by Victory Anyanwu.",

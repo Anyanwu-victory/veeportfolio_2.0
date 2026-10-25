@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data?.seo?.title || "Frontend Engineering Experience — Victory Anyanwu",
     description:
       data?.seo?.description ||
-      "Explore frontend engineering and creative development experience from Victory Anyanwu, based in Abuja, Nigeria.",
+      "Explore frontend engineering experience from Victory Anyanwu, based in Abuja, Nigeria.",
     shareImage: data?.seo?.shareImage,
   });
 }

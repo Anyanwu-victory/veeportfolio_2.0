@@ -12,7 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: data?.seo?.title || "About Victory Anyanwu — Frontend Engineer",
     description:
       data?.seo?.description ||
-      "Learn about Victory Anyanwu, a frontend engineer and creative developer based in Abuja, Nigeria.",
+      "Learn about Victory Anyanwu, a frontend engineer  based in Abuja, Nigeria.",
     shareImage: data?.seo?.shareImage,
   });
 }
@@ -30,10 +30,10 @@ export default async function AboutPage() {
     mainEntity: {
       "@type": "Person",
       name: "Victory Anyanwu",
-      jobTitle: "Frontend Engineer and Creative Developer",
+      jobTitle: "Frontend Engineer ",
       description:
         data.seo?.description ||
-        "Frontend engineer and creative developer based in Abuja, Nigeria.",
+        "Frontend engineer  based in Abuja, Nigeria.",
       url: profileUrl,
       sameAs: [
         "https://github.com/Anyanwu-victory",
