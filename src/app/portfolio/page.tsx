@@ -1,4 +1,4 @@
-import PlaygroundContent from "@/app/playground/_components/PlaygroundContent";
+import PlaygroundContent from "@/app/portfolio/_components/PlaygroundContent";
 import { sanityFetch } from "@/sanity/lib/live";
 import {
   playgroundPageQuery,
