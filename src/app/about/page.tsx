@@ -4,18 +4,14 @@ import { createPageMetadata, siteUrl } from "@/lib/site";
 import { getAboutPageData } from "@/sanity/lib/pageData";
 import { notFound } from "next/navigation";
 
-export async function generateMetadata(): Promise<Metadata> {
-  const data = await getAboutPageData();
+const aboutDescription =
+  "Learn about Victory Anyanwu, a frontend engineer based in Abuja, Nigeria, and his approach to building thoughtful web experiences.";
 
-  return createPageMetadata({
-    path: "/about",
-    title: data?.seo?.title || "About Victory Anyanwu — Frontend Engineer",
-    description:
-      data?.seo?.description ||
-      "Learn about Victory Anyanwu, a frontend engineer and creative developer based in Abuja, Nigeria.",
-    shareImage: data?.seo?.shareImage,
-  });
-}
+export const metadata: Metadata = createPageMetadata({
+  path: "/about",
+  title: "About Victory Anyanwu | Frontend Engineer",
+  description: aboutDescription,
+});
 
 export default async function AboutPage() {
   const data = await getAboutPageData();
@@ -30,10 +26,8 @@ export default async function AboutPage() {
     mainEntity: {
       "@type": "Person",
       name: "Victory Anyanwu",
-      jobTitle: "Frontend Engineer and Creative Developer",
-      description:
-        data.seo?.description ||
-        "Frontend engineer and creative developer based in Abuja, Nigeria.",
+      jobTitle: "Frontend Engineer",
+      description: aboutDescription,
       url: profileUrl,
       sameAs: [
         "https://github.com/Anyanwu-victory",

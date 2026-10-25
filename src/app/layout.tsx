@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     siteName: "Victory Anyanwu",
     title: "Victory Anyanwu — Frontend Engineer in Abuja, Nigeria",
     description:
-      "Frontend engineering, creative development, and selected work by Victory Anyanwu in Abuja, Nigeria.",
+      "Frontend engineering, and selected work by Victory Anyanwu in Abuja, Nigeria.",
   },
   twitter: {
     card: "summary",
