@@ -197,12 +197,13 @@ export const contactLink = defineType({
     defineField({
       name: 'href',
       title: 'Destination',
+      description: 'Use a root-relative path to a site file, or an https/mailto URL.',
       type: 'string',
       validation: (rule) =>
         rule.required().custom((value) =>
-          !value || /^(https:\/\/|mailto:)/.test(value)
+          !value || /^(\/(?!\/)|https:\/\/|mailto:)/.test(value)
             ? true
-            : 'Use an https URL or a mailto URL.',
+            : 'Use a root-relative path, an https URL, or a mailto URL.',
         ),
     }),
   ],

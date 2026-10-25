@@ -1,0 +1,35 @@
+.homeEntrance {
+  animation: header-slide-in 950ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
+}
+
+@keyframes header-slide-in {
+  from {
+    transform: translateY(-110%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 767px) {
+  .homeEntrance {
+    animation-name: header-slide-in-mobile;
+  }
+
+  @keyframes header-slide-in-mobile {
+    from {
+      top: -3rem;
+    }
+
+    to {
+      top: 0;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .homeEntrance {
+    animation: none;
+  }
+}

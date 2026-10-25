@@ -19,9 +19,9 @@ export default function NotFound() {
         </div>
 
         <div className={styles.scene}>
-          <p className={styles.code} aria-hidden="true">
+          {/* <p className={styles.code} aria-hidden="true">
             404
-          </p>
+          </p> */}
           <NotFoundAnimation className={styles.animation} />
         </div>
 

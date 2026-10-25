@@ -107,6 +107,12 @@ export const contactPageQuery = defineQuery(/* groq */ `
   }
 `)
 
+export const resumeLinkQuery = defineQuery(/* groq */ `
+  *[_id == "contactPage"][0].links[_key == "resume"][0] {
+    href
+  }
+`)
+
 export type SiteImageData = {
   source: 'sanity' | 'site'
   path?: string
@@ -128,12 +134,26 @@ export type SiteImageData = {
   }
 }
 
+export type SeoData = {
+  title?: string
+  description?: string
+  shareImage?: {
+    alt?: string
+    asset?: { _id?: string; url?: string }
+  }
+}
+
+export type HomePageData = {
+  seo?: SeoData
+}
+
 export type AboutPageData = {
   _id: string
   introduction: string
   statement: PortableTextBlock[]
   artwork: SiteImageData
   artworkCaption: string
+  seo?: SeoData
 }
 
 export type PlaygroundPreview = SiteImageData & {
@@ -158,6 +178,7 @@ export type PlaygroundPageData = {
     href: string
   }
   colophon: string
+  seo?: SeoData
 }
 
 export type WorkPageData = {
@@ -172,4 +193,19 @@ export type WorkPageData = {
     description: string
     tools: string[]
   }>
+  seo?: SeoData
+}
+
+export type ContactPageData = {
+  _id: string
+  heading: string
+  links: Array<{
+    _key: string
+    label: string
+    displayValue: string
+    href: string
+  }>
+  animationPath: string
+  animationAlt: string
+  seo?: SeoData
 }

@@ -1,21 +1,88 @@
-.content {
-  opacity: 0;
-  filter: blur(8px);
-  transform: translateY(18px);
-  animation: content-in 1000ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  will-change: opacity, transform, filter;
+.leadLetter {
+  display: inline-block;
+  animation: lead-letter-in 1200ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both;
 }
 
-@keyframes content-in {
+.leadLetterSettled {
+  display: inline-block;
+}
+
+.remainingFrame {
+  display: inline-block;
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  vertical-align: bottom;
+  animation: remaining-reveal 2200ms cubic-bezier(0.65, 0, 0.35, 1) 1000ms forwards;
+}
+
+.remainingFrameSettled {
+  display: inline-block;
+  max-width: 5em;
+  overflow: hidden;
+  opacity: 1;
+  vertical-align: bottom;
+}
+
+.remainingLetters {
+  display: inline-block;
+  padding-right: 0.08em;
+  transform: translateX(-0.22em) scaleX(0.9);
+  transform-origin: left center;
+  animation: remaining-settle 2000ms cubic-bezier(0.16, 1, 0.3, 1) 1000ms forwards;
+}
+
+.remainingLettersSettled {
+  display: inline-block;
+  padding-right: 0.08em;
+  filter: blur(0);
+  transform: translateX(0) scaleX(1);
+  transform-origin: left center;
+}
+
+@keyframes lead-letter-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(8px) scale(0.88);
+  }
+
   to {
     opacity: 1;
     filter: blur(0);
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes remaining-reveal {
+  from {
+    max-width: 0;
+    opacity: 0;
+  }
+
+  to {
+    max-width: 5em;
+    opacity: 1;
+  }
+}
+
+@keyframes remaining-settle {
+  from {
+    filter: blur(5px);
+    transform: translateX(-0.22em) scaleX(0.9);
+  }
+
+  to {
+    filter: blur(0);
+    transform: translateX(0) scaleX(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .content {
+  .leadLetter,
+  .remainingFrame,
+  .remainingLetters {
+    max-width: none;
     opacity: 1;
     filter: none;
     transform: none;
