@@ -134,12 +134,22 @@ export type SiteImageData = {
   }
 }
 
+export type SeoData = {
+  title?: string
+  description?: string
+  shareImage?: {
+    alt?: string
+    asset?: { _id?: string; url?: string }
+  }
+}
+
 export type AboutPageData = {
   _id: string
   introduction: string
   statement: PortableTextBlock[]
   artwork: SiteImageData
   artworkCaption: string
+  seo?: SeoData
 }
 
 export type PlaygroundPreview = SiteImageData & {
@@ -164,6 +174,7 @@ export type PlaygroundPageData = {
     href: string
   }
   colophon: string
+  seo?: SeoData
 }
 
 export type WorkPageData = {
@@ -178,6 +189,7 @@ export type WorkPageData = {
     description: string
     tools: string[]
   }>
+  seo?: SeoData
 }
 
 export type ContactPageData = {
@@ -191,4 +203,5 @@ export type ContactPageData = {
   }>
   animationPath: string
   animationAlt: string
+  seo?: SeoData
 }
