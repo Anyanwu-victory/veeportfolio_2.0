@@ -3,13 +3,20 @@ import { sanityFetch } from "@/sanity/lib/live";
 import {
   aboutPageQuery,
   contactPageQuery,
+  homePageQuery,
   playgroundPageQuery,
   workPageQuery,
   type AboutPageData,
   type ContactPageData,
+  type HomePageData,
   type PlaygroundPageData,
   type WorkPageData,
 } from "@/sanity/lib/queries";
+
+export const getHomePageData = cache(async () => {
+  const { data } = await sanityFetch({ query: homePageQuery });
+  return data as HomePageData | null;
+});
 
 export const getAboutPageData = cache(async () => {
   const { data } = await sanityFetch({ query: aboutPageQuery });

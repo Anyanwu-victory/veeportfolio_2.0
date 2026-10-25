@@ -4,12 +4,19 @@ import { createPageMetadata } from "@/lib/site";
 import { getWorkPageData } from "@/sanity/lib/pageData";
 import { notFound } from "next/navigation";
 
-export const metadata: Metadata = createPageMetadata({
-  path: "/work",
-  title: "Frontend Engineering Experience | Victory Anyanwu",
-  description:
-    "Explore Victory's frontend engineering experience, selected roles, projects, and the tools used to build interactive web products.",
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getWorkPageData().catch(() => null);
+
+  return createPageMetadata({
+    path: "/work",
+    title:
+      data?.seo?.title || "Frontend Engineering Experience | Victory Anyanwu",
+    description:
+      data?.seo?.description ||
+      "Explore Victory's frontend engineering experience, selected roles, projects, and the tools used to build interactive web products.",
+    shareImage: data?.seo?.shareImage,
+  });
+}
 
 export default async function WorkPage() {
   const data = await getWorkPageData();

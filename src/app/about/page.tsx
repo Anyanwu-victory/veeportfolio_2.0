@@ -7,11 +7,16 @@ import { notFound } from "next/navigation";
 const aboutDescription =
   "Learn about Victory Anyanwu, a frontend engineer based in Abuja, Nigeria, and his approach to building thoughtful web experiences.";
 
-export const metadata: Metadata = createPageMetadata({
-  path: "/about",
-  title: "About Victory Anyanwu | Frontend Engineer",
-  description: aboutDescription,
-});
+export async function generateMetadata(): Promise<Metadata> {
+  const data = await getAboutPageData().catch(() => null);
+
+  return createPageMetadata({
+    path: "/about",
+    title: data?.seo?.title || "About Victory Anyanwu | Frontend Engineer",
+    description: data?.seo?.description || aboutDescription,
+    shareImage: data?.seo?.shareImage,
+  });
+}
 
 export default async function AboutPage() {
   const data = await getAboutPageData();
@@ -27,7 +32,7 @@ export default async function AboutPage() {
       "@type": "Person",
       name: "Victory Anyanwu",
       jobTitle: "Frontend Engineer",
-      description: aboutDescription,
+      description: data.seo?.description || aboutDescription,
       url: profileUrl,
       sameAs: [
         "https://github.com/Anyanwu-victory",
